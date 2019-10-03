@@ -2,11 +2,10 @@
 Move_Player Player_move;
 boolean up = false, down = false, left = false, right = false;
 
-
-Player player;
 Bullet bullet;
 Enemy enemy;
 Enemy[] enemies = new Enemy[25];
+boolean [] keys = new boolean[1024];
 
 
 void setup(){
@@ -14,13 +13,22 @@ size(1080,720);
 
 noStroke();
 Player_move = new Move_Player();
-player = new Player();
 bullet = new Bullet();
 for (int i = 0; i<enemies.length; i++){
  enemies[i] = new Enemy(); 
+}  
 }
-  
+boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
+  int w0 = texture0.width, 
+    h0 = texture0.height, 
+    w1 = texture1.width, 
+    h1 = texture1.height;
 
+  if (x0 > x1   + w1 || x0 + w0 < x1 || 
+    y0 > y1 + h1 || y0 + h0 < y1)
+    return false;
+  else
+    return true;
 }
 
 
@@ -31,9 +39,6 @@ void draw(){
   Player_move.Move();
   Player_move.Display_Player();
 
- 
-  player.update();
-  player.show();
   bullet.update();
   bullet.show();
   for(int i= 0; i < enemies.length; i++){
@@ -41,11 +46,12 @@ void draw(){
    enemies[i].show();
    
   }
-  
- 
-  
-
-  
+       for (Enemy anEnemy : enemies){
+    if (overlaps(bullet.x, bullet.y, bullet.texture, anEnemy.x, anEnemy.y, anEnemy.texture)) {
+      bullet.reset();
+      anEnemy.reset();
+    }
+  }
 }
 
 void keyPressed() {
@@ -61,6 +67,7 @@ void keyPressed() {
   if (key == 'd' || key == 'D') {
     right = true;
   }
+  keys[keyCode] = true;
 }
 void keyReleased() {
   if (key == 'w' || key == 'W') {
@@ -75,4 +82,5 @@ void keyReleased() {
   if (key == 'd' || key == 'D') {
     right = false;
   }
+  keys[keyCode] = false;
 }
