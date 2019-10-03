@@ -2,12 +2,19 @@ class Enemy {
   float x, y;
   float vx = random(-3, 3);
   float vy = random(-3, 3);
+  PImage texture;
 
   Enemy() {
     x = random(0, width);
     y = random(0, 100);
+    texture = loadImage("red_invader.png");
   }
 
+  void reset(){
+   x = -1000;
+   vx = 0;
+   vy = 0;
+  }
 
   void update() {
     x = x + vx;
@@ -24,11 +31,6 @@ class Enemy {
   }
 
   void show () {
-    fill(255);
-    noStroke();
-    ellipse(x, y, 25, 25);
-  }
-
-  void collision() {
+    image(texture,x,y);
   }
 }

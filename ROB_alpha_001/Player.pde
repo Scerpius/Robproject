@@ -8,16 +8,18 @@ public class Move_Player {
   float x;
   float y;
   float size;
-
+  PImage texture;
+  
   Move_Player() {
     x = width/2;
     y = height/2;
     size = 30;
+    texture = loadImage("ship.png");
   }
 
 
   void Display_Player() {
-    rect(x, y, size, size);
+    image(texture, x, y);
   }
 
   void Move() { 
