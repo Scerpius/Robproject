@@ -4,7 +4,8 @@ boolean up = false, down = false, left = false, right = false;
 
 Bullet bullet;
 Enemy enemy;
-Enemy[] enemies = new Enemy[25];
+//Enemy[] enemies = new Enemy[25];
+ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 boolean [] keys = new boolean[1024];
 
 
@@ -14,10 +15,8 @@ size(1080,720);
 noStroke();
 Player_move = new Move_Player();
 bullet = new Bullet();
-for (int i = 0; i<enemies.length; i++){
- enemies[i] = new Enemy(); 
-}  
 }
+
 boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
   int w0 = texture0.width, 
     h0 = texture0.height, 
@@ -41,9 +40,17 @@ void draw(){
 
   bullet.update();
   bullet.show();
-  for(int i= 0; i < enemies.length; i++){
-   enemies[i].update();
-   enemies[i].show();
+  
+  
+  if (frameCount % 60 == 0) {
+    Enemy enemy = new Enemy();
+    enemies.add(enemy);
+  }
+  
+  for(int i= 0; i < enemies.size(); i++){
+   Enemy enemy = enemies.get(i);
+   enemy.update();
+   enemy.show();
    
   }
        for (Enemy anEnemy : enemies){

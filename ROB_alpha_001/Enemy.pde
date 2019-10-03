@@ -1,13 +1,14 @@
 class Enemy {
   float x, y;
-  float vx = random(-3, 3);
-  float vy = random(-3, 3);
+  float vx = random(-2, 2);
+  float vy = random(-2, 2);
   PImage texture;
 
   Enemy() {
-    x = random(0, width);
-    y = random(0, 100);
+    x = random(width/2-100, width/2+100); //top spawn point
+    y = random(0, 100);  
     texture = loadImage("red_invader.png");
+ 
   }
 
   void reset(){
@@ -19,8 +20,6 @@ class Enemy {
   void update() {
     x = x + vx;
     y = y + vy;
-
-
     if (x < 0 || x> width) {
       vx *= -1;
     }
