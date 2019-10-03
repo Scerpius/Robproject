@@ -23,7 +23,7 @@ class Bullet {
     }
     y += vy;
     
-    if (keys[' ']) fire(player.x, player.y);
+    if (keys[' ']) fire(Player_move.x, Player_move.y);
   }
 
   void show() {
@@ -35,7 +35,7 @@ class Bullet {
       isFired = true;
       this.x = x;
       this.y = y;
-      vy = -8.0; 
+      vy = -15.0; 
     }
   }
 }

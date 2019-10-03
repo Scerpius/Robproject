@@ -1,41 +1,88 @@
-class Player {
-  float x, y;
-  float vx, vy;
+public class Move_Player {
+
+  float xSpeed = 0;
+  float ySpeed = 0;
+  float maxSpeed = 10;
+  float xDirection;
+  float yDirection;
+  float x;
+  float y;
+  float size;
   PImage texture;
-  Player() {
+  
+  Move_Player() {
+    x = width/2;
+    y = height/2;
+    size = 30;
     texture = loadImage("ship.png");
-    reset();
   }
-  
-  void reset() {
-   x = width/2;
-   y = 450;
-    
+
+
+  void Display_Player() {
+    image(texture, x, y);
   }
-  
-  void update() {
-   vx = 0;
-   vy = 0;
-   if (keys[LEFT]) vx = - 10;
-   if (keys[RIGHT]) vx =  10;
-   if (keys[UP]) vy = -10;
-   if (keys[DOWN]) vy = 10;
-   x += vx;
-   y += vy;
-   
-    
+
+  void Move() { 
+    //movement start
+    if (up) {
+      y=y-ySpeed;
+      ySpeed++;
+      yDirection=1;
+      if (ySpeed>maxSpeed) {
+        ySpeed=maxSpeed;
+      }
+    } else if (down) {
+      y=y+ySpeed;
+      ySpeed++;
+      yDirection=2;
+      if (ySpeed>maxSpeed) {
+        ySpeed=maxSpeed;
+      }
+    }
+
+    // vertical movement stop
+    else if (ySpeed>0) {
+      if (yDirection==2) {
+        y=y+ySpeed;
+        ySpeed--;
+      }  
+
+      if (yDirection==1) {
+        y=y-ySpeed;
+        ySpeed--;
+      }
+    }
+
+
+    if (left) {
+      x=x-xSpeed;
+      xSpeed++;
+      xDirection = 1;
+      if (xSpeed > maxSpeed) {
+        xSpeed = maxSpeed;
+      }
+    } else if (right) {
+      x=x+xSpeed;
+      xSpeed++;
+      xDirection = 2;
+      if (xSpeed > maxSpeed) {
+        xSpeed = maxSpeed;
+      }
+    }
+
+    //horizontal movement stop
+
+    else if (xSpeed > 0) {
+      if (xDirection == 1) {
+        x=x-xSpeed;
+        xSpeed--;
+      }
+
+      if (xDirection == 2) {
+        x=x+xSpeed;
+        xSpeed--;
+      }
+    }
   }
+}
   
-  void show(){
-   image(texture,x,y);
-   //fill(255);
-   // rect(x,y,50,50); 
-    
-    
-  }
-  
-  
-  
-  
-  
-  }
