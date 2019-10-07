@@ -9,8 +9,26 @@ ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 boolean [] keys = new boolean[1024];
 
 
+
+
+int floorSize = 40;
+int deskX = 280;
+int deskY = 500;
+int deskSX = 150;
+int deskSY = 40;
+
+SpawnPoint newSpawn;
+LevelObjects newObject;
+Bubble newBubbles;
+Teleporter teleport;
+
 void setup(){
-size(1080,720);
+size(1280, 720);
+
+newSpawn = new SpawnPoint();
+  newObject = new LevelObjects();
+  newBubbles = new Bubble();
+  teleport = new Teleporter();
 
 noStroke();
 Player_move = new Move_Player();
@@ -34,6 +52,13 @@ boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage
 
 void draw(){
   background(0);
+  
+  
+    for (int FloorX = 0; FloorX < width; FloorX=FloorX+40) {
+    for (int FloorY = 0; FloorY < height; FloorY=FloorY+40) {
+      fill(115);
+      rect(FloorX, FloorY, floorSize, floorSize);
+    }
 
   Player_move.Move();
   Player_move.Display_Player();
@@ -59,6 +84,16 @@ void draw(){
       anEnemy.reset();
     }
   }
+
+  newSpawn.display();
+  newObject.display();
+  teleport.display();
+  
+  
+  newBubbles.display();
+  newBubbles.ascend();
+  newBubbles.top();
+    }
 }
 
 void keyPressed() {
