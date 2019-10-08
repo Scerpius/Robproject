@@ -52,12 +52,6 @@ boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage
 
 void draw(){
   background(0);
-  
-  
- //   for (int FloorX = 0; FloorX < width; FloorX=FloorX+40) {
-   //  for (int FloorY = 0; FloorY < height; FloorY=FloorY+40) {
- //     fill(115);
-   //   rect(FloorX, FloorY, floorSize, floorSize);
 
   Player_move.Move();
   Player_move.Display_Player();
@@ -93,6 +87,16 @@ void draw(){
       anEnemy.reset();
     }
   }
+
+  newSpawn.display();
+  newObject.display();
+  teleport.display();
+  
+  
+  newBubbles.display();
+  newBubbles.ascend();
+  newBubbles.top();
+    }
 }
 
 
