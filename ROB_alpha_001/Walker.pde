@@ -23,16 +23,33 @@ public class Walker {
   float moveEnemy = 1.25; //nodig
   boolean Xtrue = false;
   boolean Ytrue = false;
+
+  boolean Detected = false;
+  color purple = color(177, 5, 178);
+  float distXp;
+  float distYp;
+  float detectEnemy = 200;
+  PImage texture;
+  
+  Walker(){
+   texture = loadImage("green_invader.png");
+    
+  }
+
+  
+  
+
   boolean detected = false;
   color purple = color(177, 5, 178);
   float distXp;
   float distYp;
   float detectEnemy = 100;
 
+
   //tekenen
   void draw() {
-    fill(purple);
-    ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+    //ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+    image(texture, posXEnemy, posYEnemy);
   }
   void spawn() {
     switch(positionSpawn[i]) {
@@ -56,11 +73,28 @@ public class Walker {
 
     walkCount++;
   }
+  
+  void reset(){
+     posXEnemy = -1000;
+   moveEnemy = 0;
+    
+  }
 
   //lopen
   void updateX() {
+    ellipse(PointWalkX, PointWalkY, 5, 5);
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
+
+  
+      posXEnemy = posXEnemy - moveEnemy;
+      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+    } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
+     
+      posXEnemy = posXEnemy + moveEnemy;
+      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+    } else { //done
+
 
       posXEnemy = posXEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
@@ -76,15 +110,22 @@ public class Walker {
   void updateY() { //pakt hij niet?
     distY = max(PointWalkY, posYEnemy) - min(PointWalkY, posYEnemy);
     if (posYEnemy>PointWalkY && distY > 10) { //walk up
+ 
+      posYEnemy = posYEnemy - moveEnemy;
+      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+    } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
+
 
       posYEnemy = posYEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
 
+
       posYEnemy = posYEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     } else {
       Ytrue = true; //done
+
     }
   }
   void check() {
@@ -99,6 +140,35 @@ public class Walker {
   void detect() {
     distXp = max(mouseX, posXEnemy) - min(mouseX, posXEnemy);
     distYp = max(mouseY, posYEnemy) - min(mouseY, posYEnemy);   
+
+
+    if (sqrt((distXp * distXp) + (distYp * distYp)) < detectEnemy) {
+      Detected = true;
+    } else {
+      Detected = false;
+    }
+  }
+  void moveToPlayer() {
+    if ((posYEnemy>mouseY && distY > 10) && (posXEnemy > mouseX && distX > 10 )) {
+      posXEnemy = posXEnemy - moveEnemy; 
+      posYEnemy = posYEnemy - moveEnemy;
+      println("1a ");
+    }
+    if ((posYEnemy>mouseY && distY > 10) && (posXEnemy < mouseX && distX > 10 )) {
+      posXEnemy = posXEnemy + moveEnemy; 
+      posYEnemy = posYEnemy - moveEnemy;
+       println("'2a ");
+    } 
+    if ((posYEnemy<mouseY && distY > 10) && (posXEnemy > mouseX && distX > 10 )) {
+      posXEnemy = posXEnemy - moveEnemy; 
+      posYEnemy = posYEnemy + moveEnemy;
+       println("3a ");
+    }
+    if ((posYEnemy<mouseY && distY > 10) && (posXEnemy < mouseX && distX > 10 )) {
+      posXEnemy = posXEnemy + moveEnemy; 
+      posYEnemy = posYEnemy + moveEnemy;
+       println("4a ");
+
 
 
     if (sqrt((distXp * distXp) + (distYp * distYp)) < detectEnemy) {
