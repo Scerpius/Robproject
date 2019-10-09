@@ -104,7 +104,7 @@ void draw(){
     MaxEnemies = true;
 
     walkers[iEnemy].detect();
-    if (walkers[iEnemy].Detected == true) {
+    if (walkers[iEnemy].detected == true) {
       print("1b ", walkers[iEnemy]);
       walkers[iEnemy].moveToPlayer();
       // if (walkers[nEnemy].inRangeOfPlayer())

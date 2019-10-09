@@ -80,6 +80,22 @@ public class Move_Player {
         x=x+xSpeed;
         xSpeed= xSpeed -0.5;
       }
+      
+      if(x >= 1250){
+      x = 1250; 
+      }
+      
+      if(x <= 0){
+      x = 0; 
+      }
+      
+      if(y <= 0){
+      y = 0; 
+      }
+      
+      if(y >= 690){
+      y = 690; 
+      }
     }
   }
 }
