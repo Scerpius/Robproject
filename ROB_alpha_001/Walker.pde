@@ -20,14 +20,14 @@ public class Walker {
   float posYEnemy;
   float distX;
   float distY;
-  float moveEnemy = 2; //nodig
+  float moveEnemy = 1.25; //nodig
   boolean Xtrue = false;
   boolean Ytrue = false;
-  boolean Detected = false;
+  boolean detected = false;
   color purple = color(177, 5, 178);
   float distXp;
   float distYp;
-  float detectEnemy = 200;
+  float detectEnemy = 100;
   PImage texture;
   
   Walker(){
@@ -75,34 +75,32 @@ public class Walker {
 
   //lopen
   void updateX() {
-    ellipse(PointWalkX, PointWalkY, 5, 5);
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
-  
+
       posXEnemy = posXEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
-     
+
       posXEnemy = posXEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     } else { //done
-   
+
       Xtrue = true;
     }
   }
   void updateY() { //pakt hij niet?
     distY = max(PointWalkY, posYEnemy) - min(PointWalkY, posYEnemy);
     if (posYEnemy>PointWalkY && distY > 10) { //walk up
-   
+
       posYEnemy = posYEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
-    
+
       posYEnemy = posYEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     } else {
       Ytrue = true; //done
-    
     }
   }
   void check() {
@@ -120,31 +118,27 @@ public class Walker {
 
 
     if (sqrt((distXp * distXp) + (distYp * distYp)) < detectEnemy) {
-      Detected = true;
+      detected = true;
     } else {
-      Detected = false;
+      detected = false;
     }
   }
   void moveToPlayer() {
-    if ((posYEnemy>mouseY && distY > 10) && (posXEnemy > mouseX && distX > 10 )) {
+    if (posYEnemy>mouseY && posXEnemy > mouseX) {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
-      println("1a ");
     }
-    if ((posYEnemy>mouseY && distY > 10) && (posXEnemy < mouseX && distX > 10 )) {
+    if (posYEnemy>mouseY  && posXEnemy < mouseX ) {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
-       println("'2a ");
     } 
-    if ((posYEnemy<mouseY && distY > 10) && (posXEnemy > mouseX && distX > 10 )) {
+    if (posYEnemy<mouseY && posXEnemy > mouseX) {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
-       println("3a ");
     }
-    if ((posYEnemy<mouseY && distY > 10) && (posXEnemy < mouseX && distX > 10 )) {
+    if (posYEnemy<mouseY && posXEnemy < mouseX) {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
-       println("4a ");
     }
     //geleidelijk sterker maken van de vijanden
   }
