@@ -5,6 +5,8 @@ boolean up = false, down = false, left = false, right = false;
 Bullet bullet;
 Enemy enemy;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+int score;
+String text;
 
 boolean [] keys = new boolean[1024];
 
@@ -70,6 +72,10 @@ boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage
 
 void draw(){
   image(photo, 0, 0);
+  fill(255);
+  textSize(50);
+  text = "score :";
+  text(score, 150, 50);
 
   Player_move.Move();
   Player_move.Display_Player();
@@ -140,12 +146,14 @@ void draw(){
     if (overlaps(bullet.x, bullet.y, bullet.texture, anEnemy.x, anEnemy.y, anEnemy.texture)) {
       bullet.reset();
       anEnemy.reset();
+      score = score + 1;
     }
   }
    for (Walker anWalker : walkers){
     if (overlaps(bullet.x, bullet.y, bullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
       bullet.reset();
       anWalker.reset();
+      score = score + 1;
     }
   }
  
