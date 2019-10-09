@@ -4,21 +4,19 @@ boolean up = false, down = false, left = false, right = false;
 
 Bullet bullet;
 Enemy enemy;
-//Enemy[] enemies = new Enemy[25];
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
 boolean [] keys = new boolean[1024];
 
-int floorSize = 40;
 int deskX = 280;
 int deskY = 500;
 int deskSX = 150;
 int deskSY = 40;
+PImage photo;
 
 static final int NumberOfEnemies = 20;
-int CurrentNumEnemies = 3 ; //nodig
+int CurrentNumEnemies = 10 ; //nodig
 int walkCount = 0; //niet gebruikt
-//int shootCount= 0;
-//int KillCount = 0 ; niet gebruikt
 int KillForRoundUp = 0; //niet gebruikt
 int EnemyLives = 10 ; // niet gebruikt, nodig
 int iEnemy;
@@ -27,12 +25,9 @@ static int[] positionSpawn = new int [NumberOfEnemies];
 int[] colour = new int [NumberOfEnemies];
 int roundCount = 0;
 boolean MaxEnemies = false;
-//Walker walker;
+Walker walker;
 Walker[] walkers = new Walker[NumberOfEnemies];
-//Shooter shooter;
-//Bullet bullet;
-//int Enemies= walkCount + shootCount;
-
+boolean detect = true;
 SpawnPoint newSpawn;
 LevelObjects newObject;
 Bubble newBubbles;
@@ -40,10 +35,8 @@ Teleporter teleport;
 
 void setup(){
  size(1280, 720);
-
-  //walker = new Walker();
-  // shooter = new Shooter();
-  //bullet = new Bullet();
+noStroke();
+smooth(4);
   for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
     positionSpawn[iEnemy] = (floor(random(0, 4)));
     walkers[iEnemy] = new Walker();
@@ -53,6 +46,7 @@ newSpawn = new SpawnPoint();
   newObject = new LevelObjects();
   newBubbles = new Bubble();
   teleport = new Teleporter();
+  photo = loadImage("Backgroundtegels.png");
 
 noStroke();
 Player_move = new Move_Player();
@@ -75,7 +69,7 @@ boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage
 
 
 void draw(){
-  background(0);
+  image(photo, 0, 0);
 
   Player_move.Move();
   Player_move.Display_Player();
@@ -102,19 +96,36 @@ void draw(){
       }
     }
     MaxEnemies = true;
-    if (walkers[iEnemy].PointWalkX - walkers[iEnemy].posXEnemy >= 9 || walkers[iEnemy].PointWalkX - walkers[iEnemy].posXEnemy <= -9 ) {
-      walkers[iEnemy].updateX();
-    }
-    if (walkers[iEnemy].PointWalkY - walkers[iEnemy].posYEnemy >= 9 || walkers[iEnemy].PointWalkY - walkers[iEnemy].posYEnemy <= -9 && walkers[iEnemy].Xtrue == true) {
+
+    walkers[iEnemy].detect();
+    if (walkers[iEnemy].Detected == true) {
+      print("1b ", walkers[iEnemy]);
+      walkers[iEnemy].moveToPlayer();
+      // if (walkers[nEnemy].inRangeOfPlayer())
+      //  moveToPlayer();
+      //else 
+      // moveAround();
+      //}
+    } else {
+      // if (walkers[iEnemy].PointWalkX - walkers[iEnemy].posXEnemy >= 9 || walkers[iEnemy].PointWalkX - walkers[iEnemy].posXEnemy <= -9 ) {
+    
+      if (!walkers[iEnemy].Xtrue) {
+        walkers[iEnemy].updateX();
+      }
+      //if (walkers[iEnemy].PointWalkY - walkers[iEnemy].posYEnemy >= 9 || walkers[iEnemy].PointWalkY - walkers[iEnemy].posYEnemy <= -9 && walkers[iEnemy].Xtrue == true) {
+   
+      if (!walkers[iEnemy].Ytrue && walkers[iEnemy].Xtrue == true) {
+        walkers[iEnemy].updateX();
+      }
       walkers[iEnemy].updateY();
+
+  
+      walkers[iEnemy].check(); //deze lijn pakt hij niet meer
     }
-    walkers[iEnemy].check();
-    //}
-    //do all the things it has to do
   }
+
   
-  
-  if (frameCount % 60 == 0) {
+  if (frameCount % 30 == 0) {
     Enemy enemy = new Enemy();
     enemies.add(enemy);
   }
@@ -131,6 +142,13 @@ void draw(){
       anEnemy.reset();
     }
   }
+   for (Walker anWalker : walkers){
+    if (overlaps(bullet.x, bullet.y, bullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+      bullet.reset();
+      anWalker.reset();
+    }
+  }
+ 
 
   newSpawn.display();
   newObject.display();
@@ -157,11 +175,11 @@ void keyPressed() {
   if (key == 'd' || key == 'D') {
     right = true;
   }
-    if (keyPressed == true && key == ' ') {
-    roundCount++;
-    print(roundCount);
-    Stronger();
-  }
+  //  if (keyPressed == true && key == ' ') {
+   // roundCount++;
+   // print(roundCount);
+   // Stronger();
+//  }
   keys[keyCode] = true;
 }
 void keyReleased() {

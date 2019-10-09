@@ -7,11 +7,13 @@ public class Move_Player {
   float yDirection;
   float x;
   float y;
+  float size;
   PImage texture;
   
   Move_Player() {
     x = width/2;
     y = height/2;
+    size = 30;
     texture = loadImage("ship.png");
   }
 
@@ -42,12 +44,12 @@ public class Move_Player {
     else if (ySpeed>0) {
       if (yDirection==2) {
         y=y+ySpeed;
-        ySpeed= ySpeed -0.5;
+        ySpeed--;
       }  
 
       if (yDirection==1) {
         y=y-ySpeed;
-        ySpeed= ySpeed -0.5;
+        ySpeed--;
       }
     }
 
@@ -73,12 +75,12 @@ public class Move_Player {
     else if (xSpeed > 0) {
       if (xDirection == 1) {
         x=x-xSpeed;
-        xSpeed= xSpeed -0.5;
+        xSpeed--;
       }
 
       if (xDirection == 2) {
         x=x+xSpeed;
-        xSpeed= xSpeed -0.5;
+        xSpeed--;
       }
     }
   }
