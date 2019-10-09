@@ -12,7 +12,7 @@ class Enemy {
   }
 
   void reset(){
-   x = -1000;
+   x = -1100;
    vx = 0;
    vy = 0;
   }
