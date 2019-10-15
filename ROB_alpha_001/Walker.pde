@@ -116,8 +116,8 @@ public class Walker {
     }
   }
   void detect() {
-    distXp = max(Player_move.x, posXEnemy) - min(Player_move.x, posXEnemy);
-    distYp = max(Player_move.y, posYEnemy) - min(Player_move.y, posYEnemy);   
+    distXp = max(Player.x, posXEnemy) - min(Player.x, posXEnemy);
+    distYp = max(Player.y, posYEnemy) - min(Player.y, posYEnemy);   
 
 
     if (sqrt((distXp * distXp) + (distYp * distYp)) < detectEnemy) {
@@ -127,22 +127,22 @@ public class Walker {
     }
   }
   void moveToPlayer() {
-    if (posYEnemy>Player_move.y && posXEnemy > Player_move.x) {
+    if (posYEnemy>Player.y && posXEnemy > Player.x) {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
       println("1a ");
     }
-    if (posYEnemy>Player_move.y && posXEnemy < Player_move.x) {
+    if (posYEnemy>Player.y && posXEnemy < Player.x) {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
        println("'2a ");
     } 
-    if (posYEnemy<Player_move.y &&   posXEnemy > Player_move.x) {
+    if (posYEnemy<Player.y &&   posXEnemy > Player.x) {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
        println("3a ");
     }
-    if (posYEnemy<Player_move.y &&  posXEnemy < Player_move.x) {
+    if (posYEnemy<Player.y &&  posXEnemy < Player.x) {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
        println("4a ");

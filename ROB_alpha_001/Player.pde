@@ -8,6 +8,7 @@ public class Move_Player {
   float x;
   float y;
   PImage texture;
+  float hp = 3;
   
   Move_Player() {
     x = width/2;
@@ -15,6 +16,12 @@ public class Move_Player {
     texture = loadImage("ship.png");
   }
 
+  void Player_dead() {
+    if(Player.hp <= 0) {
+    textSize(200);
+    text("You dead", 300,100);
+    }
+  }
 
   void Display_Player() {
     image(texture, x, y);

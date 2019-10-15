@@ -23,7 +23,7 @@ class Bullet {
     }
     y += vy;
     
-    if (keys[' ']) fire(Player_move.x, Player_move.y);
+    if (keys[' ']) fire(Player.x, Player.y);
   }
 
   void show() {

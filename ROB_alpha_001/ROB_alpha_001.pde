@@ -1,5 +1,5 @@
 
-Move_Player Player_move;
+Move_Player Player;
 boolean up = false, down = false, left = false, right = false;
 
 Bullet bullet;
@@ -34,6 +34,9 @@ SpawnPoint newSpawn;
 LevelObjects newObject;
 Bubble newBubbles;
 Teleporter teleport;
+boolean invisibility = false;
+boolean kill = false;
+int time = millis();
 
 void setup(){
  size(1280, 720);
@@ -51,7 +54,7 @@ newSpawn = new SpawnPoint();
   photo = loadImage("Backgroundtegels.png");
 
 noStroke();
-Player_move = new Move_Player();
+Player = new Move_Player();
 bullet = new Bullet();
 }
 
@@ -76,9 +79,10 @@ void draw(){
   textSize(50);
   text = "score :";
   text(score, 150, 50);
-
-  Player_move.Move();
-  Player_move.Display_Player();
+  
+  Player.Player_dead();
+  Player.Move();
+  Player.Display_Player();
 
   bullet.update();
   bullet.show();
@@ -154,6 +158,20 @@ void draw(){
       bullet.reset();
       anWalker.reset();
       score = score + 1;
+    }
+  }
+  
+     for (Walker anWalker : walkers){
+    if (overlaps(Player.x, Player.y, Player.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+     if(invisibility == false) {
+      Player.hp = Player.hp - 1;
+     }
+      invisibility = true;
+      if(invisibility) {  if(millis() >= time + 1000) {
+        invisibility = false;
+      }
+        
+    }
     }
   }
  

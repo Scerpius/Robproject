@@ -38,22 +38,22 @@ class Teleporter {
       ellipse(portalX2, portalY2, 120, 120);
       
     }
-    float xdistance1 = portalX1 - Player_move.x;
-    float ydistance1 = portalY1 - Player_move.y;
+    float xdistance1 = portalX1 - Player.x;
+    float ydistance1 = portalY1 - Player.y;
     float distancetocenter1 = pythagoras(xdistance1, ydistance1);
 
     if (distancetocenter1 - ballside <= 0) {
-      Player_move.x = 1185; 
-      Player_move.y = 500;
+      Player.x = 1185; 
+      Player.y = 500;
     }
 
-    float xdistance2 = portalX2 - Player_move.x;
-    float ydistance2 = portalY2 - Player_move.y;
+    float xdistance2 = portalX2 - Player.x;
+    float ydistance2 = portalY2 - Player.y;
     float distancetocenter2 = pythagoras(xdistance2, ydistance2);
 
     if (distancetocenter2 - ballside <= 0) {
-      Player_move.x = portalX1 - 15; 
-      Player_move.y = 200;
+      Player.x = portalX1 - 15; 
+      Player.y = 200;
       
     
     
