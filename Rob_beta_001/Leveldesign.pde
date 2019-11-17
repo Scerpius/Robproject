@@ -1,96 +1,83 @@
-/*class Teleporter {
- 
- float portalX1 = 80;
- float portalY1 = 80;
- int portalY2 = height-80; 
- int portalX2 = width - 80;
- boolean click = false;
- int iPortal = 120;
- int kleur = 148;
- int ballside = iPortal/2;
- 
- float x = portalX1;
- float y = portalY1;
- 
- void display() {
- 
- int iColor = 5;
- iColor+=8;
- //Teleporter Linksboven//
- for (int iPortal = 120; iPortal > 0; iPortal -=10) {
- 
- noStroke();
- 
- fill(kleur, 0, 211, iColor);
- ellipse(portalX1, portalY1, iPortal, iPortal);
- 
- stroke(0);
- ellipse(portalX1, portalY1, iPortal, iPortal);
- 
- 
- //Teleporter Rechtsonder//
- 
- noStroke();
- fill(148, 0, 211, iColor);
- 
- ellipse(portalX2, portalY2, iPortal, iPortal);
- 
- stroke(0);
- ellipse(portalX2, portalY2, iPortal, iPortal);
- 
- }
- float xdistance1 = portalX1 - Player_move.x;
- float ydistance1 = portalY1 - Player_move.y;
- float distancetocenter1 = pythagoras(xdistance1, ydistance1);
- 
- if (distancetocenter1 - ballside <= 0) {
- Player_move.x = 1185; 
- Player_move.y = 500;
- }
- 
- float xdistance2 = portalX2 - Player_move.x;
- float ydistance2 = portalY2 - Player_move.y;
- float distancetocenter2 = pythagoras(xdistance2, ydistance2);
- 
- if (distancetocenter2 - ballside <= 0) {
- Player_move.x = portalX1 - 15; 
- Player_move.y = 200;
- 
- 
- 
- 
- }
- }
- }
- 
- 
- float pythagoras(float x, float y) {
- float anwser;
- float antwoord1 = x * x;
- float antwoord2 = y * y;
- float addition = antwoord1 + antwoord2;
- anwser = sqrt(addition);
- 
- return anwser;
- } */
-/*class SpawnPoint {
- 
- void display() {
- //Enemy spawnpoint Left
- fill(255, 0, 0);
- rect(0, 250, 70, 220);
- //Enemy spawnpoint Right
- fill(255, 0, 0);
- rect(1210, 250, 70, 220);
- //Enemy spawnpoint Up
- fill(255, 0, 0);
- rect(530, 0, 220, 70);
- //Enemy spawnpoint Down
- fill(255, 0, 0);
- rect(530, 650, 220, 70);
- }
- }*/
+class Teleporter {
+  PImage portaal1;
 
+  final color WHITE = color(255), PURPLE = color(55, 16, 72);
+
+  // Portal coords //
+  int portalX1 = 70;
+  int portalY1 = 150;
+  int portalX2 = 1100;
+  int portalY2 = 470;
+
+  // Detection Boxes //
+  int detectionX1 = 122;
+  int detectionY1 = 200;
+  int detectionX2 = 1152;
+  int detectionY2 = 520;
+
+  int boxSize = 100;
+  
+  // Booleans //
+  boolean overlap = false;
+
+  void display() {
+    // Load the picture of the portal //
+    portaal1 = loadImage("TelePortal.png");
+    
+    noStroke();
+    noFill();
+    // Left upper corner Box //
+    ellipse(detectionX1, detectionY1, boxSize, boxSize);
+    
+    // Right lower corner Box //
+    ellipse(detectionX2, detectionY2, boxSize, boxSize);
+    stroke(255);
+    
+    
+    // Left upper corner Portal //
+    image(portaal1, portalX1, portalY1);
+
+    // Right lower corner Portal //
+    image(portaal1, portalX2, portalY2);
+    
+
+  }
+  
+  
+  // Check if there is a collision //
+  void checkBoundaryCollision() {
+
+    float xdistance1 = detectionX1 - player.x - player.player.width /2 ;
+    float ydistance1 = detectionY1 - player.y - player.player.height /2;
+    float distancetocenter1 = pythagoras(xdistance1, ydistance1);
+  
+    if (distancetocenter1 - boxSize/2 <= 0) {
+      player.x = detectionX2 - 100; 
+      player.y = detectionY2 - 10;
+    }
+
+    float xdistance2 = detectionX2 - player.x - player.player.width /2 ;
+    float ydistance2 = detectionY2 - player.y - player.player.height /2;
+    float distancetocenter2 = pythagoras(xdistance2, ydistance2);
+
+    if (distancetocenter2 - boxSize /2 <= 0) {
+      player.x = detectionX1 + 100; 
+      player.y = detectionY1 - 10;
+  }
+  
+  }
+
+
+float pythagoras(float x, float y) {
+  float anwser;
+  float antwoord1 = x * x;
+  float antwoord2 = y * y;
+  float addition = antwoord1 + antwoord2;
+  anwser = sqrt(addition);
+
+  return anwser;
+}
+}
 class Object {
 
   PImage plank;

@@ -6,6 +6,7 @@ Bob bob;
 Walker walker;
 Object object;
 Collision collision;
+Teleporter teleport;
 
 int score;
 String text;
@@ -71,7 +72,7 @@ void setup() {
   
 
   // newSpawn = new SpawnPoint();
-  // teleport = new Teleporter();
+  teleport = new Teleporter();
   object = new Object();
   collision = new Collision();
 
@@ -113,6 +114,9 @@ void draw() {
   bullet.show();
   
   bob.code();
+  
+  teleport.display();
+  teleport.checkBoundaryCollision();
 
   // newSpawn.display();
 for (int i = 0; i < 10; i++){
