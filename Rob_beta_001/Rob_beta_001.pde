@@ -12,11 +12,6 @@ int score;
 String text;
 
 PImage backGroundLevel;
-PImage bookShelf;
-PImage barrel;
-PImage crater;
-PImage portal;
-
 
 static final int NumberOfEnemies = 20;
 int CurrentNumEnemies = 10 ; //nodig
@@ -61,15 +56,11 @@ void setup() {
     shooters[iEnemy] = new Shooter();
 
     backGroundLevel = loadImage("Backgroundtegels.png");
-    bookShelf = loadImage("BookShelf.png");
-    barrel = loadImage("Barrel.png");
-    crater = loadImage("Crater.png");
-    portal = loadImage("Portal.png");
   }
-  for(int i = 0; i <10; i++){
+  for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
   }
-  
+
 
   // newSpawn = new SpawnPoint();
   teleport = new Teleporter();
@@ -112,74 +103,18 @@ void draw() {
 
   bullet.update();
   bullet.show();
-  
+
   bob.code();
-  
+
   teleport.display();
   teleport.checkBoundaryCollision();
 
   // newSpawn.display();
-for (int i = 0; i < 10; i++){
-  powerups[i].spawn();
-  powerups[i].Display_Powerup();
-}
-
-
-
-/*
-  for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
-    walkers[iEnemy].draw();
-    if (MaxEnemies == false) {
-      for (i = 0; i<CurrentNumEnemies; i++) {
-        walkers[i].spawn();
-      }
-    }
-    MaxEnemies = true;
-
-    walkers[iEnemy].detect();
-    if (walkers[iEnemy].detected == true) {
-      //print("1b ", walkers[iEnemy]);
-      walkers[iEnemy].moveToPlayer();
-      // if (walkers[nEnemy].inRangeOfPlayer())
-      //  moveToPlayer();
-      //else 
-      // moveAround();
-      //}
-    } else {
-      // if (walkers[iEnemy].PointWalkX - walkers[iEnemy].posXEnemy >= 9 || walkers[iEnemy].PointWalkX - walkers[iEnemy].posXEnemy <= -9 ) {
-
-      if (!walkers[iEnemy].Xtrue) {
-        walkers[iEnemy].updateX();
-      }
-      //if (walkers[iEnemy].PointWalkY - walkers[iEnemy].posYEnemy >= 9 || walkers[iEnemy].PointWalkY - walkers[iEnemy].posYEnemy <= -9 && walkers[iEnemy].Xtrue == true) {
-
-      if (!walkers[iEnemy].Ytrue && walkers[iEnemy].Xtrue == true) {
-        walkers[iEnemy].updateX();
-      }
-      walkers[iEnemy].updateY();
-
-
-      walkers[iEnemy].check(); //deze lijn pakt hij niet meer
-    }
+  for (int i = 0; i < 10; i++) {
+    powerups[i].spawn();
+    powerups[i].Display_Powerup();
   }
-
-
-
-  for (Walker anWalker : walkers) {
-    if (overlaps(bullet.x, bullet.y, bullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
-      bullet.reset();
-      anWalker.reset();
-      score = score + 1;
-    }
-  }
-  */
-
-
 }
-
-
-
-
 
 void keyPressed() {
   if (key == 'w' || key == 'W') {
@@ -219,34 +154,34 @@ void keyReleased() {
 
 /*
 
-void Stronger() {
-  switch (roundCount % 5) {
-    case (0):
-    //spawn meer enemies
-    // println("meer enemies");
-    CurrentNumEnemies += 2;
-    MaxEnemies = false;
-    break;
-    case (1):
-    //beweeg sneller
-    // println("sneller");
-    for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-      walkers[iEnemy].moveEnemy *= 1.25;
-    }
-    break;
-    case (2):
-    //spawn delay lager
-    // println("minder vertraging"); //hebben we niet
-    break;
-    case (3):
-    //meer levens
-    // println("meer levens"); //nog niet
-    EnemyLives += 2;
-    break;
-    case (4):
-    //doet meer damage
-    // println("meer schade"); //hebben we niet
-    break;
-  }
-}
-*/
+ void Stronger() {
+ switch (roundCount % 5) {
+ case (0):
+ //spawn meer enemies
+ // println("meer enemies");
+ CurrentNumEnemies += 2;
+ MaxEnemies = false;
+ break;
+ case (1):
+ //beweeg sneller
+ // println("sneller");
+ for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
+ walkers[iEnemy].moveEnemy *= 1.25;
+ }
+ break;
+ case (2):
+ //spawn delay lager
+ // println("minder vertraging"); //hebben we niet
+ break;
+ case (3):
+ //meer levens
+ // println("meer levens"); //nog niet
+ EnemyLives += 2;
+ break;
+ case (4):
+ //doet meer damage
+ // println("meer schade"); //hebben we niet
+ break;
+ }
+ }
+ */
