@@ -92,29 +92,24 @@ float pythagoras(float x, float y) {
 }
 
 class Object {
+
   PImage plank;
-  PImage bookShelf;
-  PImage barrel;
-  PImage crater;
-  PImage portal;
 
   final int CRATER_X = 540;
   final int CRATER_Y = 150;
   final int CRATER_WIDTH = 200;
-  final int CRATER_HEIGHT = 400;
+  final int CRATER_HEIGHT = 450;
 
   int PLANK_X;
   int PLANK_Y;
-
+  
+  int GATE_X = 585;
+  int GATE_Y = 0;
   //final int BOOKSHELF_X = 52, BOOKSHELF_Y = 45;
   int BARREL_X = 915, BARREL_Y = 415;
 
   Object() {
     plank = loadImage("Plank.png");
-    bookShelf = loadImage("BookShelf.png");
-    barrel = loadImage("Barrel.png");
-    crater = loadImage("Crater.png");
-    portal = loadImage("Portal.png");
 
     PLANK_X = (width-plank.width)/2;
     PLANK_Y = (height-plank.height)/2;
@@ -128,9 +123,8 @@ class Object {
     //Barrel Size = 50, 65px
     image(barrel, BARREL_X, BARREL_Y);
     image (crater, CRATER_X, CRATER_Y, CRATER_WIDTH, CRATER_HEIGHT);
-    image (portal, (width-portal.width)/2, 0);
-    image (portal, (width-portal.width)/2, height-portal.height);
     image (plank, PLANK_X, PLANK_Y);
+    image(gate, GATE_X, GATE_Y);
 
     if (frameCount %1800 == 0) {
       BARREL_X = 500;
@@ -150,13 +144,13 @@ class Object {
     }
     if (collision.hasCollision() && !collision.collidesWithPlank()) {
       if (collision.left) {
-        player.x = object.CRATER_X + object.CRATER_WIDTH ;
+        player.x = object.CRATER_X + object.CRATER_WIDTH -20;
       } else if (collision.right) {
-        player.x = object.CRATER_X  - player.player.width;
+        player.x = object.CRATER_X +20 - player.player.width;
       } else if (collision.bottom) {
-        player.y = object.CRATER_Y - player.player.height;
+        player.y = object.CRATER_Y + 70 - player.player.height;
       } else {
-        player.y = object.CRATER_Y + object.CRATER_HEIGHT;
+        player.y = object.CRATER_Y + object.CRATER_HEIGHT -130;
       }
     }
   }
