@@ -57,17 +57,11 @@ class Powerup {
   }
 
 
-
-
   Powerup() {
     x = -200;
     y = -200;
     texture = loadImage("Hp.png");
   }
-
-
-
-
 
   void Display_Powerup() {
     image(texture, x, y);
