@@ -1,5 +1,5 @@
 class Teleporter {
-  PImage portaal1;
+  PImage [] Teleportal = new PImage[3];
 
   final color WHITE = color(255), PURPLE = color(55, 16, 72);
 
@@ -16,41 +16,71 @@ class Teleporter {
   int detectionY2 = 520;
 
   int boxSize = 100;
-  
+
   // Booleans //
   boolean overlap = false;
 
+  int i = 0;
+
   void display() {
+    delay(4);
     // Load the picture of the portal //
-    portaal1 = loadImage("TelePortal.png");
-    
+
+    Teleportal[0] = loadImage("Teleportal1.png");
+    Teleportal[1] = loadImage("Player.png");
+    Teleportal[2] = loadImage("Teleportal3.png");
     noStroke();
     noFill();
     // Left upper corner Box //
     ellipse(detectionX1, detectionY1, boxSize, boxSize);
-    
+
     // Right lower corner Box //
     ellipse(detectionX2, detectionY2, boxSize, boxSize);
     stroke(255);
-    
-    
-    // Left upper corner Portal //
-    image(portaal1, portalX1, portalY1);
 
-    // Right lower corner Portal //
-    image(portaal1, portalX2, portalY2);
+
+    
     
 
+
+    for (i = 0; i < Teleportal.length; i ++) {
+      if (Frame1 == 0) {
+      // Left upper corner Portal //
+      image(Teleportal[0], portalX1, portalY1);
+
+      // Right lower corner Portal //
+      image(Teleportal[0], portalX2, portalY2);
+      }
+      
+      if (Frame2 == 1){
+         // Left upper corner Portal //
+      image(Teleportal[1], portalX1, portalY1);
+
+      // Right lower corner Portal //
+      image(Teleportal[1], portalX2, portalY2);
+      }
+      
+      if (Frame3 == 2){
+
+        
+      // i --;
+      }
+      
+      
+    }
   }
-  
-  
+
+
+
+
+
   // Check if there is a collision //
   void checkBoundaryCollision() {
 
     float xdistance1 = detectionX1 - player.x - player.player.width /2 ;
     float ydistance1 = detectionY1 - player.y - player.player.height /2;
     float distancetocenter1 = pythagoras(xdistance1, ydistance1);
-  
+
     if (distancetocenter1 - boxSize/2 <= 0) {
       player.x = detectionX2 - 100; 
       player.y = detectionY2 - 10;
@@ -63,9 +93,9 @@ class Teleporter {
     if (distancetocenter2 - boxSize /2 <= 0) {
       player.x = detectionX1 + 100; 
       player.y = detectionY1 - 10;
+    }
   }
-  
-  }
+}
 
 
 float pythagoras(float x, float y) {
@@ -77,7 +107,7 @@ float pythagoras(float x, float y) {
 
   return anwser;
 }
-}
+
 class Object {
 
   PImage plank;
@@ -122,13 +152,12 @@ class Object {
     player.x = constrain(player.x, 54, width-100);
     player.y = constrain(player.y, 108, height-181);
 
-if(!collision.hasCollision()){
-  collision.top = false;
-  collision.bottom = false;
-  collision.right = false;
-  collision.left = false;
-  
-}
+    if (!collision.hasCollision()) {
+      collision.top = false;
+      collision.bottom = false;
+      collision.right = false;
+      collision.left = false;
+    }
     if (collision.hasCollision() && !collision.collidesWithPlank()) {
       if (collision.left) {
         player.x = object.CRATER_X + object.CRATER_WIDTH -20;
