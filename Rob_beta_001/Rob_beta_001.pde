@@ -1,6 +1,7 @@
 player player;
 Bullet bullet;
 Bob bob;
+Camera camera;
 
 //SpawnPoint newSpawn;
 Walker walker;
@@ -61,11 +62,10 @@ void setup() {
     powerups[i] = new Powerup();
   }
 
-
-  // newSpawn = new SpawnPoint();
   teleport = new Teleporter();
   object = new Object();
   collision = new Collision();
+  camera = new Camera();
 
   noStroke();
   player = new player();
@@ -73,47 +73,9 @@ void setup() {
   bob = new Bob();
 }
 
-boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
-  int w0 = texture0.width, 
-    h0 = texture0.height, 
-    w1 = texture1.width, 
-    h1 = texture1.height;
-
-  if (x0 > x1   + w1 || x0 + w0 < x1 || 
-    y0 > y1 + h1 || y0 + h0 < y1)
-    return false;
-  else
-    return true;
-}
-
-
-
 void draw() {
-
-  background(0);
-  image(backGroundLevel, 0, 0);
-  fill(255);
-  textSize(50);
-  text = "score :";
-  text(score, 150, 50);
-
-  object.display(); 
-  player.move();
-  player.display();
-
-  bullet.update();
-  bullet.show();
-
-  bob.code();
-
-  teleport.display();
-  teleport.checkBoundaryCollision();
-
-  // newSpawn.display();
-  for (int i = 0; i < 10; i++) {
-    powerups[i].spawn();
-    powerups[i].Display_Powerup();
-  }
+  camera.updateBackground();
+  camera.updateScreen();
 }
 
 void keyPressed() {
