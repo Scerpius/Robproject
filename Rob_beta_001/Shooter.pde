@@ -61,10 +61,10 @@ public class Shooter {
     }
   }
 
-  void reset() {
+  /*void reset() {
     spawn();
     moveEnemy = 0;
-  }
+  }*/
 
   //lopen
   void updateX() {
