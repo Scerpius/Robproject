@@ -1,6 +1,11 @@
 class Teleporter {
-  PImage [] Teleportal = new PImage[3];
+  // Array of portals //
+  String [] sprites = {"Teleportal1.png", "Teleportal2.png", "Teleportal3.png"};
 
+  // Declare the picture //
+  PImage Teleportal;
+
+  // Colors //
   final color WHITE = color(255), PURPLE = color(55, 16, 72);
 
   // Portal coords //
@@ -15,22 +20,20 @@ class Teleporter {
   int detectionX2 = 1152;
   int detectionY2 = 520;
 
+  // Hitbox Size //
   int boxSize = 100;
 
   // Booleans //
   boolean overlap = false;
 
-  int i = 0;
+  // Time Delay //
+  int framecount = 0;
+  int cycleDirection;
 
   void display() {
-    delay(4);
-    // Load the picture of the portal //
-
-    Teleportal[0] = loadImage("Teleportal1.png");
-    Teleportal[1] = loadImage("Player.png");
-    Teleportal[2] = loadImage("Teleportal3.png");
     noStroke();
     noFill();
+
     // Left upper corner Box //
     ellipse(detectionX1, detectionY1, boxSize, boxSize);
 
@@ -38,41 +41,21 @@ class Teleporter {
     ellipse(detectionX2, detectionY2, boxSize, boxSize);
     stroke(255);
 
-
-    
-    
-
-
-    for (i = 0; i < Teleportal.length; i ++) {
-      if (Frame1 == 0) {
-      // Left upper corner Portal //
-      image(Teleportal[0], portalX1, portalY1);
-
-      // Right lower corner Portal //
-      image(Teleportal[0], portalX2, portalY2);
+    // Time delay //
+    framecount ++;
+    if (framecount == 30) {
+      cycleDirection++;
+      framecount = 0;
+      if (cycleDirection == 3) {
+        cycleDirection = 0;
       }
-      
-      if (Frame2 == 1){
-         // Left upper corner Portal //
-      image(Teleportal[1], portalX1, portalY1);
-
-      // Right lower corner Portal //
-      image(Teleportal[1], portalX2, portalY2);
-      }
-      
-      if (Frame3 == 2){
-
-        
-      // i --;
-      }
-      
-      
     }
+
+    // Draw the portals //
+    Teleportal = loadImage(sprites[cycleDirection]);
+    image(Teleportal, portalX1, portalY1);
+    image(Teleportal, portalX2, portalY2);
   }
-
-
-
-
 
   // Check if there is a collision //
   void checkBoundaryCollision() {
