@@ -1,6 +1,5 @@
 public class player {
 
-
   PImage player;
   float movementSpeed = 3;
   float acceleration = 1.5;
@@ -14,8 +13,6 @@ public class player {
   //float size;
   boolean left, right, up, down = false;
   float hp = 3;
-
-
 
   player() {
     player = loadImage("Player.png");
