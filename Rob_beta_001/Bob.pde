@@ -42,8 +42,7 @@ class Bob {
 
           //Kogel.shoot();
         }
-      } 
-       else if (shooters[iEnemy].detectedU == true) {
+      } else if (shooters[iEnemy].detectedU == true) {
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
           //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
@@ -51,8 +50,7 @@ class Bob {
 
           //Kogel.shoot();
         }
-      }
-       else if (shooters[iEnemy].detectedR == true) {
+      } else if (shooters[iEnemy].detectedR == true) {
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
           //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
@@ -60,16 +58,13 @@ class Bob {
 
           //Kogel.shoot();
         }
-      }
-       else if (shooters[iEnemy].detectedL == true) {
+      } else if (shooters[iEnemy].detectedL == true) {
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
-         
+
 
           shooters[iEnemy].shoot();
-
         }
-      }
-      else {
+      } else {
 
         if (!shooters[iEnemy].Xtrue) {
           shooters[iEnemy].updateX();
@@ -89,16 +84,27 @@ class Bob {
     for (Walker anWalker : walkers) {
       if (overlaps(bullet.x, bullet.y, bullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
         bullet.reset();
-        anWalker.reset();
-        score = score + 1;
+
+
+        anWalker.Enemylives = anWalker.Enemylives - 1;
+        if (anWalker.Enemylives == 0) {
+          anWalker.reset();
+           score = score + 1;
+        }
+       
       }
     }
 
     for (Shooter anShooter : shooters) {
       if (overlaps(bullet.x, bullet.y, bullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
         bullet.reset();
+
+        anShooter.Enemylives =  anShooter.Enemylives -1;
+        if (anShooter.Enemylives == 0) {
+          anShooter.reset();
+          score = score + 1;
+        }
         
-        score = score + 1;
       }
     }
 

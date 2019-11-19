@@ -1,11 +1,6 @@
 class Teleporter {
-  // Array of portals //
-  String [] sprites = {"Teleportal1.png", "Teleportal2.png", "Teleportal3.png"};
+  PImage portaal1;
 
-  // Declare the picture //
-  PImage Teleportal;
-
-  // Colors //
   final color WHITE = color(255), PURPLE = color(55, 16, 72);
 
   // Portal coords //
@@ -20,50 +15,42 @@ class Teleporter {
   int detectionX2 = 1152;
   int detectionY2 = 520;
 
-  // Hitbox Size //
   int boxSize = 100;
-
+  
   // Booleans //
   boolean overlap = false;
 
-  // Time Delay //
-  int framecount = 0;
-  int cycleDirection;
-
   void display() {
+    // Load the picture of the portal //
+    portaal1 = loadImage("TelePortal.png");
+    
     noStroke();
     noFill();
-
     // Left upper corner Box //
     ellipse(detectionX1, detectionY1, boxSize, boxSize);
-
+    
     // Right lower corner Box //
     ellipse(detectionX2, detectionY2, boxSize, boxSize);
     stroke(255);
+    
+    
+    // Left upper corner Portal //
+    image(portaal1, portalX1, portalY1);
 
-    // Time delay //
-    framecount ++;
-    if (framecount == 30) {
-      cycleDirection++;
-      framecount = 0;
-      if (cycleDirection == 3) {
-        cycleDirection = 0;
-      }
-    }
+    // Right lower corner Portal //
+    image(portaal1, portalX2, portalY2);
+    
 
-    // Draw the portals //
-    Teleportal = loadImage(sprites[cycleDirection]);
-    image(Teleportal, portalX1, portalY1);
-    image(Teleportal, portalX2, portalY2);
   }
-
+  
+  
   // Check if there is a collision //
   void checkBoundaryCollision() {
 
     float xdistance1 = detectionX1 - player.x - player.player.width /2 ;
     float ydistance1 = detectionY1 - player.y - player.player.height /2;
     float distancetocenter1 = pythagoras(xdistance1, ydistance1);
-
+  
     if (distancetocenter1 - boxSize/2 <= 0) {
       player.x = detectionX2 - 100; 
       player.y = detectionY2 - 10;
@@ -76,9 +63,9 @@ class Teleporter {
     if (distancetocenter2 - boxSize /2 <= 0) {
       player.x = detectionX1 + 100; 
       player.y = detectionY1 - 10;
-    }
   }
-}
+  
+  }
 
 
 float pythagoras(float x, float y) {
@@ -90,7 +77,7 @@ float pythagoras(float x, float y) {
 
   return anwser;
 }
-
+}
 class Object {
 
   PImage plank;
@@ -102,9 +89,7 @@ class Object {
 
   int PLANK_X;
   int PLANK_Y;
-  
-  int GATE_X = 585;
-  int GATE_Y = 0;
+
   //final int BOOKSHELF_X = 52, BOOKSHELF_Y = 45;
   int BARREL_X = 915, BARREL_Y = 415;
 
@@ -123,8 +108,9 @@ class Object {
     //Barrel Size = 50, 65px
     image(barrel, BARREL_X, BARREL_Y);
     image (crater, CRATER_X, CRATER_Y, CRATER_WIDTH, CRATER_HEIGHT);
+    image (portal, (width-portal.width)/2+8, 0);
+    image (portal, (width-portal.width)/2, height-portal.height);
     image (plank, PLANK_X, PLANK_Y);
-    image(gate, GATE_X, GATE_Y);
 
     if (frameCount %1800 == 0) {
       BARREL_X = 500;
@@ -136,12 +122,13 @@ class Object {
     player.x = constrain(player.x, 54, width-100);
     player.y = constrain(player.y, 108, height-181);
 
-    if (!collision.hasCollision()) {
-      collision.top = false;
-      collision.bottom = false;
-      collision.right = false;
-      collision.left = false;
-    }
+if(!collision.hasCollision()){
+  collision.top = false;
+  collision.bottom = false;
+  collision.right = false;
+  collision.left = false;
+  
+}
     if (collision.hasCollision() && !collision.collidesWithPlank()) {
       if (collision.left) {
         player.x = object.CRATER_X + object.CRATER_WIDTH -20;

@@ -18,12 +18,13 @@ class Bullet {
   void update() {
     if (isFired) {
       
-      if (y < 0)
+      if (y > height-80 ||y < 80 || x > width -80 || x < 80)
         reset();
     }
     y += vy;
     
     if (keys[' ']) fire(player.x, player.y);
+   
   }
 
   void show() {

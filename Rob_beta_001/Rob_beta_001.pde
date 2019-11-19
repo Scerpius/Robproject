@@ -16,11 +16,10 @@ PImage bookShelf;
 PImage barrel;
 PImage crater;
 PImage portal;
-PImage gate;
 
 
 static final int NumberOfEnemies = 20;
-int CurrentNumEnemies = 10 ; //nodig
+int CurrentNumEnemies = 1 ; //nodig
 int walkCount = 0; //niet gebruikt
 int KillForRoundUp = 0; //niet gebruikt
 int EnemyLives = 10 ; // niet gebruikt, nodig
@@ -66,7 +65,6 @@ void setup() {
     barrel = loadImage("Barrel.png");
     crater = loadImage("Crater.png");
     portal = loadImage("Portal.png");
-    gate = loadImage("gate.png");
   }
   for(int i = 0; i <10; i++){
     powerups[i] = new Powerup();
@@ -108,7 +106,7 @@ void draw() {
   text = "score :";
   text(score, 150, 50);
 
-  
+  object.display(); 
   player.move();
   player.display();
 
@@ -119,8 +117,7 @@ void draw() {
   
   teleport.display();
   teleport.checkBoundaryCollision();
-  
-   object.display();
+
   // newSpawn.display();
 for (int i = 0; i < 10; i++){
   powerups[i].spawn();

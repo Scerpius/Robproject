@@ -1,8 +1,9 @@
 public class Shooter {
   Kogel kogel;
-  float sizeEnemy = 40;
-  int PointWalkX = int(random(sizeEnemy/2, width - sizeEnemy/2));
-  int PointWalkY = int(random(sizeEnemy/2, height - sizeEnemy/2));
+  float sizeEnemy =40;
+  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
+  int Enemylives = 3;
   float posXEnemy;
   float posYEnemy;
   float distX;
@@ -35,7 +36,7 @@ public class Shooter {
     //ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     image(texture, posXEnemy, posYEnemy);
     if (kogel != null) {
-      println(kogel.fireD, kogel.fireU);
+
       kogel.shoot();
       kogel.show();
     }
@@ -61,10 +62,10 @@ public class Shooter {
     }
   }
 
-  /*void reset() {
+  void reset() {
     spawn();
     moveEnemy = 0;
-  }*/
+  }
 
   //lopen
   void updateX() {
@@ -100,15 +101,15 @@ public class Shooter {
   void check() {
     // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
     if ( Xtrue == true && Ytrue == true) {
-      PointWalkY = int(random(sizeEnemy/2, height - sizeEnemy/2));
-      PointWalkX = int(random(sizeEnemy/2, width-sizeEnemy/2));
+      PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+      PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
       Xtrue = false;
       Ytrue = false;
     }
   }
   void detect() {
     dist(player.x, player.y, posXEnemy, posYEnemy);
-    if (dist(player.x, player.y, posXEnemy, posYEnemy) < 100) {
+    if (dist(player.x, player.y, posXEnemy, posYEnemy) < 200) {
       if (posYEnemy < player.y ) {
         detectedD = true;
       } else if (posYEnemy > player.y) {
@@ -118,7 +119,6 @@ public class Shooter {
       } else if (posXEnemy > player.x) {
         detectedL = true;
       }
-
     }
   }
   void shoot() {
@@ -129,6 +129,9 @@ public class Shooter {
 
     if (detectedD) {
       kogel.fireD = true;
+      detectedU = false;
+      kogel.fireU = false;
+
       detectedD = false;
       if (!spawnedD) {     
 
@@ -139,11 +142,41 @@ public class Shooter {
     if (detectedU) {
 
       kogel.fireU = true;
-            detectedU = false;
+      detectedD = false;
+      kogel.fireD = false;
+
+      detectedU = false;
       if (!spawnedU) {     
 
         spawnedU = true;
       }
+    }
+
+    if (detectedR) {
+
+      kogel.fireR = true;
+      detectedR = false;
+      if (!spawnedR) {     
+
+        spawnedR = true;
+      }
+    }
+
+    if (detectedL) {
+
+      kogel.fireL = true;
+      detectedL = false;
+      if (!spawnedL) {     
+
+        spawnedL = true;
+      }
+    }
+    if (kogel.y > height ||kogel.y < 0 || kogel.x > width || kogel.x < 0 && millis() >= time + 1000) {
+      spawnedD = false; 
+      spawnedU = false; 
+      spawnedR = false; 
+      spawnedL = false;
+      spawned = true;
     }
   }
   //2.45
@@ -166,14 +199,14 @@ public class Shooter {
         case (0):
         //spawn meer enemies
 
-        CurrentNumEnemies += 2;
+        CurrentNumEnemies *= 1.008;
         MaxEnemies = false;
         uitgevoerd = true;
 
         break;
         case (1):
         //beweeg sneller
-
+        CurrentNumEnemies *= 1.008;
         for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
           walkers[iEnemy].speedEnemy *= 1.25;
           shooters[iEnemy].speedEnemy  *= 1.25;
@@ -183,18 +216,21 @@ public class Shooter {
 
         break;
         case (2):
+        CurrentNumEnemies += 1 * 1.008;
         //spawn delay lager
         uitgevoerd = true;
         MaxEnemies = false;
 
         break;
         case (3):
+        CurrentNumEnemies += 1 * 1.008;
         EnemyLives += 2;
         uitgevoerd = true;
         MaxEnemies = false;
 
         break;
         case (4):
+        CurrentNumEnemies += 1 * 1.008;
         //doet meer damage
         uitgevoerd = true;
         MaxEnemies = false;
