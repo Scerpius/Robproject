@@ -103,6 +103,19 @@ class Bob {
           anBullet.reset();
           anWalker.reset();
           score = score + 1;
+        }
+      }
+    }
+
+    for (Shooter anShooter : shooters) {
+      for (Bullet anBullet : bullets) {
+        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
+          powerupX = anShooter.posXEnemy;
+          powerupY = anShooter.posYEnemy;
+          anBullet.reset();
+          anShooter.reset();
+          score = score + 1;
+
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
               powerups[i].spawn();
@@ -113,20 +126,7 @@ class Bob {
       }
     }
 
-    for (Shooter anShooter : shooters) {
-      for (Bullet anBullet : bullets) {
-        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
-          powerupX = anShooter.posXEnemy;
-          powerupY = anShooter.posYEnemy;
-
-          anBullet.reset();
-          anShooter.reset();
-          score = score + 1;
-        }
-      }
-    }
-    
-      for (Powerup anPowerup : powerups) {
+    for (Powerup anPowerup : powerups) {
       if (overlaps(player.x, player.y, player.playerSprite, anPowerup.x, anPowerup.y, anPowerup.texture)) {
         anPowerup.pickUpPowerup = true;
         anPowerup.onPickup();
@@ -144,6 +144,7 @@ class Bob {
           if (millis() >= time + 1000) {
             invisibility = false;
           }
+          time = millis();
         }
       }
     }

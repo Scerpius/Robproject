@@ -8,6 +8,7 @@ Walker walker;
 Object object;
 Collision collision;
 Teleporter teleport;
+Start startscreen;
 
 
 
@@ -28,6 +29,7 @@ int iEnemy;
 static int i;
 int roundCount = 0;
 int time = millis();
+boolean start = false;
 
 boolean invisibility = false;
 boolean kill = false;
@@ -37,6 +39,7 @@ boolean up = false, down = false, left = false, right = false;
 boolean detect = true;
 boolean MaxEnemies = false;
 int powerupcount = 0;
+
 
 
 final int CRATER_X = 540;
@@ -64,21 +67,22 @@ void setup() {
   noStroke();
   smooth(4);
   
-   loadAssets();
-  objectList[0] = new Object(CRATER_X, CRATER_Y, crater);
-  objectList[1] = new Object(BARREL_X, BARREL_Y, barrel);
-  objectList[2] = new Object(CRATER_X, CRATER_Y, crater);
-  objectList[3] = new Object(CRATER_X, CRATER_Y, crater);
-  objectList[4] = new Object(PLANK_X, PLANK_Y, plank);
+    loadAssets();
+    objectList[0] = new Object(CRATER_X, CRATER_Y, crater);
+    objectList[1] = new Object(BARREL_X, BARREL_Y, barrel);
+    objectList[2] = new Object(CRATER_X, CRATER_Y, crater);
+    objectList[3] = new Object(CRATER_X, CRATER_Y, crater);
+    objectList[4] = new Object(PLANK_X, PLANK_Y, plank);
   
+
   for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
     positionSpawn[iEnemy] = (floor(random(0, 4)));
     walkers[iEnemy] = new Walker();
     shooters[iEnemy] = new Shooter();
 
     backGroundLevel = loadImage("Backgroundtegels.png");
-    StartScreen = loadImage("BackgroundMain.png");
-   // file = new SoundFile(this, "Synthwave.wav");
+    //StartScreen = loadImage("BackgroundMain.png");
+    // file = new SoundFile(this, "Synthwave.wav");
     //file.loop();
   }
   for (int i = 0; i <10; i++) {
@@ -88,6 +92,7 @@ void setup() {
   teleport = new Teleporter();
   collision = new Collision();
   camera = new Camera();
+  startscreen = new Start();
 
   noStroke();
   player = new Player(playerSprite);
@@ -112,7 +117,7 @@ void keyPressed() {
   if (key == 'd' || key == 'D') {
     player.right = true;
   }
-   if (key == ' '){
+  if (key == ' ') {
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);

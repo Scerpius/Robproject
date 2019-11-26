@@ -16,44 +16,54 @@ public class Player {
   float pY;
   //float size;
   boolean left, right, up, down = false;
+  boolean shield = false;
+  boolean dubbelDamage = false;
+
   float hp = 3;
   int dir = 4;
+  float dmg = 3;
+  float AS = 5;
 
   Player(PImage photo) {
     playerSprite = photo;
-    x = width/2;
-    y = height/2 +200;
-    
-     w = playerSprite.width;
+    x = 375;
+    y = 375;
+
+    w = playerSprite.width;
     h = playerSprite.height;
-   // size = 40;
+    // size = 40;
   }
 
-   void Player_dead() {
-    if(hp <= 0) {
-    textSize(200);
-    text("You dead", 300,100);
+  void Player_dead() {
+    if (hp <= 0) {
+      textSize(200);
+      text("You dead", 300, 100);
     }
   }
-  
+
   void display() {
     x = constrain (x, 0, width-67);
     y = constrain (y, 0, height-42);
     image(playerSprite, x, y);
+
+    if (shield) {
+      ellipse(x + (w/2), y + (h / 2), w + 30, h + 20);
+    }
   }
 
 
   void move() {
     pX = x;
     pY = y;
-    if(collision.checkCollision(x +speedx, y, w, h) == false){
-      x = x+speedx;;
+    if (collision.checkCollision(x +speedx, y, w, h) == false) {
+      x = x+speedx;
+      ;
     }
-    
-    if(collision.checkCollision(x, y+speedy, w, h) == false){
+
+    if (collision.checkCollision(x, y+speedy, w, h) == false) {
       y = y+speedy;
     }
-    
+
     x = constrain(player.x, 54, width-100);
     y = constrain(player.y, 108, height-181);
 
@@ -89,28 +99,29 @@ public class Player {
       }
     }
     //stopping
-     if (directionx == 1) {
+    if (directionx == 1) {
       speedx = speedx + drag; 
       if (speedx >= 0) {
         directionx = 0;
       }
-    }  if (directionx == 2) {
+    }  
+    if (directionx == 2) {
       speedx = speedx - drag; 
       if (speedx <= 0) {
         directionx = 0;
       }
-    }  if (directiony == 1) {
+    }  
+    if (directiony == 1) {
       speedy = speedy - drag; 
       if (speedy <= 0) {
         directiony = 0;
       }
-    }  if (directiony == 2) {
+    }  
+    if (directiony == 2) {
       speedy = speedy + drag; 
       if (speedy >= 0) {
         directiony = 0;
       }
     }
   }
-
 }
-  

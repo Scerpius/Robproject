@@ -14,34 +14,37 @@ class Collision {
    */
 
   boolean checkCollision(float x, float y, float w, float h) {
+
     hasCollision = false;
     plankie = false;
-    for (int i = 0; i < objectList.length; i++) {
-      if (objectList[i].picture == plank) {
-        if (x  < objectList[i].x + objectList[i].w - 40
-          && x + w > objectList[i].x + 40
-          && y  < objectList[i].y + objectList[i].h - 55
-          && y + h > objectList[i].y + 20) {
-          plankie = true;
-        }
-      } else if( objectList[i].picture == crater){
-        if (x  < objectList[i].x + objectList[i].w - 40
-          && x + w > objectList[i].x + 40
-          && y  < objectList[i].y + objectList[i].h - 40
-          && y + h > objectList[i].y + 40 ) {
-          hasCollision = true;
+   
+      for (int i = 0; i < objectList.length; i++) {
+        if (objectList[i].picture == plank) {
+          if (x  < objectList[i].x + objectList[i].w - 40
+            && x + w > objectList[i].x + 40
+            && y  < objectList[i].y + objectList[i].h - 55
+            && y + h > objectList[i].y + 20) {
+            plankie = true;
+          }
+        } else if ( objectList[i].picture == crater) {
+          if (x  < objectList[i].x + objectList[i].w - 40
+            && x + w > objectList[i].x + 40
+            && y  < objectList[i].y + objectList[i].h - 40
+            && y + h > objectList[i].y + 40 ) {
+            hasCollision = true;
+          }
+        } else {
+          if (x  < objectList[i].x + objectList[i].w - 10
+            && x + w > objectList[i].x + 10
+            && y  < objectList[i].y + objectList[i].h - 10
+            && y + h > objectList[i].y + 10) {
+            hasCollision = true;
+          }
         }
       }
-      else{
-        if (x  < objectList[i].x + objectList[i].w - 10
-          && x + w > objectList[i].x + 10
-          && y  < objectList[i].y + objectList[i].h - 10
-          && y + h > objectList[i].y + 10) {
-          hasCollision = true;
-        }
-      }
-    }
+    
     if (plankie == true) {
+
       return false;
     } else {
       return hasCollision;
