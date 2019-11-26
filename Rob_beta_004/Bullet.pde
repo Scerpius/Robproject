@@ -4,8 +4,8 @@ class Bullet {
   float speed = 6;
   PImage texture;
   boolean isFired;
-  
- Bullet() {
+
+  Bullet() {
     texture = loadImage("bullet.png");
     reset();
   }
@@ -19,25 +19,27 @@ class Bullet {
 
   void update() {
     if (isFired) {
-      
-      if (y < 0)
-        reset();
-    }
-    y += vy;
-    x += vx;
-    /*
-    if (keys[' ']){
-    Bullet b = new Bullet();
-    bullets.add(b);
-    b.fire(player.x, player.y);
-    };
-    */
-  }
-  
 
-  void show() {
-    image(texture, x, y);
+      if (y < 80 || y > height-100 || x < 80 || x > width -181) {
+        reset();
+      }
+
+        y += vy;
+        x += vx;
+        /*
+    if (keys[' ']){
+         Bullet b = new Bullet();
+         bullets.add(b);
+         b.fire(player.x, player.y);
+         };
+         */
+      }
+    
   }
+    void show() {
+      image(texture, x, y);
+    }
+
 
 void fire(float x, float y){
    if (!isFired) {
@@ -48,6 +50,7 @@ void fire(float x, float y){
       if(player.direction == 2) vx = speed; // rechts
       if(player.direction == 3) vy = speed; //omlaag
       if(player.direction == 4) vy = -speed; //omhoog      
+
     }
-}
-}
+  }
+  }
