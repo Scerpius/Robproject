@@ -103,7 +103,7 @@ public class Shooter {
     // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
     if ( Xtrue == true && Ytrue == true) {
       PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
-      PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
+      PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2));
       Xtrue = false;
       Ytrue = false;
     }

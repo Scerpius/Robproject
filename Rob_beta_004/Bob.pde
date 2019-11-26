@@ -101,8 +101,11 @@ class Bob {
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
-          anWalker.reset();
-          score = score + 1;
+          anWalker.Enemylives = anWalker.Enemylives - 1;
+          if (anWalker.Enemylives == 0) {
+            anWalker.reset();
+            score = score + 1;
+          }
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
               powerups[i].spawn();
@@ -120,13 +123,16 @@ class Bob {
           powerupY = anShooter.posYEnemy;
 
           anBullet.reset();
-          anShooter.reset();
-          score = score + 1;
+          anShooter.Enemylives =  anShooter.Enemylives -1;
+          if (anShooter.Enemylives == 0) {
+            anShooter.reset();
+            score = score + 1;
+          }
         }
       }
     }
-    
-      for (Powerup anPowerup : powerups) {
+
+    for (Powerup anPowerup : powerups) {
       if (overlaps(player.x, player.y, player.playerSprite, anPowerup.x, anPowerup.y, anPowerup.texture)) {
         anPowerup.pickUpPowerup = true;
         anPowerup.onPickup();
