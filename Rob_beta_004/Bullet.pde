@@ -44,10 +44,10 @@ void fire(float x, float y){
       isFired = true;
       this.x = x;
       this.y = y;
-      if(player.dir == 1) vx = -speed; //links
-      if(player.dir == 2) vx = speed; // rechts
-      if(player.dir == 3) vy = speed; //omlaag
-      if(player.dir == 4) vy = -speed; //omhoog      
+      if(player.direction == 1) vx = -speed; //links
+      if(player.direction == 2) vx = speed; // rechts
+      if(player.direction == 3) vy = speed; //omlaag
+      if(player.direction == 4) vy = -speed; //omhoog      
     }
 }
 }
