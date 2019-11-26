@@ -8,7 +8,7 @@ public class Shooter {
   float posYEnemy;
   float distX;
   float distY;
-  float speedEnemy = 1;
+  float speedEnemy = 0.5;
   float moveEnemy = speedEnemy; //nodig
   float direction;
   boolean Xtrue = false;
@@ -103,7 +103,7 @@ public class Shooter {
     // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
     if ( Xtrue == true && Ytrue == true) {
       PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
-      PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2));
+      PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
       Xtrue = false;
       Ytrue = false;
     }
@@ -129,14 +129,14 @@ public class Shooter {
       spawned = false;
       detect();
       if (detectedD)      
-        dY = 10;
+        dY = 1;
       else
-        dY = -10;
+        dY = -1;
 
       if (detectedR)
-        dX = 10;
+        dX = 1;
       else
-        dX = -10;
+        dX = -1;
 
       kogel = new Kogel(posXEnemy, posYEnemy, dX, dY);
     }

@@ -101,11 +101,8 @@ class Bob {
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
-          anWalker.Enemylives = anWalker.Enemylives - 1;
-          if (anWalker.Enemylives == 0) {
-            anWalker.reset();
-            score = score + 1;
-          }
+          anWalker.reset();
+          score = score + 1;
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
               powerups[i].spawn();
@@ -123,16 +120,40 @@ class Bob {
           powerupY = anShooter.posYEnemy;
 
           anBullet.reset();
-          anShooter.Enemylives =  anShooter.Enemylives -1;
-          if (anShooter.Enemylives == 0) {
-            anShooter.reset();
-            score = score + 1;
-          }
+          anShooter.reset();
+          score = score + 1;
         }
       }
     }
+    
+    for (Walker anWalker : walkers) {
+        if (overlaps(sword.x, sword.y, sword.box, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+          if ( sword.isHit == true){
+          powerupX = anWalker.posXEnemy;
+          powerupY = anWalker.posYEnemy;
+          anWalker.reset();
+          score = score + 1;
+          }
+                    
+          }
+        }
+      
+    
 
-    for (Powerup anPowerup : powerups) {
+    for (Shooter anShooter : shooters) {
+        if (overlaps(sword.x, sword.y, sword.box, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
+         if ( sword.isHit == true){
+          powerupX = anShooter.posXEnemy;
+          powerupY = anShooter.posYEnemy;
+
+          
+          anShooter.reset();
+          score = score + 1;
+         }
+      }
+    }
+    
+      for (Powerup anPowerup : powerups) {
       if (overlaps(player.x, player.y, player.playerSprite, anPowerup.x, anPowerup.y, anPowerup.texture)) {
         anPowerup.pickUpPowerup = true;
         anPowerup.onPickup();

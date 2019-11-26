@@ -78,8 +78,8 @@ class Powerup {
       println(shield + " :D" );
     } 
     if (whatPowerup == 3) {
-      player.movementSpeed += 1;
-      println(player.movementSpeed + " :D" );
+     // player.movementSpeed += 1;
+     // println(player.movementSpeed + " :D" );
     } 
     if (whatPowerup == 4) {
       dmg += 1;

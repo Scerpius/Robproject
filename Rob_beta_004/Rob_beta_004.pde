@@ -2,6 +2,7 @@ Player player;
 Bob bob;
 Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
+Sword sword;
 
 //SpawnPoint newSpawn;
 Walker walker;
@@ -9,7 +10,7 @@ Object object;
 Collision collision;
 Teleporter teleport;
 
-
+boolean [] keys = new boolean[1024];
 
 int score;
 String text;
@@ -88,6 +89,7 @@ void setup() {
   teleport = new Teleporter();
   collision = new Collision();
   camera = new Camera();
+  sword = new Sword();
 
   noStroke();
   player = new Player();
@@ -100,35 +102,52 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == 'w' || key == 'W') {
+  /*
+  if (key == 'w' || key == 'W' || keyCode == UP ) {
     player.up = true;
   }
-  if (key == 's' || key == 'S') {
+  if (key == 's' || key == 'S'|| keyCode == DOWN) {
     player.down = true;
   }
-  if (key == 'a' || key == 'A') {
+  if (key == 'a' || key == 'A' || keyCode == LEFT) {
     player.left = true;
   }
-  if (key == 'd' || key == 'D') {
+  if (key == 'd' || key == 'D' || keyCode == RIGHT) {
     player.right = true;
   }
+  */
+    keys[keyCode] = true;
    if (key == ' '){
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
   }
+  if (key == 'z'){
+    sword.isHit = true;
+     sword.show();
+    
+  }
 }
 void keyReleased() {
-  if (key == 'w' || key == 'W') {
+  /*
+  if (key == 'w' || key == 'W' || keyCode == UP) {
     player.up = false;
   }
-  if (key == 's' || key == 'S') {
+  if (key == 's' || key == 'S' || keyCode == DOWN) {
     player.down = false;
   }
-  if (key == 'a' || key == 'A') {
+  if (key == 'a' || key == 'A' || keyCode == LEFT) {
     player.left = false;
   }
-  if (key == 'd' || key == 'D') {
+  if (key == 'd' || key == 'D' || keyCode == RIGHT) {
     player.right = false;
   }
+  */
+  keys[keyCode] = false;
+  if (key == 'z'){
+    sword.isHit = false;
+     
+    
+  }
+  
 }
