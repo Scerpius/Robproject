@@ -76,8 +76,8 @@ class Teleporter {
   // Check if there is a collision //
   void checkBoundaryCollision() {
 
-    float xdistance1 = detectionX1 - player.x - player.w /2 ;
-    float ydistance1 = detectionY1 - player.y - player.h /2;
+    float xdistance1 = detectionX1 - player.x - player.playerSprite.width /2 ;
+    float ydistance1 = detectionY1 - player.y - player.playerSprite.height /2;
     float distancetocenter1 = pythagoras(xdistance1, ydistance1);
 
     if (distancetocenter1 - boxSize/2 <= 0) {
@@ -85,8 +85,8 @@ class Teleporter {
       player.y = detectionY2 - 10;
     }
 
-    float xdistance2 = detectionX2 - player.x - player.w /2 ;
-    float ydistance2 = detectionY2 - player.y - player.h /2;
+    float xdistance2 = detectionX2 - player.x - player.playerSprite.width /2 ;
+    float ydistance2 = detectionY2 - player.y - player.playerSprite.height /2;
     float distancetocenter2 = pythagoras(xdistance2, ydistance2);
 
     if (distancetocenter2 - boxSize /2 <= 0) {
