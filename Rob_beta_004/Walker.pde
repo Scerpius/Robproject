@@ -14,8 +14,9 @@
 //}
 public class Walker {
   float sizeEnemy = 40;
-  int PointWalkX = int(random(sizeEnemy/2, width - sizeEnemy/2));
-  int PointWalkY = int(random(sizeEnemy/2, height - sizeEnemy/2));
+  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
+  int Enemylives = 3;
   float posXEnemy;
   float posYEnemy;
   float distX;
@@ -107,8 +108,8 @@ public class Walker {
   void check() {
     // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
     if ( Xtrue == true && Ytrue == true) {
-      PointWalkY = int(random(sizeEnemy/2, height - sizeEnemy/2));
-      PointWalkX = int(random(sizeEnemy/2, width-sizeEnemy/2));
+      PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+      PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2));
       Xtrue = false;
       Ytrue = false;
     }
@@ -179,18 +180,21 @@ public class Walker {
 
         break;
         case (2):
+        CurrentNumEnemies += 1 * 1.008;
         //spawn delay lager
         uitgevoerd = true;
         MaxEnemies = false;
 
         break;
         case (3):
+        CurrentNumEnemies += 1 * 1.008;
         EnemyLives += 2;
         uitgevoerd = true;
         MaxEnemies = false;
 
         break;
         case (4):
+        CurrentNumEnemies += 1 * 1.008;
         //doet meer damage
         uitgevoerd = true;
         MaxEnemies = false;
