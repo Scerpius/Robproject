@@ -90,7 +90,7 @@ void setup() {
   camera = new Camera();
 
   noStroke();
-  player = new Player();
+  player = new Player(playerSprite);
   bob = new Bob();
 }
 
