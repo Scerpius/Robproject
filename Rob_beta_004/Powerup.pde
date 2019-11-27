@@ -10,23 +10,20 @@ class Powerup {
   boolean pickUpPowerup = false;
 
   int whatPowerup = -999;
-  
-  float dmg = 3;
-  float AS = 5;
-  boolean shield = false;
-  boolean dubbelDamage = false;
+
+
 
 
 
 
   void spawn() {
 
-    int powerupChance = int(random(0, 10));
-    println("powerupChance : " + powerupChance);
+    int powerupChance = int(random(4, 5));
+    //println("powerupChance : " + powerupChance);
 
     if (powerupChance == 4) {
 
-      whatPowerup = int(random(0, 6));
+      whatPowerup = int(random(3, 4));
       if (whatPowerup == 0) { 
         texture = loadImage("Hp.png");
       }
@@ -40,18 +37,18 @@ class Powerup {
         texture = loadImage("Speed.png");
       }
       if (whatPowerup == 4) { 
-        texture = loadImage("boots.png");
+        texture = loadImage("dmg.png");
       }
       if (whatPowerup == 5) { 
-        texture = loadImage("Portal.png");
+        texture = loadImage("dubbelDamage.png");
       }
 
 
 
       x = bob.powerupX; 
       y = bob.powerupY;
-      println(bob.powerupX);
-      println(bob.powerupY);
+      //println(bob.powerupX);
+      //println(bob.powerupY);
       powerupcount++;
 
       if (powerupcount == 9) { 
@@ -70,24 +67,37 @@ class Powerup {
       println(player.hp + " :D" );
     } 
     if (whatPowerup == 1) {
-      AS += 1;
-      println(AS + " :D" );
+      player.AS += 1;
+      println(player.AS + " :D" );
     } 
     if (whatPowerup == 2) {
-       shield = true;
-      println(shield + " :D" );
+      player.shield = true;
+      println(player.shield + " :D" );
+      if (millis() >= time + 30000) {
+       player.shield = false;
+        time = millis();
+      }
+
+
+      
     } 
     if (whatPowerup == 3) {
-     // player.movementSpeed += 1;
+    //  player.movementSpeed += 1;
      // println(player.movementSpeed + " :D" );
     } 
+
     if (whatPowerup == 4) {
-      dmg += 1;
-      println(dmg + " :D" );
+      player.dmg += 1;
+      println(player.dmg + " :D" );
     } 
     if (whatPowerup == 5) {
-      dubbelDamage = true;
-      println(dubbelDamage + " :D" );
+      player.dubbelDamage = true;
+      if (millis() >= time + 30000) {
+        player.dubbelDamage = false;
+        time = millis();
+      }
+
+      println(player.dubbelDamage + " :D" );
     }
   }
 

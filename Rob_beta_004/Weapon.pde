@@ -44,13 +44,12 @@ class Bullet {
       isFired = true;
       this.x = x;
       this.y = y;
-      vy = -6;
-      /*
-      if (player.dir == 1) vx = -speed; //links
-      if (player.dir == 2) vx = speed; // rechts
-      if (player.dir == 3) vy = speed; //omlaag
-      if (player.dir == 4) vy = -speed; //omhoog
-      */
+      
+      if (player.direction == 1) vx = -speed; //links
+      if (player.direction == 2) vx = speed; // rechts
+      if (player.direction == 3) vy = speed; //omlaag
+      if (player.direction == 4) vy = -speed; //omhoog
+      
     }
     
   }
@@ -66,24 +65,24 @@ class Sword {
     box = loadImage("box.png");
   }
   void update() {
-    /*
-    if (player.dir == 1){
+    
+    if (player.direction == 1){
       x = player.x - box.width;
       y = player.y; //links
     }
-    if (player.dir == 2){
+    if (player.direction == 2){
       x = player.x + box.width;
       y = player.y; // rechts
     }
-    if (player.dir == 3){
+    if (player.direction == 3){
       x = player.x;
       y = player.y + box.height; //omlaag
     }
-    if (player.dir == 4){
+    if (player.direction == 4){
       x = player.x; 
       y = player.y -box.height; //omhoog
     }
-    */
+    
   }
 
 

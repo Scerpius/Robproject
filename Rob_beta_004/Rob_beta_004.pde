@@ -9,6 +9,7 @@ Walker walker;
 Object object;
 Collision collision;
 Teleporter teleport;
+Start startscreen;
 
 boolean [] keys = new boolean[1024];
 
@@ -29,6 +30,7 @@ int iEnemy;
 static int i;
 int roundCount = 0;
 int time = millis();
+boolean start = false;
 
 boolean invisibility = false;
 boolean kill = false;
@@ -78,7 +80,7 @@ void setup() {
     shooters[iEnemy] = new Shooter();
 
     backGroundLevel = loadImage("Backgroundtegels.png");
-    StartScreen = loadImage("BackgroundMain.png");
+   // StartScreen = loadImage("BackgroundMain.png");
    // file = new SoundFile(this, "Synthwave.wav");
     //file.loop();
   }
@@ -90,6 +92,7 @@ void setup() {
   collision = new Collision();
   camera = new Camera();
   sword = new Sword();
+  startscreen = new Start();
 
   noStroke();
   player = new Player();
@@ -102,52 +105,45 @@ void draw() {
 }
 
 void keyPressed() {
-  /*
-  if (key == 'w' || key == 'W' || keyCode == UP ) {
-    player.up = true;
-  }
-  if (key == 's' || key == 'S'|| keyCode == DOWN) {
-    player.down = true;
-  }
-  if (key == 'a' || key == 'A' || keyCode == LEFT) {
-    player.left = true;
-  }
-  if (key == 'd' || key == 'D' || keyCode == RIGHT) {
-    player.right = true;
-  }
-  */
+  //if (key == 'w' || key == 'W') {
+  //  player.up = true;
+  //}
+  //if (key == 's' || key == 'S') {
+  //  player.down = true;
+  //}
+  //if (key == 'a' || key == 'A') {
+  //  player.left = true;
+  //}
+  //if (key == 'd' || key == 'D') {
+  //  player.right = true;
+  //}
     keys[keyCode] = true;
    if (key == ' '){
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
   }
-  if (key == 'z'){
+    if (key == 'z'){
     sword.isHit = true;
      sword.show();
     
   }
 }
 void keyReleased() {
-  /*
-  if (key == 'w' || key == 'W' || keyCode == UP) {
-    player.up = false;
+  //if (key == 'w' || key == 'W') {
+  //  player.up = false;
+  //}
+  //if (key == 's' || key == 'S') {
+  //  player.down = false;
+  //}
+  //if (key == 'a' || key == 'A') {
+  //  player.left = false;
+  //}
+  //if (key == 'd' || key == 'D') {
+  //  player.right = false;
+  //}
+    keys[keyCode] = false;
+   if (key == 'z'){
+    sword.isHit = false;         
   }
-  if (key == 's' || key == 'S' || keyCode == DOWN) {
-    player.down = false;
-  }
-  if (key == 'a' || key == 'A' || keyCode == LEFT) {
-    player.left = false;
-  }
-  if (key == 'd' || key == 'D' || keyCode == RIGHT) {
-    player.right = false;
-  }
-  */
-  keys[keyCode] = false;
-  if (key == 'z'){
-    sword.isHit = false;
-     
-    
-  }
-  
 }

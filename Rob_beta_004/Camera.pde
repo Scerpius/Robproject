@@ -1,55 +1,61 @@
-class Camera{
+class Camera {
   //float x, y;
   float bx, by;
   float zoom = 1.75;
- 
-
-  
-void updateScreen(){
-  player.update();
-  player.show();
-
-  for ( int i = 0; i < bullets.size(); i++){
- Bullet b = bullets.get(i);
- b.update();
- b.show();
- 
-}
-sword.update();
 
 
-  
-}
-void updateBackground(){
-  scale(zoom);
-  background(0);
-  image(backGroundLevel, bx, by);
-  fill(255);
-  textSize(50);
-  text = "score :";
-  text(score, 150, 50);
- 
-   for (int i = 0; i < objectList.length; i++){
-    objectList[i].display(); 
+
+  void updateScreen() {
+    player.update();
+    player.show();
+
+    for ( int i = 0; i < bullets.size(); i++) {
+      Bullet b = bullets.get(i);
+      b.update();
+      b.show();
+    }
+    sword.update();
   }
-   
-   bob.code();
-   update();
-  
-  teleport.display();
-  teleport.checkBoundaryCollision();
+  void updateBackground() {
+    background(0);
+    if (start == false) {
+      startscreen.start();
+    }
 
-  // newSpawn.display();
-  for (int i = 0; i < powerups.length; i++) {
-    powerups[i].Display_Powerup();
-}
+
+    if (start) {
+      scale(zoom);
+      background(0);
+      image(backGroundLevel, bx, by);
+      fill(255);
+      textSize(50);
   
-}
+      player.x = width/4;
+      player.y = height/4;
+
+      for (int i = 0; i < objectList.length; i++) {
+        objectList[i].display();
+      }
+
+      bob.code();
+      update();
+
+      teleport.display();
+      teleport.checkBoundaryCollision();
+
+      // newSpawn.display();
+      for (int i = 0; i < powerups.length; i++) {
+        powerups[i].Display_Powerup();
+      }
+          text = "score :";
+      text(score, 150, 50);
+    }
+  }
   
   
   void update(){
-    bx -= player.vx;
-    by -= player.vy;
+  bx -= player.vx;
+  by -= player.vy;
     
     for(int i = 0; i < shooters.length; i++){
     shooters[i].posXEnemy -= player.vx;
@@ -71,10 +77,5 @@ void updateBackground(){
   teleport.portalX2 -= player.vx;
   teleport.portalY1 -= player.vy;
   teleport.portalY2 -= player.vy;
-  
-  
-  
-    
   }
-  
 }

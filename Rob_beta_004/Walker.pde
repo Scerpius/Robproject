@@ -13,9 +13,21 @@
 //wacht 5 seconden - constante * rondes
 //}
 public class Walker {
+    String spritesDownEnemy[] = {"Enemy1.png", "Enemy2.png", "Enemy3.png", };
+
+  String spritesLeftEnemy[] ={"Enemy4.png", "Enemy5.png", "Enemy6.png"};
+
+  String spritesRightEnemy[] ={"Enemy7.png", "Enemy8.png", "Enemy9.png"};
+
+  String spritesUpEnemy[] ={"Enemy10.png", "Enemy11.png", "Enemy12.png"};
+
+  int cycleDirectionXEnemy1 = 0;
+  int cycleDirectionYEnemy1 = 0;
+  
   float sizeEnemy = 40;
-  int PointWalkX = int(random(sizeEnemy/2, width - sizeEnemy/2));
-  int PointWalkY = int(random(sizeEnemy/2, height - sizeEnemy/2));
+  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
+  int Enemylives = 3;
   float posXEnemy;
   float posYEnemy;
   float distX;
@@ -30,10 +42,11 @@ public class Walker {
   float distYp;
   float detectEnemy = 200;
   PImage texture;
+  int framecount = 0;
 
 
   Walker() {
-    texture = loadImage("green_invader.png");
+    texture = loadImage("Enemy2.png");
   }
 
 
@@ -81,10 +94,32 @@ public class Walker {
 
       posXEnemy = posXEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      
+            texture = loadImage(spritesLeftEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
+      
+
     } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
 
       posXEnemy = posXEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      
+       texture = loadImage(spritesRightEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
     } else { //done
 
       Xtrue = true;
@@ -96,10 +131,30 @@ public class Walker {
 
       posYEnemy = posYEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      
+       texture = loadImage(spritesUpEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
     } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
 
       posYEnemy = posYEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      
+       texture = loadImage(spritesDownEnemy[cycleDirectionXEnemy1]);
+    framecount++;
+    if (framecount == 9) {
+      cycleDirectionXEnemy1++;
+      framecount = 0;
+    }
+    if (cycleDirectionXEnemy1 == 3) {
+      cycleDirectionXEnemy1 = 0;
+    }
     } else {
       Ytrue = true; //done
     }
@@ -107,8 +162,8 @@ public class Walker {
   void check() {
     // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
     if ( Xtrue == true && Ytrue == true) {
-      PointWalkY = int(random(sizeEnemy/2, height - sizeEnemy/2));
-      PointWalkX = int(random(sizeEnemy/2, width-sizeEnemy/2));
+      PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+      PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2));
       Xtrue = false;
       Ytrue = false;
     }
@@ -128,18 +183,58 @@ public class Walker {
     if (posYEnemy>player.y && posXEnemy > player.x) {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
+            
+      texture = loadImage(spritesRightEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
     }
     if (posYEnemy>player.y && posXEnemy < player.x) {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
+            
+      texture = loadImage(spritesUpEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
     } 
     if (posYEnemy<player.y &&   posXEnemy > player.x) {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
+            
+      texture = loadImage(spritesLeftEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
     }
     if (posYEnemy<player.y &&  posXEnemy < player.x) {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
+      
+      texture = loadImage(spritesRightEnemy[cycleDirectionXEnemy1]);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionXEnemy1++;
+        framecount = 0;
+      }
+      if (cycleDirectionXEnemy1 == 3) {
+        cycleDirectionXEnemy1 = 0;
+      }
     }
     //geleidelijk sterker maken van de vijanden
   }
@@ -179,18 +274,21 @@ public class Walker {
 
         break;
         case (2):
+        CurrentNumEnemies += 1 * 1.008;
         //spawn delay lager
         uitgevoerd = true;
         MaxEnemies = false;
 
         break;
         case (3):
+        CurrentNumEnemies += 1 * 1.008;
         EnemyLives += 2;
         uitgevoerd = true;
         MaxEnemies = false;
 
         break;
         case (4):
+        CurrentNumEnemies += 1 * 1.008;
         //doet meer damage
         uitgevoerd = true;
         MaxEnemies = false;
