@@ -2,13 +2,14 @@ Player player;
 Bob bob;
 Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
+Sword sword;
 
 //SpawnPoint newSpawn;
 Walker walker;
 Object object;
 Collision collision;
 Teleporter teleport;
-
+Start startscreen;
 
 
 int score;
@@ -28,6 +29,7 @@ int iEnemy;
 static int i;
 int roundCount = 0;
 int time = millis();
+boolean start = false;
 
 boolean invisibility = false;
 boolean kill = false;
@@ -77,7 +79,7 @@ void setup() {
     shooters[iEnemy] = new Shooter();
 
     backGroundLevel = loadImage("Backgroundtegels.png");
-    StartScreen = loadImage("BackgroundMain.png");
+   // StartScreen = loadImage("BackgroundMain.png");
    // file = new SoundFile(this, "Synthwave.wav");
     //file.loop();
   }
@@ -88,6 +90,8 @@ void setup() {
   teleport = new Teleporter();
   collision = new Collision();
   camera = new Camera();
+  sword = new Sword();
+  startscreen = new Start();
 
   noStroke();
   player = new Player();
@@ -117,6 +121,11 @@ void keyPressed() {
     bullets.add(b);
     b.fire(player.x, player.y);
   }
+    if (key == 'z'){
+    sword.isHit = true;
+     sword.show();
+    
+  }
 }
 void keyReleased() {
   if (key == 'w' || key == 'W') {
@@ -130,5 +139,8 @@ void keyReleased() {
   }
   if (key == 'd' || key == 'D') {
     player.right = false;
+  }
+   if (key == 'z'){
+    sword.isHit = false;         
   }
 }

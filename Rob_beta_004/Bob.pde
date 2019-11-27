@@ -106,12 +106,6 @@ class Bob {
             anWalker.reset();
             score = score + 1;
           }
-          for (int i = 0; i < powerups.length; i++) {
-            if (powerups[i].x == powerups[i].xResetValue) {
-              powerups[i].spawn();
-              break;
-            }
-          }
         }
       }
     }
@@ -127,7 +121,39 @@ class Bob {
           if (anShooter.Enemylives == 0) {
             anShooter.reset();
             score = score + 1;
+
+            for (int i = 0; i < powerups.length; i++) {
+              if (powerups[i].x == powerups[i].xResetValue) {
+                powerups[i].spawn();
+                break;
+              }
+            }
           }
+        }
+      }
+    }
+    for (Walker anWalker : walkers) {
+      if (overlaps(sword.x, sword.y, sword.box, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+        if ( sword.isHit == true) {
+          powerupX = anWalker.posXEnemy;
+          powerupY = anWalker.posYEnemy;
+          anWalker.reset();
+          score = score + 1;
+        }
+      }
+    }
+
+
+
+    for (Shooter anShooter : shooters) {
+      if (overlaps(sword.x, sword.y, sword.box, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
+        if ( sword.isHit == true) {
+          powerupX = anShooter.posXEnemy;
+          powerupY = anShooter.posYEnemy;
+
+
+          anShooter.reset();
+          score = score + 1;
         }
       }
     }
@@ -150,6 +176,7 @@ class Bob {
           if (millis() >= time + 1000) {
             invisibility = false;
           }
+          time = millis();
         }
       }
     }

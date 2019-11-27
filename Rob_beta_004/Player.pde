@@ -32,6 +32,12 @@ public class Player {
   PImage photo;
   PImage playerSprite;
 
+  boolean shield = false;
+  boolean dubbelDamage = false;
+  float dmg = 3;
+  float AS = 5;
+
+
   Player() {
     x = width/2;
     y = height/2 +200;
@@ -54,6 +60,10 @@ public class Player {
     x = constrain (x, 0, width-67);
     y = constrain (y, 0, height-42);
     image(playerSprite, x, y);
+    
+        if (shield) {
+      ellipse(x + (playerSprite.width/2), y + (playerSprite.height / 2), playerSprite.width + 30, playerSprite.height + 20);
+    }
   }
 
 

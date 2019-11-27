@@ -29,12 +29,24 @@ class Teleporter {
   int portalY1 = 150;
   int portalX2 = 1100;
   int portalY2 = 470;
+  //portal startscherm????
+  int portalX3 = 1200;
+  int portalY3 = 1200;
+  int portalX4 = 350;
+  int portalY4 = 550;
+
 
   // Detection Boxes //
   int detectionX1 = 122;
   int detectionY1 = 200;
   int detectionX2 = 1152;
   int detectionY2 = 520;
+  //Detection startscherm????????
+  int detectionX3 = 902;
+  int detectionY3 = 425;
+  int detectionX4 = 402;
+  int detectionY4 = 600;
+
 
   // Hitbox Size //
   int boxSize = 100;
@@ -46,7 +58,7 @@ class Teleporter {
   int framecount = 0;
   int cycleDirection;
 
-  void display() {
+ void display() {
     noStroke();
     noFill();
 
@@ -69,29 +81,64 @@ class Teleporter {
 
     // Draw the portals //
     Teleportal = loadImage(sprites[cycleDirection]);
-    image(Teleportal, portalX1, portalY1);
-    image(Teleportal, portalX2, portalY2);
+    if (start) {
+      image(Teleportal, portalX1, portalY1);
+      image(Teleportal, portalX2, portalY2);
+      
+    }
+    if (start == false) {
+      image(Teleportal, portalX3, portalY3);
+      image(Teleportal, portalX4, portalY4);
+    }
   }
+
 
   // Check if there is a collision //
   void checkBoundaryCollision() {
+    if (start) {
+      float xdistance1 = detectionX1 - player.x - player.playerSprite.width /2 ;
+      float ydistance1 = detectionY1 - player.y - player.playerSprite.height /2;
+      float distancetocenter1 = pythagoras(xdistance1, ydistance1);
 
-    float xdistance1 = detectionX1 - player.x - player.playerSprite.width /2 ;
-    float ydistance1 = detectionY1 - player.y - player.playerSprite.height /2;
-    float distancetocenter1 = pythagoras(xdistance1, ydistance1);
+      if (distancetocenter1 - boxSize/2 <= 0) {
+        player.x = detectionX2 - 100; 
+        player.y = detectionY2 - 10;
+      }
 
-    if (distancetocenter1 - boxSize/2 <= 0) {
-      player.x = detectionX2 - 100; 
-      player.y = detectionY2 - 10;
+      float xdistance2 = detectionX2 - player.x - player.playerSprite.width /2 ;
+      float ydistance2 = detectionY2 - player.y - player.playerSprite.height /2;
+      float distancetocenter2 = pythagoras(xdistance2, ydistance2);
+
+      if (distancetocenter2 - boxSize /2 <= 0) {
+        player.x = detectionX1 + 100; 
+        player.y = 
+          detectionY1 - 10;
+      }
     }
+    if (start == false) {
+      float xdistance3 = detectionX3 - player.x - player.playerSprite.width /2 ;
+      float ydistance3 = detectionY3 - player.y - player.playerSprite.height /2;
+      float distancetocenter3 = pythagoras(xdistance3, ydistance3);
 
-    float xdistance2 = detectionX2 - player.x - player.playerSprite.width /2 ;
-    float ydistance2 = detectionY2 - player.y - player.playerSprite.height /2;
-    float distancetocenter2 = pythagoras(xdistance2, ydistance2);
+      if (distancetocenter3 - boxSize /2 <= 0) {
+        player.x = detectionX4 + 100; 
+        player.y = 
+          detectionY4 - 10;
+      }
 
-    if (distancetocenter2 - boxSize /2 <= 0) {
-      player.x = detectionX1 + 100; 
-      player.y = detectionY1 - 10;
+
+
+
+      float xdistance4 = detectionX4 - player.x - player.playerSprite.width /2 ;
+      float ydistance4 = detectionY4 - player.y - player.playerSprite.height /2;
+      float distancetocenter4 = pythagoras(xdistance4, ydistance4);
+
+      if (distancetocenter4 - boxSize /2 <= 0) {
+        player.x = detectionX3 + 100; 
+        player.y = 
+        detectionY3 - 10;
+        start = true;
+      }
     }
   }
 }
@@ -111,7 +158,7 @@ float pythagoras(float x, float y) {
 
 
 
-  
+
 //}
 
 //void display() {
