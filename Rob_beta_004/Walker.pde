@@ -27,11 +27,13 @@ public class Walker {
   float sizeEnemy = 40;
   int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
   int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
+  final int startEnemylives = 3;
   int Enemylives = 3;
   float posXEnemy;
   float posYEnemy;
   float distX;
   float distY;
+  final float startSpeedEnemy = 1;
   float speedEnemy = 1;
   float moveEnemy = speedEnemy; //nodig
   boolean Xtrue = false;
