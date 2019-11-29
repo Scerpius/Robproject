@@ -13,16 +13,16 @@
 //wacht 5 seconden - constante * rondes
 //}
 public class Walker {
-  String spritesDownEnemy[] = {"Enemy1.png", "Enemy2.png", "Enemy3.png", };
+  String spritesDownEnemy[] = {"Walker1.png", "Walker2.png", "Walker3.png", };
 
-  String spritesLeftEnemy[] ={"Enemy4.png", "Enemy5.png", "Enemy6.png"};
+  String spritesLeftEnemy[] ={"Walker4.png", "Walker5.png", "Walker6.png"};
 
-  String spritesRightEnemy[] ={"Enemy7.png", "Enemy8.png", "Enemy9.png"};
+  String spritesRightEnemy[] ={"Walker7.png", "Walker8.png", "Walker9.png"};
 
-  String spritesUpEnemy[] ={"Enemy10.png", "Enemy11.png", "Enemy12.png"};
+  String spritesUpEnemy[] ={"Walker10.png", "Walker11.png", "Walker12.png"};
 
   int cycleDirectionXEnemy1 = 0;
-  int cycleDirectionYEnemy1 = 0;
+
 
   float sizeEnemy = 40;
   int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
@@ -48,7 +48,7 @@ public class Walker {
 
 
   Walker() {
-    texture = loadImage("Enemy2.png");
+    texture = loadImage("Walker2.png");
   }
 
 
