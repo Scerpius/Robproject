@@ -8,7 +8,7 @@ public class Player {
 
   String spritesUp[] ={"Robotpos10.png", "Robotpos11.png", "Robotpos12.png"};
 
-
+final float startMovementSpeed = 3;
   float movementSpeed = 3;
   float acceleration = 1.5;
   float drag = 0.5;
@@ -27,6 +27,7 @@ public class Player {
   float pY;
   //float size;
   boolean left, right, up, down = false;
+  final float startHp = 3; 
   float hp = 3;
   int direction = 4;
   PImage photo;

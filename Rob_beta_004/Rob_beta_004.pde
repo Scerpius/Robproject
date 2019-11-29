@@ -21,6 +21,7 @@ PImage StartScreen;
 Object[] objectList = new Object[5];
 
 static final int NumberOfEnemies = 20;
+int state = 1;
 int CurrentNumEnemies = 10 ; //nodig
 int walkCount = 0; //niet gebruikt
 int KillForRoundUp = 0; //niet gebruikt
@@ -29,6 +30,7 @@ int iEnemy;
 static int i;
 int roundCount = 0;
 int time = millis();
+int stateTextSize = 60;
 boolean start = false;
 
 boolean invisibility = false;
@@ -65,22 +67,22 @@ void setup() {
   size(1280, 720);
   noStroke();
   smooth(4);
-  
-   loadAssets();
+
+  loadAssets();
   objectList[0] = new Object(CRATER_X, CRATER_Y, crater);
   objectList[1] = new Object(BARREL_X, BARREL_Y, barrel);
   objectList[2] = new Object(CRATER_X, CRATER_Y, crater);
   objectList[3] = new Object(CRATER_X, CRATER_Y, crater);
   objectList[4] = new Object(PLANK_X, PLANK_Y, plank);
-  
+
   for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
     positionSpawn[iEnemy] = (floor(random(0, 4)));
     walkers[iEnemy] = new Walker();
     shooters[iEnemy] = new Shooter();
 
     backGroundLevel = loadImage("Backgroundtegels.png");
-   // StartScreen = loadImage("BackgroundMain.png");
-   // file = new SoundFile(this, "Synthwave.wav");
+    // StartScreen = loadImage("BackgroundMain.png");
+    // file = new SoundFile(this, "Synthwave.wav");
     //file.loop();
   }
   for (int i = 0; i <10; i++) {
@@ -99,8 +101,61 @@ void setup() {
 }
 
 void draw() {
-  camera.updateBackground();
-  camera.updateScreen();
+  if (state == 1) {
+    background(0);
+     fill(200);
+     textSize(stateTextSize);
+    textAlign(CENTER);
+    text("press 'X' to start", width/2, height/2);
+    if (keyPressed && key == 'x') {
+      state = 2;
+    }
+  }
+
+  if (state == 2) {
+    camera.updateBackground();
+    camera.updateScreen();
+    if (keyPressed && key =='b'){
+      player.hp = 0;
+    }
+    if (keyPressed && key =='p') {
+      state = 3;
+    }
+    if (player.hp <=0){
+     state = 4; 
+    }
+  }
+  if (state == 3) {
+    fill(175);
+    textAlign(CENTER);
+    textSize(stateTextSize);
+    text("Paused", width/2, height/2);
+   text("press 'O' to continue", width/2, height/2 + stateTextSize);
+    if (keyPressed && key == 'o') {
+      state = 2;
+    }
+  }
+  if (state == 4){
+    fill(175);
+    textAlign(CENTER);
+    textSize(stateTextSize);
+    text("Game over", width/2, height/2);
+      text("your score was" , width/2, height/2 + stateTextSize);
+      text("current highscore: 136", width/2, height/2 + 2*stateTextSize);
+      text("Press 'R' to restart", width/2, height/2 + 3*stateTextSize);
+      if (keyPressed && key == 'r'){
+      //reset alles 
+    //  shooters.Enemylives = shooters.startEnemylives;
+    // shooters.speedEnemy = shooters.startSpeedEnemy;
+    //  walker.Enemylives = walker.startEnemylives;
+    //walker.speedEnemy = walker.startSpeedEnemy;
+    //  player.movementSpeed = player.startMovementSpeed;
+    //  player.hp = player.startHp; 
+    //  roundCount = 0;
+    //  score = 0;
+      state = 2;
+      }
+  }
 }
 
 void keyPressed() {
@@ -116,15 +171,14 @@ void keyPressed() {
   if (key == 'd' || key == 'D') {
     player.right = true;
   }
-   if (key == ' '){
+  if (key == ' ') {
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
   }
-    if (key == 'z'){
+  if (key == 'z') {
     sword.isHit = true;
-     sword.show();
-    
+    sword.show();
   }
 }
 void keyReleased() {
@@ -140,7 +194,7 @@ void keyReleased() {
   if (key == 'd' || key == 'D') {
     player.right = false;
   }
-   if (key == 'z'){
-    sword.isHit = false;         
+  if (key == 'z') {
+    sword.isHit = false;
   }
 }
