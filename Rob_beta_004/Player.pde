@@ -50,7 +50,7 @@ final float startMovementSpeed = 3;
     playerSprite = loadImage("Robotpos2.png");
   }
 
-  void Player_dead() {
+  void Player_dead() { // sql.execute("INSERT INTO playerkiller VALUES(" + playerid + ", " + enemyid + ", " + enemytype + ");"); moet staan waar je dit oproept
     if (hp <= 0) {
       textSize(200);
       text("You dead", 300, 100);

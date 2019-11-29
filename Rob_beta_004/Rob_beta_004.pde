@@ -1,3 +1,14 @@
+import de.bezier.data.sql.*;
+import de.bezier.data.sql.mapper.*;
+
+MySQL sql; 
+
+String database = "127.0.0.1"; // Database IP, ik gebruik XAMPP voor localhost (zelfde idee als MySQL Server als goed is)
+String databaseName = "hva"; // Database Name, de naam die ik gebruik voor mijn database
+String username = "root"; // Gebruikersnaam waarmee je in je database inlogt
+String password = "Dreef123!"; // Omdat ik localhost gebruik, heb ik geen password
+
+
 Player player;
 Bob bob;
 Camera camera;
@@ -64,6 +75,7 @@ import processing.sound.*;
 SoundFile file;
 
 void setup() {
+  sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
   smooth(4);
@@ -98,7 +110,31 @@ void setup() {
   noStroke();
   player = new Player();
   bob = new Bob();
+  if (sql.connect()) {
+    sql.execute("CREATE TABLE IF NOT EXISTS Game (time float, score float, playerid varchar(150), PRIMARY KEY(playerid));");
+    sql.execute("CREATE TABLE IF NOT EXISTS Player(hp float, pos float, playerid float, PRIMARY KEY(playerid));");
+    sql.execute("CREATE TABLE IF NOT EXISTS Enemy (enemytype varchar(150), enemyposx float, enemyposy float, enemyid float, PRIMARY KEY(enemyid));");
+    sql.execute("CREATE TABLE IF NOT EXISTS Playerkiller (playerid float, enemyid float, enemytype varchar(150), " + 
+      "FOREIGN KEY(playerid) REFERENCES Player(playerid), FOREIGN KEY(enemyid) REFERENCES Enemy(enemyid), PRIMARY KEY(playerid, enemyid);");
+
+    String playerid = "1155";
+    String enemytype = "walker";
+    String enemytype2 = "shooter";
+    int enemyid = 123;
+
+
+    sql.execute("INSERT INTO Game VALUES (" + time + ", " + score + ", " +playerid+ ");");
+    sql.execute("INSERT INTO Player VALUES(" + player.hp + ", " + player.x + ", " + player.y + ", " + playerid + ");");
+    for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) { 
+
+
+      sql.execute("INSERT INTO Enemy VALUES(" + enemytype + ", " + walkers[iEnemy].posXEnemy + ", " + walkers[iEnemy].posYEnemy + ", " + enemyid +");");
+      sql.execute("INSERT INTO Enemy VALUES(" + enemytype2 + ", " + shooters[iEnemy].posXEnemy + ", " + shooters[iEnemy].posYEnemy + "," + enemyid++ +" );");
+      enemyid += 2;
+    }
+  }
 }
+
 
 void draw() {
   if (state == 1) {
