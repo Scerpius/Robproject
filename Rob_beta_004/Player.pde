@@ -5,7 +5,8 @@ class Player {
 
   float w;
   float h;
-  float hp;
+  final float startHp = 3;
+  float hp = 3;
   float direction;
 
   boolean shield = false;
@@ -76,6 +77,7 @@ class Player {
         direction = 2;
         playerSprite = loadImage(spritesRight[cycleDirectionx]);
         framecount++;
+        
         if (framecount == 9) {
           cycleDirectionx++;
           framecount = 0;

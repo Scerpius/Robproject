@@ -1,34 +1,34 @@
+int cycleDirection;
+
 PImage plank;
 PImage barrel;
 PImage crater;
-PImage portal;
 PImage playerSprite;
+PImage Teleportal;
+
+String [] sprites = {"Teleportal1.png", "Teleportal2.png", "Teleportal3.png"};
 
 void loadAssets() {
   plank = loadImage("Plank.png");
   barrel = loadImage("Barrel.png");
   crater = loadImage("Crater.png");
-  portal = loadImage("Portal.png");
   playerSprite = loadImage("Player.png");
+  Teleportal = loadImage(sprites[cycleDirection]);
   PLANK_X = (width-plank.width)/2;
   PLANK_Y = (height-plank.height)/2;
 }
 
 class Teleporter {
   // Array of portals //
-  String [] sprites = {"Teleportal1.png", "Teleportal2.png", "Teleportal3.png"};
 
   // Declare the picture //
-  PImage Teleportal;
+
 
   // Colors //
   final color WHITE = color(255), PURPLE = color(55, 16, 72);
 
   // Portal coords //
-  int portalX1 = 70;
-  int portalY1 = 150;
-  int portalX2 = 1100;
-  int portalY2 = 470;
+
   //portal startscherm????
   int portalX3 = 1200;
   int portalY3 = 1200;
@@ -37,10 +37,7 @@ class Teleporter {
 
 
   // Detection Boxes //
-  int detectionX1 = 122;
-  int detectionY1 = 200;
-  int detectionX2 = 1152;
-  int detectionY2 = 520;
+
   //Detection startscherm????????
   int detectionX3 = 902;
   int detectionY3 = 425;
@@ -56,9 +53,9 @@ class Teleporter {
 
   // Time Delay //
   int framecount = 0;
-  int cycleDirection;
+  
 
- void display() {
+  void display() {
     noStroke();
     noFill();
 
@@ -80,12 +77,11 @@ class Teleporter {
     }
 
     // Draw the portals //
-    Teleportal = loadImage(sprites[cycleDirection]);
-    if (start) {
-      image(Teleportal, portalX1, portalY1);
-      image(Teleportal, portalX2, portalY2);
-      
-    }
+
+    //if (start) {
+    //  image(Teleportal, portalX1, portalY1);
+    //  image(Teleportal, portalX2, portalY2);
+    //}
     if (start == false) {
       image(Teleportal, portalX3, portalY3);
       image(Teleportal, portalX4, portalY4);
@@ -111,8 +107,7 @@ class Teleporter {
 
       if (distancetocenter2 - boxSize /2 <= 0) {
         player.x = detectionX1 + 100; 
-        player.y = 
-          detectionY1 - 10;
+        player.y = detectionY1 - 10;
       }
     }
     if (start == false) {
@@ -122,8 +117,7 @@ class Teleporter {
 
       if (distancetocenter3 - boxSize /2 <= 0) {
         player.x = detectionX4 + 100; 
-        player.y = 
-          detectionY4 - 10;
+        player.y = detectionY4 - 10;
       }
 
 
@@ -135,8 +129,7 @@ class Teleporter {
 
       if (distancetocenter4 - boxSize /2 <= 0) {
         player.x = detectionX3 + 100; 
-        player.y = 
-        detectionY3 - 10;
+        player.y = detectionY3 - 10;
         start = true;
       }
     }
@@ -153,50 +146,3 @@ float pythagoras(float x, float y) {
 
   return anwser;
 }
-//class Object {
-
-
-
-
-
-//}
-
-//void display() {
-
-
-//  //BookShelf Size = 100,132px
-//  // image(bookShelf, BOOKSHELF_X, BOOKSHELF_Y);
-//  //Barrel Size = 50, 65px
-//  image(barrel, BARREL_X, BARREL_Y);
-//  image (crater, CRATER_X, CRATER_Y, CRATER_WIDTH, CRATER_HEIGHT);
-//  image (portal, (width-portal.width)/2, 0);
-//  image (portal, (width-portal.width)/2, height-portal.height);
-//  image (plank, PLANK_X, PLANK_Y);
-
-//  }
-
-//  //Player walkspace. Hier staat de code met waar de player kan lopen. Zo kan hij niet door muren lopen maar wel
-//  // in de enemy spawn
-
-//  //player.x = constrain(player.x, 54, width-100);
-//  //player.y = constrain(player.y, 108, height-181);
-
-//  if (!collision.hasCollision()) {
-//    collision.top = false;
-//    collision.bottom = false;
-//    collision.right = false;
-//    collision.left = false;
-//  }
-//  if (collision.hasCollision() && !collision.collidesWithPlank()) {
-//    if (collision.left) {
-//      player.x = object.CRATER_X + object.CRATER_WIDTH ;
-//    } else if (collision.right) {
-//      player.x = object.CRATER_X  - player.player.width;
-//    } else if (collision.bottom) {
-//      player.y = object.CRATER_Y - player.player.height;
-//    } else {
-//      player.y = object.CRATER_Y + object.CRATER_HEIGHT;
-//    }
-//  }
-//}
-//}

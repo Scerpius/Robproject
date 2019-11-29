@@ -102,9 +102,15 @@ class Bob {
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
           anWalker.Enemylives = anWalker.Enemylives - 1;
-          if (anWalker.Enemylives == 0) {
+          if (anWalker.Enemylives <= 0) {
             anWalker.reset();
             score = score + 1;
+            for (int i = 0; i < powerups.length; i++) {
+              if (powerups[i].x == powerups[i].xResetValue) {
+                powerups[i].spawn();
+                break;
+              }
+            }
           }
         }
       }
@@ -118,7 +124,7 @@ class Bob {
 
           anBullet.reset();
           anShooter.Enemylives =  anShooter.Enemylives -1;
-          if (anShooter.Enemylives == 0) {
+          if (anShooter.Enemylives <= 0) {
             anShooter.reset();
             score = score + 1;
 
@@ -139,6 +145,12 @@ class Bob {
           powerupY = anWalker.posYEnemy;
           anWalker.reset();
           score = score + 1;
+          for (int i = 0; i < powerups.length; i++) {
+            if (powerups[i].x == powerups[i].xResetValue) {
+              powerups[i].spawn();
+              break;
+            }
+          }
         }
       }
     }
@@ -154,6 +166,12 @@ class Bob {
 
           anShooter.reset();
           score = score + 1;
+          for (int i = 0; i < powerups.length; i++) {
+            if (powerups[i].x == powerups[i].xResetValue) {
+              powerups[i].spawn();
+              break;
+            }
+          }
         }
       }
     }

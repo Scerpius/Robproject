@@ -29,7 +29,8 @@ class Camera {
       image(backGroundLevel, bx, by);
       fill(255);
       textSize(50);
-  
+      
+
       player.x = width/4;
       player.y = height/4;
 
@@ -39,7 +40,8 @@ class Camera {
 
       bob.code();
       update();
-
+      cooldowntimer++;
+cooldowntimer = constrain (cooldowntimer, 0, 300);
       teleport.display();
       teleport.checkBoundaryCollision();
 
@@ -47,35 +49,75 @@ class Camera {
       for (int i = 0; i < powerups.length; i++) {
         powerups[i].Display_Powerup();
       }
-          text = "score :";
+      text = "score :";
       text(score, 150, 50);
     }
   }
-  
-  
-  void update(){
-  bx -= player.vx;
-  by -= player.vy;
+
+
+  void update() {
+    float tempVX = player.vx;
+    float tempVY = player.vy;
     
-    for(int i = 0; i < shooters.length; i++){
-    shooters[i].posXEnemy -= player.vx;
-    shooters[i].posYEnemy -= player.vy;
-  }
-  for(int i = 0; i < walkers.length; i++){
-    walkers[i].posXEnemy -= player.vx;
-    walkers[i].posYEnemy -= player.vy;
-  }
-    for(int i = 0; i < powerups.length; i++){
-    powerups[i].x -= player.vx;
-    powerups[i].y -= player.vy;
-  }
-  for(int i = 0; i < objectList.length; i++){
-    objectList[i].x -= player.vx;
-    objectList[i].y -= player.vy;
-  }
-  teleport.portalX1 -= player.vx;
-  teleport.portalX2 -= player.vx;
-  teleport.portalY1 -= player.vy;
-  teleport.portalY2 -= player.vy;
+
+    /*
+    Checkt of de player collision heeft met een object, als hij dat niet heeft beweegt de camera. Als dat wel het geval is beweegt hij niet.
+     Wanneer de camera bewogen wordt, dan beweegt alles behalve de player.
+     */
+    if (collision.checkPortal(player.x + tempVX, player.y + tempVY, player.w, player.h) == true) {
+      bx -= player.vx;
+      by -= player.vy;
+
+      for (int i = 0; i < shooters.length; i++) {
+        shooters[i].posXEnemy -= player.vx;
+        shooters[i].posYEnemy -= player.vy;
+      }
+      for (int i = 0; i < walkers.length; i++) {
+        walkers[i].posXEnemy -= player.vx;
+        walkers[i].posYEnemy -= player.vy;
+      }
+      for (int i = 0; i < powerups.length; i++) {
+        powerups[i].x -= player.vx;
+        powerups[i].y -= player.vy;
+      }
+      for (int i = 0; i < objectList.length; i++) {
+        objectList[i].x -= player.vx;
+        objectList[i].y -= player.vy;
+      }
+    } else { 
+      if (collision.checkCollision(player.x + tempVX, player.y, player.w, player.h) == false) {
+        bx -= player.vx;
+
+        for (int i = 0; i < shooters.length; i++) {
+          shooters[i].posXEnemy -= player.vx;
+        }
+        for (int i = 0; i < walkers.length; i++) {
+          walkers[i].posXEnemy -= player.vx;
+        }
+        for (int i = 0; i < powerups.length; i++) {
+          powerups[i].x -= player.vx;
+          powerups[i].xResetValue -= player.vx;
+        }
+        for (int i = 0; i < objectList.length; i++) {
+          objectList[i].x -= player.vx;
+        }
+      }
+      if (collision.checkCollision(player.x, player.y + tempVY, player.w, player.h) == false) {
+        by -= player.vy;
+
+        for (int i = 0; i < shooters.length; i++) {
+          shooters[i].posYEnemy -= player.vy;
+        }
+        for (int i = 0; i < walkers.length; i++) {
+          walkers[i].posYEnemy -= player.vy;
+        }
+        for (int i = 0; i < powerups.length; i++) {
+          powerups[i].y -= player.vy;
+        }
+        for (int i = 0; i < objectList.length; i++) {
+          objectList[i].y -= player.vy;
+        }
+      }
+    }
   }
 }

@@ -1,15 +1,13 @@
-public class Shooter {
+public class Boss {
   Kogel kogel;
   float sizeEnemy =40;
   int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
   int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
-  final int startEnemylives = 3;
-  int Enemylives = 3;
+  int Enemylives = 10;
   float posXEnemy;
   float posYEnemy;
   float distX;
   float distY;
-  final float startSpeedEnemy = 1;
   float speedEnemy = 0.5;
   float moveEnemy = speedEnemy; //nodig
   float direction;
@@ -31,7 +29,7 @@ public class Shooter {
   PImage texture;
 
 
-  Shooter() {
+  Boss() {
     texture = loadImage("red_invader.png");
   }
   //tekenen
@@ -45,24 +43,8 @@ public class Shooter {
     }
   }
   void spawn() {
-    switch(positionSpawn[i]) {
-      case(0):
-      posXEnemy = random(width/2 -35, width/2 + 35);
-      posYEnemy = random(0, 30);
-      break;
-      case(1):
-      posXEnemy = random(width-30, width);
-      posYEnemy = random(height/2-35, height/2+35);
-      break;
-      case(2):
-      posXEnemy = random(width/2 -35, width/2 + 35);
-      posYEnemy = random(height-30, height);
-      break;
-      case(3):
-      posXEnemy = random(0, 30);
-      posYEnemy = random(height/2-35, height/2+35);
-      break;
-    }
+    posXEnemy = width/2;
+    posYEnemy = height/2;
   }
 
   void reset() {
@@ -131,14 +113,14 @@ public class Shooter {
       spawned = false;
       detect();
       if (detectedD)      
-        dY = 3;
+        dY = 20;
       else
-        dY = -3;
+        dY = -20;
 
       if (detectedR)
-        dX = 3;
+        dX = 20;
       else
-        dX = -3;
+        dX = -20;
 
       kogel = new Kogel(posXEnemy, posYEnemy, dX, dY);
     }
@@ -193,66 +175,6 @@ public class Shooter {
       spawnedR = false; 
       spawnedL = false;
       spawned = true;
-    }
-  }
-  //2.45
-  void Stronger() {
-
-    if (score %10 ==0 && score != 0 && killRound == true) {
-
-      roundCount ++;
-      killRound = false;
-      uitgevoerd = false;
-    } else if (score %10 ==9) {
-      killRound = true;
-    }
-    if (uitgevoerd == false) {
-      for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-        walkers[iEnemy].moveEnemy = walkers[iEnemy].speedEnemy;
-        shooters[iEnemy].moveEnemy = shooters[iEnemy].speedEnemy;
-      }
-      switch (roundCount %5) {
-        case (0):
-        //spawn meer enemies
-
-        CurrentNumEnemies *= 1.008;
-        MaxEnemies = false;
-        uitgevoerd = true;
-
-        break;
-        case (1):
-        //beweeg sneller
-        CurrentNumEnemies *= 1.008;
-        for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-          walkers[iEnemy].speedEnemy *= 1.25;
-          shooters[iEnemy].speedEnemy  *= 1.25;
-        }
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-        case (2):
-        CurrentNumEnemies += 1 * 1.008;
-        //spawn delay lager
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-        case (3):
-        CurrentNumEnemies += 1 * 1.008;
-        EnemyLives += 2;
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-        case (4):
-        CurrentNumEnemies += 1 * 1.008;
-        //doet meer damage
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-      }
     }
   }
 }

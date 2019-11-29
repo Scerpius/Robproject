@@ -1,4 +1,4 @@
-class Powerup {
+ class Powerup {
   float x;
   float xResetValue = -1100;
   float y;
@@ -18,12 +18,12 @@ class Powerup {
 
   void spawn() {
 
-    int powerupChance = int(random(4, 5));
+    int powerupChance = int(random(0, 6));
     //println("powerupChance : " + powerupChance);
 
     if (powerupChance == 4) {
 
-      whatPowerup = int(random(3, 4));
+      whatPowerup = int(random(0, 6));
       if (whatPowerup == 0) { 
         texture = loadImage("Hp.png");
       }
@@ -37,7 +37,7 @@ class Powerup {
         texture = loadImage("Speed.png");
       }
       if (whatPowerup == 4) { 
-        texture = loadImage("dmg.png");
+       // texture = loadImage("dmg.png");
       }
       if (whatPowerup == 5) { 
         texture = loadImage("dubbelDamage.png");
