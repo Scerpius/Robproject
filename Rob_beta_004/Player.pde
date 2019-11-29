@@ -33,8 +33,8 @@ class Player {
   Player() {
     playerSprite = loadImage("Robotpos1.png");
     reset();
-    x = width/4;
-    y = height/4;
+    x = 375;
+    y = 375;
     w = playerSprite.width;
     h = playerSprite.height;
   }
@@ -48,10 +48,22 @@ class Player {
     vx = 0;
     vy = 0;
     if (start == false) {
-      if ((keys[LEFT])||(keys['A']))vx = -3;
-      if ((keys[RIGHT])||(keys['D'])) vx = 3;
-      if ((keys[UP])||(keys['W'])) vy = -3;
-      if ((keys[DOWN])||(keys['S'])) vy = 3;
+      if ((keys[LEFT])||(keys['A'])){
+        vx = -3;
+        direction = 1;
+      }
+      if ((keys[RIGHT])||(keys['D'])){
+        vx = 3;
+        direction = 2;
+      }
+      if ((keys[UP])||(keys['W'])){
+        vy = -3;
+        direction = 4;
+      }
+      if ((keys[DOWN])||(keys['S'])){
+        vy = 3;
+        direction = 3;
+      }
       x = x + vx;
       y = y + vy;
     }
