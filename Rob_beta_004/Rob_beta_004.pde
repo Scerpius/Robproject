@@ -66,7 +66,7 @@ static int[] positionSpawn = new int [NumberOfEnemies];
 int[] colour = new int [NumberOfEnemies];
 Shooter [] shooters = new Shooter[NumberOfEnemies];
 Walker[] walkers = new Walker[NumberOfEnemies];
-
+Boss[] boss = new Boss[iEnemy];
 Powerup[] powerups= new Powerup[10];
 
 
@@ -181,14 +181,14 @@ void draw() {
       text("Press 'R' to restart", width/2, height/2 + 3*stateTextSize);
       if (keyPressed && key == 'r'){
       //reset alles 
-    //  shooters.Enemylives = shooters.startEnemylives;
-    // shooters.speedEnemy = shooters.startSpeedEnemy;
-    //  walker.Enemylives = walker.startEnemylives;
-    //walker.speedEnemy = walker.startSpeedEnemy;
-    //  player.movementSpeed = player.startMovementSpeed;
-    //  player.hp = player.startHp; 
-    //  roundCount = 0;
-    //  score = 0;
+      shooters[i].Enemylives = shooters[i].startEnemylives;
+     shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
+      walkers[i].Enemylives = walkers[i].startEnemylives;
+    walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
+      player.movementSpeed = player.startMovementSpeed;
+      player.hp = player.startHp; 
+      roundCount = 0;
+      score = 0;
       state = 2;
       }
   }
