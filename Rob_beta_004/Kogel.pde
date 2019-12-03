@@ -37,8 +37,8 @@ public class  Kogel {
 
   void shoot() {
     
-    x += vx;
-    y += vy;
+    x += vx - player.vx;
+    y += vy - player.vy;
     
     /*
     if (fireD) {

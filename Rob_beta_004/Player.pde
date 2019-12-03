@@ -43,21 +43,58 @@ class Player {
     vx = 0;
     vy = 0;
     if (start == false) {
-      if ((keys[LEFT])||(keys['A'])) {
+if ((keys[LEFT])||(keys['A'])) {
         vx = -3;
         direction = 1;
+        image(spritesLeft[cycleDirectionx], x, y);
+        framecount++;
+        if (framecount == 9) {
+          cycleDirectionx++;
+          framecount = 0;
+        }
+        if (cycleDirectionx == 3) {
+          cycleDirectionx = 0;
+        }
       }
       if ((keys[RIGHT])||(keys['D'])) {
         vx = 3;
         direction = 2;
+        image(spritesRight[cycleDirectionx], x, y);
+        framecount++;
+
+        if (framecount == 9) {
+          cycleDirectionx++;
+          framecount = 0;
+        }
+        if (cycleDirectionx == 3) {
+          cycleDirectionx = 0;
+        }
       }
       if ((keys[UP])||(keys['W'])) {
         vy = -3;
         direction = 4;
+        image(spritesUp[cycleDirectiony], x, y);
+        framecount++;
+        if (framecount == 9) {
+          cycleDirectiony++;
+          framecount = 0;
+        }
+        if (cycleDirectiony == 3) {
+          cycleDirectiony = 0;
+        }
       }
       if ((keys[DOWN])||(keys['S'])) {
         vy = 3;
         direction = 3;
+        image(spritesDown[cycleDirectiony], x, y);
+        framecount++;
+        if (framecount == 9) {
+          cycleDirectiony++;
+          framecount = 0;
+        }
+        if (cycleDirectiony == 3) {
+          cycleDirectiony = 0;
+        }
       }
       x = x + vx;
       y = y + vy;

@@ -27,7 +27,7 @@ public class Walker {
   float distX;
   float distY;
   final float startSpeedEnemy = 1;
-  float speedEnemy = 0.5;
+  float speedEnemy = 0.25;
   float moveEnemy = speedEnemy; //nodig
   boolean Xtrue = false;
   boolean Ytrue = false;

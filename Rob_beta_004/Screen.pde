@@ -31,6 +31,7 @@ class Start {
     teleport.display();
     teleport.checkBoundaryCollision();
 
+
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.update();

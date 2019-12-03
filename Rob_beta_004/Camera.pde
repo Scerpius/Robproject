@@ -17,8 +17,8 @@ class Camera {
     sword.update();
   }
   void updateBackground() {
-    background(0);
     if (start == false) {
+      background(0);
       startscreen.start();
     }
 
