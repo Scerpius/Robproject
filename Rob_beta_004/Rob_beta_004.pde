@@ -15,6 +15,7 @@ Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
 
+
 //SpawnPoint newSpawn;
 Walker walker;
 Object object;
@@ -23,6 +24,7 @@ Teleporter teleport;
 Start startscreen;
 
 boolean [] keys = new boolean[1024];
+boolean fired;
 
 int score;
 int cooldowntimer = 300;
@@ -81,8 +83,8 @@ Powerup[] powerups= new Powerup[10];
 
 
 
-import processing.sound.*;
-SoundFile file;
+//import processing.sound.*;
+//SoundFile file;
 
 void setup() {
   sql = new MySQL(this, database, databaseName, username, password);
@@ -107,8 +109,8 @@ void setup() {
 
     backGroundLevel = loadImage("Backgroundtegels.png");
     // StartScreen = loadImage("BackgroundMain.png");
-    // file = new SoundFile(this, "Synthwave.wav");
-    //file.loop();
+    // file = new SoundFile(this, "Synthwave.mp3");
+    // file.loop();
   }
   for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
@@ -184,6 +186,7 @@ void draw() {
     }
   }
   if (state == 4){
+    background(0);
     fill(175);
     textAlign(CENTER);
     textSize(stateTextSize);
@@ -220,10 +223,11 @@ void keyPressed() {
   //  player.right = true;
   //}
   keys[keyCode] = true;
-  if (key == ' ') {
+  if (fired == false && key == ' ') {
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
+    fired = true;
   }
   if (key == 'z') {
     sword.isHit = true;

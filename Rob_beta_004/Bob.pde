@@ -176,6 +176,8 @@ class Bob {
       }
     }
 
+
+
     for (Powerup anPowerup : powerups) {
       if (overlaps(player.x, player.y, player.playerSprite, anPowerup.x, anPowerup.y, anPowerup.texture)) {
         anPowerup.pickUpPowerup = true;

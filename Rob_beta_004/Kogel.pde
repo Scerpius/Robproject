@@ -26,6 +26,14 @@ public class  Kogel {
   void show() {
     image(texture, x, y);
   }
+  
+  void reset(){
+    x = -1000;    
+    vy = 0;
+    vx = 0;
+    dx = 0;
+    dy = 0;
+  }
 
   void shoot() {
     

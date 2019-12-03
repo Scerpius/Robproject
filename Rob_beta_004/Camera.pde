@@ -29,7 +29,7 @@ class Camera {
       image(backGroundLevel, bx, by);
       fill(255);
       textSize(50);
-      
+
 
       player.x = width/4;
       player.y = height/4;
@@ -41,7 +41,7 @@ class Camera {
       bob.code();
       update();
       cooldowntimer++;
-cooldowntimer = constrain (cooldowntimer, 0, 300);
+      cooldowntimer = constrain (cooldowntimer, 0, 300);
       teleport.display();
       teleport.checkBoundaryCollision();
 
@@ -58,7 +58,12 @@ cooldowntimer = constrain (cooldowntimer, 0, 300);
   void update() {
     float tempVX = player.vx;
     float tempVY = player.vy;
-    
+    for ( int i = 0; i < bullets.size(); i++) {
+      Bullet b = bullets.get(i);
+      b.x -= player.vx;
+      b.y -= player.vy;
+    }
+
 
     /*
     Checkt of de player collision heeft met een object, als hij dat niet heeft beweegt de camera. Als dat wel het geval is beweegt hij niet.
@@ -71,10 +76,14 @@ cooldowntimer = constrain (cooldowntimer, 0, 300);
       for (int i = 0; i < shooters.length; i++) {
         shooters[i].posXEnemy -= player.vx;
         shooters[i].posYEnemy -= player.vy;
+        shooters[i].PointWalkX -= player.vx;
+        shooters[i].PointWalkY -= player.vy;
       }
       for (int i = 0; i < walkers.length; i++) {
         walkers[i].posXEnemy -= player.vx;
         walkers[i].posYEnemy -= player.vy;
+        walkers[i].PointWalkX -= player.vx;
+        walkers[i].PointWalkY -= player.vy;
       }
       for (int i = 0; i < powerups.length; i++) {
         powerups[i].x -= player.vx;
@@ -90,9 +99,11 @@ cooldowntimer = constrain (cooldowntimer, 0, 300);
 
         for (int i = 0; i < shooters.length; i++) {
           shooters[i].posXEnemy -= player.vx;
+          shooters[i].PointWalkX -= player.vx;
         }
         for (int i = 0; i < walkers.length; i++) {
           walkers[i].posXEnemy -= player.vx;
+          walkers[i].PointWalkX -= player.vx;
         }
         for (int i = 0; i < powerups.length; i++) {
           powerups[i].x -= player.vx;
@@ -107,9 +118,11 @@ cooldowntimer = constrain (cooldowntimer, 0, 300);
 
         for (int i = 0; i < shooters.length; i++) {
           shooters[i].posYEnemy -= player.vy;
+          shooters[i].PointWalkY -= player.vy;
         }
         for (int i = 0; i < walkers.length; i++) {
           walkers[i].posYEnemy -= player.vy;
+          walkers[i].PointWalkY -= player.vy;
         }
         for (int i = 0; i < powerups.length; i++) {
           powerups[i].y -= player.vy;

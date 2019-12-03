@@ -25,6 +25,9 @@ class Bullet {
     }
     y += vy;
     x += vx;
+    if (frameCount %30 == 0 && fired == true){
+     fired = false; 
+    }
     /*
     if (keys[' ']){
      Bullet b = new Bullet();
