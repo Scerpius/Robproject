@@ -14,6 +14,7 @@ Bob bob;
 Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
+Stats stats;
 
 
 //SpawnPoint newSpawn;
@@ -89,7 +90,7 @@ SoundFile laserSound;
 
 void setup() {
   laserSound = new SoundFile(this, "lasersound.mp3");
- // sql = new MySQL(this, database, databaseName, username, password);
+  // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
   smooth(4);
@@ -110,10 +111,10 @@ void setup() {
     shooters[iEnemy] = new Shooter();
 
     backGroundLevel = loadImage("Backgroundtegels.png");
+    StartScreen = loadImage("BackgroundMain.png");
     // StartScreen = loadImage("BackgroundMain.png");
     // file = new SoundFile(this, "Synthwave.mp3");
     // file.loop();
-    
   }
   for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
@@ -124,6 +125,7 @@ void setup() {
   camera = new Camera();
   sword = new Sword();
   startscreen = new Start();
+  stats = new Stats();
 
   noStroke();
   player = new Player();
@@ -156,8 +158,8 @@ void setup() {
 void draw() {
   if (state == 1) {
     background(0);
-     fill(200);
-     textSize(stateTextSize);
+    fill(200);
+    textSize(stateTextSize);
     textAlign(CENTER);
     text("press 'X' to start", width/2, height/2);
     if (keyPressed && key == 'x') {
@@ -168,14 +170,14 @@ void draw() {
   if (state == 2) {
     camera.updateBackground();
     camera.updateScreen();
-    if (keyPressed && key =='b'){
+    if (keyPressed && key =='b') {
       player.hp = 0;
     }
     if (keyPressed && key =='p') {
       state = 3;
     }
-    if (player.hp <=0){
-     state = 4; 
+    if (player.hp <=0) {
+      state = 4;
     }
   }
   if (state == 3) {
@@ -183,32 +185,27 @@ void draw() {
     textAlign(CENTER);
     textSize(stateTextSize);
     text("Paused", width/2, height/2);
-   text("press 'O' to continue", width/2, height/2 + stateTextSize);
+    text("press 'O' to continue", width/2, height/2 + stateTextSize);
     if (keyPressed && key == 'o') {
       state = 2;
     }
   }
-  if (state == 4){
-    background(0);
-    fill(175);
+  if (state == 4) {
+    image(GameOverScreen, 0, 0);
     textAlign(CENTER);
-    textSize(stateTextSize);
-    text("Game over", width/2, height/2);
-      text("your score was" , width/2, height/2 + stateTextSize);
-      text("current highscore: 136", width/2, height/2 + 2*stateTextSize);
-      text("Press 'R' to restart", width/2, height/2 + 3*stateTextSize);
-      if (keyPressed && key == 'r'){
+    text(score, width/2, height/2+50);
+    if (keyPressed && key == 'r') {
       //reset alles 
       shooters[i].Enemylives = shooters[i].startEnemylives;
-     shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
+      shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
       walkers[i].Enemylives = walkers[i].startEnemylives;
-    walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
-     // player.movementSpeed = player.startMovementSpeed;
+      walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
+      // player.movementSpeed = player.startMovementSpeed;
       player.hp = player.startHp; 
       roundCount = 0;
       score = 0;
       state = 2;
-      }
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 int cycleDirection;
 
+PImage GameOverScreen;
 PImage plank;
 PImage barrel;
 PImage crater;
@@ -26,6 +27,7 @@ void loadAssets() {
   crater = loadImage("Crater.png");
   playerSprite = loadImage("Player.png");
   Teleportal = loadImage(sprites[cycleDirection]);
+  GameOverScreen = loadImage("GameOverScreen.png");
   PLANK_X = (width-plank.width)/2;
   PLANK_Y = (height-plank.height)/2;
   for (int i = 0; i<3; i++) {
@@ -41,7 +43,7 @@ void loadAssets() {
     spritesUpShooter[0]=loadImage("Shooter10.png");
     spritesUpShooter[1]=loadImage("Shooter11.png");
     spritesUpShooter[2]=loadImage("Shooter12.png");
-    
+
     spritesDownWalker[0]=loadImage("Enemy1.png");
     spritesDownWalker[1]=loadImage("Enemy2.png");
     spritesDownWalker[2]=loadImage("Enemy3.png");
@@ -54,7 +56,7 @@ void loadAssets() {
     spritesUpWalker[0]=loadImage("Enemy10.png");
     spritesUpWalker[1]=loadImage("Enemy11.png");
     spritesUpWalker[2]=loadImage("Enemy12.png");
-    
+
     spritesDown[0] = loadImage("Robotpos1.png");
     spritesDown[1] = loadImage("Robotpos2.png");
     spritesDown[2] = loadImage("Robotpos3.png");
@@ -105,7 +107,7 @@ class Teleporter {
 
   // Time Delay //
   int framecount = 0;
-  
+
 
   void display() {
     noStroke();

@@ -3,6 +3,8 @@ class Camera {
   float bx, by;
   float zoom = 1.75;
 
+  int framecount = 0;
+  int framecountdmg = 0;
 
 
   void updateScreen() {
@@ -18,7 +20,7 @@ class Camera {
   }
   void updateBackground() {
     if (start == false) {
-      background(0);
+      image(StartScreen, bx, by);
       startscreen.start();
     }
 
@@ -51,6 +53,26 @@ class Camera {
       }
       text = "score :";
       text(score, 150, 50);
+      
+      stats.draw();
+
+      if (player.shield) {
+        framecount++;
+        println("thsi wrosk");
+        if (framecount >= 600) {
+
+          player.shield = false;
+          framecount = 0;
+        }
+      }
+
+      if (player.dubbelDamage) {
+        framecount++;
+          if (framecount >= 600) {
+          framecount = 0;
+          player.dubbelDamage = false;
+        }
+      }
     }
   }
 
