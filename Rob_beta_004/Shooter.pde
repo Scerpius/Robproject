@@ -31,8 +31,18 @@ public class Shooter {
   PImage texture;
 
 
+  int framecount = 0;
+  String spritesDownEnemy[] = {"Shooter1.png", "Shooter2.png", "Shooter3.png", };
+
+  String spritesLeftEnemy[] ={"Shooter4.png", "Shooter5.png", "Shooter6.png"};
+
+  String spritesRightEnemy[] ={"Shooter7.png", "Shooter8.png", "Shooter9.png"};
+
+  String spritesUpEnemy[] ={"Shooter10.png", "Shooter11.png", "Shooter12.png"};
+
+  int cycleDirectionEnemy = 0;
   Shooter() {
-    texture = loadImage("red_invader.png");
+    texture = loadImage("Shooter2.png");
   }
   //tekenen
   void draw() {
@@ -78,10 +88,28 @@ public class Shooter {
 
       posXEnemy = posXEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      image(spritesLeftShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionEnemy++;
+        framecount = 0;
+      }
+      if (cycleDirectionEnemy == 3) {
+        cycleDirectionEnemy = 0;
+      }
     } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
 
       posXEnemy = posXEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      image(spritesRightShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionEnemy++;
+        framecount = 0;
+      }
+      if (cycleDirectionEnemy == 3) {
+        cycleDirectionEnemy = 0;
+      }
     } else { //done
 
       Xtrue = true;
@@ -93,10 +121,28 @@ public class Shooter {
 
       posYEnemy = posYEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      image(spritesUpShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionEnemy++;
+        framecount = 0;
+      }
+      if (cycleDirectionEnemy == 3) {
+        cycleDirectionEnemy = 0;
+      }
     } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
 
       posYEnemy = posYEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+      image(spritesDownShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
+      framecount++;
+      if (framecount == 9) {
+        cycleDirectionEnemy++;
+        framecount = 0;
+      }
+      if (cycleDirectionEnemy == 3) {
+        cycleDirectionEnemy = 0;
+      }
     } else {
       Ytrue = true; //done
     }

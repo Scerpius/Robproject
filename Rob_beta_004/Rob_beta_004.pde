@@ -36,7 +36,7 @@ PImage StartScreen;
 Object[] objectList = new Object[5];
 
 static final int NumberOfEnemies = 20;
-int state = 1;
+int state = 2;
 int CurrentNumEnemies = 10 ; //nodig
 int walkCount = 0; //niet gebruikt
 int KillForRoundUp = 0; //niet gebruikt
@@ -83,10 +83,12 @@ Powerup[] powerups= new Powerup[10];
 
 
 
-//import processing.sound.*;
-//SoundFile file;
+import processing.sound.*;
+SoundFile file;
+SoundFile laserSound;
 
 void setup() {
+  laserSound = new SoundFile(this, "lasersound.mp3");
   sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
@@ -111,6 +113,7 @@ void setup() {
     // StartScreen = loadImage("BackgroundMain.png");
     // file = new SoundFile(this, "Synthwave.mp3");
     // file.loop();
+    
   }
   for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
@@ -210,24 +213,25 @@ void draw() {
 }
 
 void keyPressed() {
-  //if (key == 'w' || key == 'W') {
-  //  player.up = true;
-  //}
-  //if (key == 's' || key == 'S') {
-  //  player.down = true;
-  //}
-  //if (key == 'a' || key == 'A') {
-  //  player.left = true;
-  //}
-  //if (key == 'd' || key == 'D') {
-  //  player.right = true;
-  //}
+  if (key == 'w' || key == 'W') {
+    player.up = true;
+  }
+  if (key == 's' || key == 'S') {
+    player.down = true;
+  }
+  if (key == 'a' || key == 'A') {
+    player.left = true;
+  }
+  if (key == 'd' || key == 'D') {
+    player.right = true;
+  }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
     fired = true;
+    //laserSound.play();
   }
   if (key == 'z') {
     sword.isHit = true;
@@ -235,18 +239,18 @@ void keyPressed() {
   }
 }
 void keyReleased() {
-  //if (key == 'w' || key == 'W') {
-  //  player.up = false;
-  //}
-  //if (key == 's' || key == 'S') {
-  //  player.down = false;
-  //}
-  //if (key == 'a' || key == 'A') {
-  //  player.left = false;
-  //}
-  //if (key == 'd' || key == 'D') {
-  //  player.right = false;
-  //}
+  if (key == 'w' || key == 'W') {
+    player.up = false;
+  }
+  if (key == 's' || key == 'S') {
+    player.down = false;
+  }
+  if (key == 'a' || key == 'A') {
+    player.left = false;
+  }
+  if (key == 'd' || key == 'D') {
+    player.right = false;
+  }
   keys[keyCode] = false;
   if (key == 'z') {
     sword.isHit = false;

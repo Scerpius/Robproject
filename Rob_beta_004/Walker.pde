@@ -13,13 +13,6 @@
 //wacht 5 seconden - constante * rondes
 //}
 public class Walker {
-  String spritesDownEnemy[] = {"Enemy1.png", "Enemy2.png", "Enemy3.png", };
-
-  String spritesLeftEnemy[] ={"Enemy4.png", "Enemy5.png", "Enemy6.png"};
-
-  String spritesRightEnemy[] ={"Enemy7.png", "Enemy8.png", "Enemy9.png"};
-
-  String spritesUpEnemy[] ={"Enemy10.png", "Enemy11.png", "Enemy12.png"};
 
   int cycleDirectionXEnemy1 = 0;
   int cycleDirectionYEnemy1 = 0;
@@ -48,7 +41,7 @@ public class Walker {
 
 
   Walker() {
-    texture = loadImage("Enemy2.png");
+    texture = loadImage("Walker2.png");
   }
 
 
@@ -97,7 +90,7 @@ public class Walker {
       posXEnemy = posXEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
 
-      texture = loadImage(spritesLeftEnemy[cycleDirectionXEnemy1]);
+      image(spritesLeftWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);      
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -111,7 +104,7 @@ public class Walker {
       posXEnemy = posXEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
 
-      texture = loadImage(spritesRightEnemy[cycleDirectionXEnemy1]);
+      image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -132,7 +125,7 @@ public class Walker {
       posYEnemy = posYEnemy - moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
 
-      texture = loadImage(spritesUpEnemy[cycleDirectionXEnemy1]);
+      image(spritesUpWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -146,7 +139,7 @@ public class Walker {
       posYEnemy = posYEnemy + moveEnemy;
       ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
 
-      texture = loadImage(spritesDownEnemy[cycleDirectionXEnemy1]);
+      image(spritesDownWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -184,7 +177,7 @@ public class Walker {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
 
-      texture = loadImage(spritesRightEnemy[cycleDirectionXEnemy1]);
+      image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -198,7 +191,7 @@ public class Walker {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy - moveEnemy;
 
-      texture = loadImage(spritesUpEnemy[cycleDirectionXEnemy1]);
+      image(spritesUpWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -212,7 +205,7 @@ public class Walker {
       posXEnemy = posXEnemy - moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
 
-      texture = loadImage(spritesLeftEnemy[cycleDirectionXEnemy1]);
+      image(spritesLeftWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -226,7 +219,7 @@ public class Walker {
       posXEnemy = posXEnemy + moveEnemy; 
       posYEnemy = posYEnemy + moveEnemy;
 
-      texture = loadImage(spritesRightEnemy[cycleDirectionXEnemy1]);
+      image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;

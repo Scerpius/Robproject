@@ -8,6 +8,7 @@ class Player {
   final float startHp = 3;
   float hp = 3;
   float direction;
+  boolean left, right, up, down = false;
 
   boolean shield = false;
   boolean dubbelDamage = false;
@@ -20,47 +21,41 @@ class Player {
   int cycleDirectionx;
   int framecount; 
 
-  String spritesDown[] = {"Robotpos1.png", "Robotpos2.png", "Robotpos3.png", };
-
-  String spritesLeft[] ={"Robotpos6.png", "Robotpos5.png", "Robotpos4.png"};
-
-  String spritesRight[] ={"Robotpos7.png", "Robotpos8.png", "Robotpos9.png"};
-
-  String spritesUp[] ={"Robotpos10.png", "Robotpos11.png", "Robotpos12.png"};
-
-
-
   Player() {
-    playerSprite = loadImage("Robotpos1.png");
     reset();
     x = 375;
     y = 375;
-    w = playerSprite.width;
-    h = playerSprite.height;
+    w = spritesDown[1].width;
+    h = spritesDown[i].height;
   }
 
   void reset() {
     // x = width/2; 
     // y = height-texture.height;
   }
+    void show() {
+    if (!down && !up && !left && !right) {
+      image(spritesDown[1], x, y);
+    }
+  }
 
   void update() {
     vx = 0;
     vy = 0;
     if (start == false) {
-      if ((keys[LEFT])||(keys['A'])){
+      if ((keys[LEFT])||(keys['A'])) {
         vx = -3;
         direction = 1;
       }
-      if ((keys[RIGHT])||(keys['D'])){
+      if ((keys[RIGHT])||(keys['D'])) {
         vx = 3;
         direction = 2;
       }
-      if ((keys[UP])||(keys['W'])){
+      if ((keys[UP])||(keys['W'])) {
         vy = -3;
         direction = 4;
       }
-      if ((keys[DOWN])||(keys['S'])){
+      if ((keys[DOWN])||(keys['S'])) {
         vy = 3;
         direction = 3;
       }
@@ -74,7 +69,7 @@ class Player {
       if ((keys[LEFT])||(keys['A'])) {
         vx = -3;
         direction = 1;
-        playerSprite = loadImage(spritesLeft[cycleDirectionx]);
+        image(spritesLeft[cycleDirectionx], x, y);
         framecount++;
         if (framecount == 9) {
           cycleDirectionx++;
@@ -87,9 +82,9 @@ class Player {
       if ((keys[RIGHT])||(keys['D'])) {
         vx = 3;
         direction = 2;
-        playerSprite = loadImage(spritesRight[cycleDirectionx]);
+        image(spritesRight[cycleDirectionx], x, y);
         framecount++;
-        
+
         if (framecount == 9) {
           cycleDirectionx++;
           framecount = 0;
@@ -101,7 +96,7 @@ class Player {
       if ((keys[UP])||(keys['W'])) {
         vy = -3;
         direction = 4;
-        playerSprite = loadImage(spritesUp[cycleDirectiony]);
+        image(spritesUp[cycleDirectiony], x, y);
         framecount++;
         if (framecount == 9) {
           cycleDirectiony++;
@@ -114,7 +109,7 @@ class Player {
       if ((keys[DOWN])||(keys['S'])) {
         vy = 3;
         direction = 3;
-        playerSprite = loadImage(spritesDown[cycleDirectiony]);
+        image(spritesDown[cycleDirectiony], x, y);
         framecount++;
         if (framecount == 9) {
           cycleDirectiony++;
@@ -136,15 +131,10 @@ class Player {
       vy = 0;
     }
     // If x position id out of bounds, "undo" velocity
-    if ((x < 0) || (x > width - playerSprite.width))
+    if ((x < 0) || (x > width - spritesDown[1].width))
       x -= vx;
   }
-
-  void show() {
-    image(playerSprite, x, y);
-  }
 }
-
 
 
 

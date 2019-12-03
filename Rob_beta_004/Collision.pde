@@ -21,12 +21,12 @@ class Collision {
         if (objectList[i].picture == Teleportal && cooldowntimer == 300) {
           if (objectList[i].x == objectList[2].x) {
             player.vx = objectList[4].x - player.x - 100;
-            player.vy = objectList[4].y - player.y + Teleportal.height/2 - playerSprite.height/2;
+            player.vy = objectList[4].y - player.y + Teleportal.height/2 - spritesDown[1].height/2;
             cooldowntimer = 0;
             return true;
           } else if (objectList[i].x == objectList[4].x) {
             player.vx = objectList[2].x - player.x + 100  + Teleportal.width/2;
-            player.vy = objectList[2].y - player.y + Teleportal.height/2 - playerSprite.height/2;
+            player.vy = objectList[2].y - player.y + Teleportal.height/2 - spritesDown[1].height/2;
             cooldowntimer = 0;
             return true;
           }

@@ -179,7 +179,7 @@ class Bob {
 
 
     for (Powerup anPowerup : powerups) {
-      if (overlaps(player.x, player.y, player.playerSprite, anPowerup.x, anPowerup.y, anPowerup.texture)) {
+      if (overlaps(player.x, player.y, spritesDown[1], anPowerup.x, anPowerup.y, anPowerup.texture)) {
         anPowerup.pickUpPowerup = true;
         anPowerup.onPickup();
         anPowerup.reset();
@@ -187,7 +187,7 @@ class Bob {
     }
 
     for (Walker anWalker : walkers) {
-      if (overlaps(player.x, player.y, player.playerSprite, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+      if (overlaps(player.x, player.y, spritesDown[1], anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
         if (invisibility == false) {
           player.hp = player.hp - 1;
         }
