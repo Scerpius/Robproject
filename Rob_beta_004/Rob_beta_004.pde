@@ -231,7 +231,7 @@ void keyPressed() {
     bullets.add(b);
     b.fire(player.x, player.y);
     fired = true;
-    //laserSound.play();
+    laserSound.play();
   }
   if (key == 'z') {
     sword.isHit = true;

@@ -17,12 +17,12 @@ class Start {
     text("THE ENDLESS SURVIVAL OF ROB", 300, 100);
 
 
-    texture = loadImage("red_invader.png");
+    texture = loadImage("Shooter2.png");
     image(texture, 750, 500);
     
  
 
-    texture = loadImage("green_invader.png");
+    texture = loadImage("Walker2.png");
     image(texture, 750, 400);
    
   

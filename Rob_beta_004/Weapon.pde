@@ -4,6 +4,7 @@ class Bullet {
   float speed = 6;
   PImage texture;
   boolean isFired;
+  float fireRate= 1;
 
   Bullet() {
     texture = loadImage("bullet.png");
@@ -25,7 +26,7 @@ class Bullet {
     }
     y += vy;
     x += vx;
-    if (frameCount %30 == 0 && fired == true){
+    if (frameCount %fireRate == 0 && fired == true){
      fired = false; 
     }
     /*

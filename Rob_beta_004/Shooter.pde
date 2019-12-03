@@ -57,20 +57,20 @@ public class Shooter {
   void spawn() {
     switch(positionSpawn[i]) {
       case(0):
-      posXEnemy = random(width/2 -35, width/2 + 35);
-      posYEnemy = random(0, 30);
+      posXEnemy = random(width/2 -35, width/2 + 35)-player.vx;
+      posYEnemy = random(0, 30)-player.vy;
       break;
       case(1):
-      posXEnemy = random(width-30, width);
-      posYEnemy = random(height/2-35, height/2+35);
+      posXEnemy = random(width-30, width)-player.vx;
+      posYEnemy = random(height/2-35, height/2+35)-player.vy;
       break;
       case(2):
-      posXEnemy = random(width/2 -35, width/2 + 35);
-      posYEnemy = random(height-30, height);
+      posXEnemy = random(width/2 -35, width/2 + 35)-player.vx;
+      posYEnemy = random(height-30, height)-player.vy;
       break;
       case(3):
-      posXEnemy = random(0, 30);
-      posYEnemy = random(height/2-35, height/2+35);
+      posXEnemy = random(0, 30)-player.vx;
+      posYEnemy = random(height/2-35, height/2+35)-player.vy;
       break;
     }
   }
