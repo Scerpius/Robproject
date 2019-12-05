@@ -86,7 +86,7 @@ class Teleporter {
   //portal startscherm????
   int portalX3 = 1200;
   int portalY3 = 1200;
-  int portalX4 = 350;
+  int portalX4 = 405;
   int portalY4 = 550;
 
 
@@ -95,7 +95,7 @@ class Teleporter {
   //Detection startscherm????????
   int detectionX3 = 902;
   int detectionY3 = 425;
-  int detectionX4 = 402;
+  int detectionX4 = 457;
   int detectionY4 = 600;
 
 
@@ -165,14 +165,7 @@ class Teleporter {
       }
     }
     if (start == false) {
-      float xdistance3 = detectionX3 - player.x - spritesDown[1].width /2 ;
-      float ydistance3 = detectionY3 - player.y - spritesDown[1].height /2;
-      float distancetocenter3 = pythagoras(xdistance3, ydistance3);
 
-      if (distancetocenter3 - boxSize /2 <= 0) {
-        player.x = detectionX4 + 100; 
-        player.y = detectionY4 - 10;
-      }
 
 
 

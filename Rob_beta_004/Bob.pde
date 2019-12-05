@@ -101,7 +101,7 @@ class Bob {
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
-          anWalker.Enemylives = anWalker.Enemylives - 1;
+          anWalker.Enemylives = anWalker.Enemylives - player.dmg;
           if (anWalker.Enemylives <= 0) {
             anWalker.reset();
             score = score + 1;
@@ -123,7 +123,7 @@ class Bob {
           powerupY = anShooter.posYEnemy;
 
           anBullet.reset();
-          anShooter.Enemylives =  anShooter.Enemylives -1;
+          anShooter.Enemylives =  anShooter.Enemylives - player.dmg;
           if (anShooter.Enemylives <= 0) {
             anShooter.reset();
             score = score + 1;

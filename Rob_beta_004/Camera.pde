@@ -53,14 +53,12 @@ class Camera {
       }
       text = "score :";
       text(score, 150, 50);
-      
+
       stats.draw();
 
       if (player.shield) {
         framecount++;
-        println("thsi wrosk");
         if (framecount >= 600) {
-
           player.shield = false;
           framecount = 0;
         }
@@ -68,7 +66,7 @@ class Camera {
 
       if (player.dubbelDamage) {
         framecount++;
-          if (framecount >= 600) {
+        if (framecount >= 600) {
           framecount = 0;
           player.dubbelDamage = false;
         }
