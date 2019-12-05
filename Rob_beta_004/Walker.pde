@@ -21,7 +21,8 @@ public class Walker {
   int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
   int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
   final int startEnemylives =3;
-  int Enemylives = 3;
+  int enemyHealth = 3;
+  int Enemylives = enemyHealth;
   float posXEnemy;
   float posYEnemy;
   float X;
@@ -82,6 +83,7 @@ public class Walker {
   void reset() {
     spawn();
     moveEnemy = 0;
+    Enemylives = enemyHealth;
   }
 
   //lopen
@@ -233,14 +235,14 @@ public class Walker {
     }
     //geleidelijk sterker maken van de vijanden
   }
-  void Stronger() {
-
-    if (score %CurrentNumEnemies * 2 + 4   ==0 && score != 0 && killRound == true) {
+ void Stronger() {
+    println(score + " " + killsForRoundUp + " " + score % killsForRoundUp + roundCount);
+    if (score % killsForRoundUp  ==0 && score != 0 && killRound == true) {
 
       roundCount ++;
       killRound = false;
       uitgevoerd = false;
-    } else if (score %10 ==9) {
+    } else if (score % killsForRoundUp == killsForRoundUp - 1) {
       killRound = true;
     }
     if (uitgevoerd == false) {
@@ -248,48 +250,51 @@ public class Walker {
         walkers[iEnemy].moveEnemy = walkers[iEnemy].speedEnemy;
         shooters[iEnemy].moveEnemy = shooters[iEnemy].speedEnemy;
       }
-      switch (roundCount %5) {
-        case (0):
-        //spawn meer enemies
+      
+        switch (roundCount %5) {
+          case (0):
+          if (roundCount != 0) {
+          //spawn meer enemies
+          killsForRoundUp += 2;
+          CurrentNumEnemies += 1;
+          MaxEnemies = false;
+          uitgevoerd = true;
+          }
+          break;
+          case (1):
+          //beweeg sneller
 
-        CurrentNumEnemies += 2;
-        MaxEnemies = false;
-        uitgevoerd = true;
+          for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
+            walkers[iEnemy].speedEnemy *= 1.25;
+            shooters[iEnemy].speedEnemy  *= 1.25;
+          }
+          uitgevoerd = true;
+          MaxEnemies = false;
 
-        break;
-        case (1):
-        //beweeg sneller
+          break;
+          case (2):
+          CurrentNumEnemies += 1 * 1.008;
+          //spawn delay lager
+          uitgevoerd = true;
+          MaxEnemies = false;
 
-        for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-          walkers[iEnemy].speedEnemy *= 1.25;
-          shooters[iEnemy].speedEnemy  *= 1.25;
+          break;
+          //levens omhoog
+          case (3):
+          CurrentNumEnemies += 1 * 1.008;
+          enemyHealth += 2;
+          uitgevoerd = true;
+          MaxEnemies = false;
+
+          break;
+          case (4):
+          CurrentNumEnemies += 1 * 1.008;
+          //doet meer damage
+          uitgevoerd = true;
+          MaxEnemies = false;
+
+          break;
         }
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-        case (2):
-        CurrentNumEnemies += 1 * 1.008;
-        //spawn delay lager
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-        case (3):
-        CurrentNumEnemies += 1 * 1.008;
-        Enemylives += 2;
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
-        case (4):
-        CurrentNumEnemies += 1 * 1.008;
-        //doet meer damage
-        uitgevoerd = true;
-        MaxEnemies = false;
-
-        break;
       }
     }
   }
-}

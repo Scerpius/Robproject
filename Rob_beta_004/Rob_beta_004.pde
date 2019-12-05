@@ -38,7 +38,8 @@ Object[] objectList = new Object[5];
 
 static final int NumberOfEnemies = 20;
 int state = 2;
-int CurrentNumEnemies = 1; //nodig
+int CurrentNumEnemies = 3; //nodig
+int killsForRoundUp = 6;
 int iEnemy;
 static int i;
 int roundCount = 0;
@@ -199,13 +200,18 @@ void draw() {
       //reset alles 
       shooters[i].Enemylives = shooters[i].startEnemylives;
       shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
-      walkers[i].Enemylives = walkers[i].startEnemylives;
+      walkers[i].enemyHealth = walkers[i].startEnemylives;
       walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
+      shooters[i].spawn();
+      walkers[i].spawn();
       // player.movementSpeed = player.startMovementSpeed;
+      killsForRoundUp = 6;
+      CurrentNumEnemies = 1;
       player.hp = player.startHp; 
       roundCount = 0;
       score = 0;
       state = 2;
+      
     }
   }
 }

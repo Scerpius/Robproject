@@ -95,7 +95,7 @@ class Bob {
 
 
         shooters[iEnemy].check();
-        shooters[iEnemy].Stronger();
+        //shooters[iEnemy].Stronger();
       }
     }
 
