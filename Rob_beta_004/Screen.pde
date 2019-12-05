@@ -1,45 +1,58 @@
 class Start {
   PImage texture;
-  int xBox1 = 350;
-  int xBox2 = 650;
-  int xBox3 = 660;
-  int yBox1 = 350;
 
-  int widthBox1 = 300;
-  int widthBox2 = 200;
-  int heightBox1 = 300;
-  int heightBox2 = 10;
+  int xLeftWall = 385;
+  int yTopWall = 330;
+  int xRightWall = 895;
+  int yBottomWall = 660;
+  int sizeWall = 10;
+  int wallHeight = 340;
+  int wallWidth = 510;
 
-  int ellipseX = 762;
-  int ellipseY = 380;
+
+  int ellipseX = 817;
+  int ellipseY = 525;
   int ellipseWidth = 50;
+  int ellipseX2 = 817;
+  int ellipseY2 = 425;
   
-  int buttonX = 750;
-  int buttonY = 395;
+  int buttonX = 805;
+  int buttonY = 440;
   
-  int titelX = 300;
-  int titelY = 100;
+  int buttonX2 = 805;
+  int buttonY2 = 540;
   
-  int sideHitBox = 750;
-  int shooterX = 750;
-  int shooterY = 555;
-  int walkerX = 750;
-  int walkerY = 455;
+
   
-  int shooterBelowHitBox = 475;
-  int shooterTopHitBox = 435;
-  int walkerBelowHitBox = 575;
-  int walkerTopHitBox = 535;
+  int sideHitBox = 705;
+  int shooterX = 705;
+  int shooterY = 505;
+  int walkerX = 705;
+  int walkerY = 405;
+  
+  int shooterBelowHitBox = 440;
+  int shooterTopHitBox = 390;
+  int walkerBelowHitBox = 540;
+  int walkerTopHitBox = 480;
 
   void start() {
-    rect(xBox1, yBox1, widthBox1, heightBox1);
-    rect(xBox2, yBox1, heightBox2, heightBox1);
-    rect(xBox3, yBox1, widthBox2, heightBox1);
+   
+    fill(255);
+    rect(xLeftWall, yTopWall, wallWidth, sizeWall);
+    rect(xLeftWall, yTopWall, sizeWall , wallHeight);
+    rect(xLeftWall,yBottomWall,wallWidth,sizeWall);
+    rect(xRightWall, yTopWall ,sizeWall, wallHeight);
+   
+
     fill(255, 0, 0);
     stroke(255, 0, 0);
     ellipse(ellipseX, ellipseY, ellipseWidth, ellipseWidth);
+    fill(0,255,0);
+        stroke(0, 255, 0);
+    ellipse(ellipseX2, ellipseY2, ellipseWidth, ellipseWidth);
     fill(255);
     text("A", buttonX, buttonY);
+    text("Z", buttonX2, buttonY2);
 
 
 

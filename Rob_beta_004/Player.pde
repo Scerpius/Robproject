@@ -1,6 +1,8 @@
 class Player {
   float x, y; 
-  float vx, vy;
+  float vx = 3;
+  float vy = 3;
+  float ms = 1;
   PImage playerSprite;
 
   float w;
@@ -9,10 +11,10 @@ class Player {
   float hp = 3;
   float direction;
   boolean left, right, up, down = false;
-
+  boolean damageGiven = false;
   boolean shield = false;
   boolean dubbelDamage = false;
-  float dmg = 3;
+  int dmg = 1;
   float AS = 5;
 
   int directionx;
@@ -23,7 +25,7 @@ class Player {
 
   Player() {
     reset();
-    x = 375;
+    x = 425;
     y = 375;
     w = spritesDown[1].width;
     h = spritesDown[i].height;
@@ -33,7 +35,7 @@ class Player {
     // x = width/2; 
     // y = height-texture.height;
   }
-    void show() {
+  void show() {
     if (!down && !up && !left && !right) {
       image(spritesDown[1], x, y);
     }
@@ -43,8 +45,8 @@ class Player {
     vx = 0;
     vy = 0;
     if (start == false) {
-if ((keys[LEFT])||(keys['A'])) {
-        vx = -3;
+      if ((keys[LEFT])||(keys['A'])) {
+        vx = -3 * ms;
         direction = 1;
         image(spritesLeft[cycleDirectionx], x, y);
         framecount++;
@@ -57,7 +59,7 @@ if ((keys[LEFT])||(keys['A'])) {
         }
       }
       if ((keys[RIGHT])||(keys['D'])) {
-        vx = 3;
+        vx = 3 * ms;
         direction = 2;
         image(spritesRight[cycleDirectionx], x, y);
         framecount++;
@@ -71,7 +73,8 @@ if ((keys[LEFT])||(keys['A'])) {
         }
       }
       if ((keys[UP])||(keys['W'])) {
-        vy = -3;
+        vy = -3 * ms;
+       
         direction = 4;
         image(spritesUp[cycleDirectiony], x, y);
         framecount++;
@@ -84,7 +87,7 @@ if ((keys[LEFT])||(keys['A'])) {
         }
       }
       if ((keys[DOWN])||(keys['S'])) {
-        vy = 3;
+        vy = 3 * ms ;
         direction = 3;
         image(spritesDown[cycleDirectiony], x, y);
         framecount++;
@@ -103,8 +106,19 @@ if ((keys[LEFT])||(keys['A'])) {
 
 
     if (start == true) {
+      if (shield) {
+        ellipse(x + (w/2), y + (h / 2), w + 30, h + 20);
+      }
+      if (dubbelDamage == true && damageGiven == false) {
+        dmg *= 2;
+        damageGiven = true;
+      }
+      if (dubbelDamage == false && damageGiven == true) {
+        dmg /= 2;
+        damageGiven = false;
+      }
       if ((keys[LEFT])||(keys['A'])) {
-        vx = -3;
+        vx = -3 * ms ;
         direction = 1;
         image(spritesLeft[cycleDirectionx], x, y);
         framecount++;
@@ -117,7 +131,7 @@ if ((keys[LEFT])||(keys['A'])) {
         }
       }
       if ((keys[RIGHT])||(keys['D'])) {
-        vx = 3;
+        vx = 3 * ms;
         direction = 2;
         image(spritesRight[cycleDirectionx], x, y);
         framecount++;
@@ -131,7 +145,7 @@ if ((keys[LEFT])||(keys['A'])) {
         }
       }
       if ((keys[UP])||(keys['W'])) {
-        vy = -3;
+        vy = -3 * ms;
         direction = 4;
         image(spritesUp[cycleDirectiony], x, y);
         framecount++;
@@ -144,7 +158,7 @@ if ((keys[LEFT])||(keys['A'])) {
         }
       }
       if ((keys[DOWN])||(keys['S'])) {
-        vy = 3;
+        vy = 3 * ms;
         direction = 3;
         image(spritesDown[cycleDirectiony], x, y);
         framecount++;

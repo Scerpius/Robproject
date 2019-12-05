@@ -18,12 +18,12 @@
 
   void spawn() {
 
-    int powerupChance = int(random(0, 6));
+    int powerupChance = int(random(4, 5));
     //println("powerupChance : " + powerupChance);
 
     if (powerupChance == 4) {
 
-      whatPowerup = int(random(0, 6));
+      whatPowerup = int(random(3, 4));
       if (whatPowerup == 0) { 
         texture = loadImage("Hp.png");
       }
@@ -37,7 +37,7 @@
         texture = loadImage("Speed.png");
       }
       if (whatPowerup == 4) { 
-       // texture = loadImage("dmg.png");
+       texture = loadImage("dmg.png");
       }
       if (whatPowerup == 5) { 
         texture = loadImage("dubbelDamage.png");
@@ -82,8 +82,8 @@
       
     } 
     if (whatPowerup == 3) {
-    //  player.movementSpeed += 1;
-     // println(player.movementSpeed + " :D" );
+     //player.ms += 0.25;
+     println(player.ms + " :D" );
     } 
 
     if (whatPowerup == 4) {
