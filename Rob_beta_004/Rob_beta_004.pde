@@ -83,10 +83,10 @@ Powerup[] powerups= new Powerup[10];
 
 import processing.sound.*;
 SoundFile file;
+SoundFile Soundtrack;
 SoundFile laserSound;
-
+SoundFile Swordhit;
 void setup() {
-  laserSound = new SoundFile(this, "lasersound.mp3");
   // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
@@ -95,9 +95,9 @@ void setup() {
   loadAssets();
   objectList[0] = new Object(CRATER_X, CRATER_Y, crater);
   objectList[1] = new Object(BARREL_X, BARREL_Y, barrel);
-  objectList[2] = new Object(portalX1, portalY1, Teleportal);
+  objectList[2] = new Object(portalX1, portalY1, Teleportal[2]);
   objectList[3] = new Object(PLANK_X, PLANK_Y, plank);
-  objectList[4] = new Object(portalX2, portalY2, Teleportal);
+  objectList[4] = new Object(portalX2, portalY2, Teleportal[2]);
 
   //msql = new MySQL( this, "localhost", "gametime", "root", "HVAIG1041920#" );
   //if ( msql.connect()) {
@@ -112,6 +112,10 @@ void setup() {
     // StartScreen = loadImage("BackgroundMain.png");
     // file = new SoundFile(this, "Synthwave.mp3");
     // file.loop();
+    laserSound = new SoundFile(this, "lasersound.mp3");
+    laserSound.amp(0.05);
+    Swordhit = new SoundFile(this, "swordhit.mp3");
+    
   }
   for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
@@ -230,6 +234,7 @@ void keyPressed() {
   if (key == 'z') {
     sword.isHit = true;
     sword.show();
+  //  Swordhit.play();
   }
 }
 void keyReleased() {

@@ -14,21 +14,19 @@ class Collision {
    */
   boolean checkPortal(float x, float y, float w, float h) {
     for (int i = 2; i <= 4; i += 2) {
-       println("PWX" + shooters[1].PointWalkX + "PWY" + shooters[1].PointWalkY);
-    println("Bx"+camera.bx + "BY" + camera.by);
       if (x  < objectList[i].x + objectList[i].w - 10
         && x + w > objectList[i].x + 10
         && y  < objectList[i].y + objectList[i].h - 10
         && y + h > objectList[i].y + 10) {
-        if (objectList[i].picture == Teleportal && cooldowntimer == 300) {
+        if (objectList[i].picture == Teleportal[2] && cooldowntimer == 300) {
           if (objectList[i].x == objectList[2].x) {
             player.vx = objectList[4].x - player.x - 100;
-            player.vy = objectList[4].y - player.y + Teleportal.height/2 - spritesDown[1].height/2;
+            player.vy = objectList[4].y - player.y + Teleportal[2].height/2 - spritesDown[1].height/2;
             cooldowntimer = 0;
             return true;
           } else if (objectList[i].x == objectList[4].x) {
-            player.vx = objectList[2].x - player.x + 100  + Teleportal.width/2;
-            player.vy = objectList[2].y - player.y + Teleportal.height/2 - spritesDown[1].height/2;
+            player.vx = objectList[2].x - player.x + 100  + Teleportal[2].width/2;
+            player.vy = objectList[2].y - player.y + Teleportal[2].height/2 - spritesDown[1].height/2;
             cooldowntimer = 0;
             return true;
           }
@@ -61,7 +59,7 @@ class Collision {
           && x + w > objectList[i].x + 10
           && y  < objectList[i].y + objectList[i].h - 10
           && y + h > objectList[i].y + 10) {
-          if (objectList[i].picture != Teleportal) {
+          if (objectList[i].picture != Teleportal[2]) {
             hasCollision = true;
           }
         }

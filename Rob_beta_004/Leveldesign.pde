@@ -1,11 +1,10 @@
 int cycleDirection;
-
+int cycleDirectionstart;
 PImage GameOverScreen;
 PImage plank;
 PImage barrel;
 PImage crater;
 PImage playerSprite;
-PImage Teleportal;
 PImage[] spritesDown = new PImage[3];
 PImage[] spritesLeft = new PImage[3];
 PImage[] spritesRight = new PImage[3];
@@ -18,15 +17,14 @@ PImage[] spritesDownShooter = new PImage [3];
 PImage[] spritesLeftShooter = new PImage[3];
 PImage[] spritesRightShooter = new PImage[3];
 PImage[] spritesUpShooter = new PImage[3];
-String [] sprites = {"Teleportal1.png", "Teleportal2.png", "Teleportal3.png"};
-
+PImage[] Teleportal = new PImage[3];
+PImage[] Teleportalstart = new PImage[3];
 
 void loadAssets() {
   plank = loadImage("Plank.png");
   barrel = loadImage("Barrel.png");
   crater = loadImage("Crater.png");
   playerSprite = loadImage("Player.png");
-  Teleportal = loadImage(sprites[cycleDirection]);
   GameOverScreen = loadImage("GameOverScreen.png");
   PLANK_X = (width-plank.width)/2;
   PLANK_Y = (height-plank.height)/2;
@@ -69,6 +67,14 @@ void loadAssets() {
     spritesUp[0] = loadImage("Robotpos10.png");
     spritesUp[1] = loadImage("Robotpos11.png");
     spritesUp[2] = loadImage("Robotpos12.png");
+
+    Teleportal[0] = loadImage("Teleportal1.png");
+    Teleportal[1] = loadImage("Teleportal2.png");
+    Teleportal[2] = loadImage("Teleportal3.png");
+
+    Teleportalstart[0] = loadImage("Teleportal1.png");
+    Teleportalstart[1] = loadImage("Teleportal2.png");
+    Teleportalstart[2] = loadImage("Teleportal3.png");
   }
 }
 
@@ -137,10 +143,40 @@ class Teleporter {
     //  image(Teleportal, portalX2, portalY2);
     //}
     if (start == false) {
-      image(Teleportal, portalX3, portalY3);
-      image(Teleportal, portalX4, portalY4);
+      image(Teleportalstart[cycleDirectionstart], portalX4, portalY4);
+      framecount ++;
+      if (framecount == 90) {
+        cycleDirectionstart++;
+        framecount = 0;
+        if (cycleDirectionstart == 3) {
+          cycleDirectionstart = 0;
+        }
+      }
+    }
+
+    if (start) {
+      image(Teleportal[cycleDirection], camera.bx+70, camera.by+150);
+      framecount ++;
+      if (framecount == 90) {
+        cycleDirection++;
+        framecount = 0;
+        if (cycleDirection == 3) {
+          cycleDirection = 0;
+        }
+      }
+
+      image(Teleportal[cycleDirection], camera.bx+1100, camera.by+470);
+      framecount ++;
+      if (framecount == 93) {
+        cycleDirection++;
+        framecount = 0;
+        if (cycleDirection == 3) {
+          cycleDirection = 0;
+        }
+      }
     }
   }
+
 
 
   // Check if there is a collision //
@@ -165,7 +201,14 @@ class Teleporter {
       }
     }
     if (start == false) {
+      float xdistance3 = detectionX3 - player.x - spritesDown[1].width /2 ;
+      float ydistance3 = detectionY3 - player.y - spritesDown[1].height /2;
+      float distancetocenter3 = pythagoras(xdistance3, ydistance3);
 
+      if (distancetocenter3 - boxSize /2 <= 0) {
+        player.x = detectionX4 + 100; 
+        player.y = detectionY4 - 10;
+      }
 
 
 
