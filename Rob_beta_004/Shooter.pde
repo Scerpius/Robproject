@@ -1,12 +1,14 @@
 public class Shooter {
   Kogel kogel;
-  float sizeEnemy =40;
+  float sizeEnemy = 40;
   int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
   int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
   final int startEnemylives = 3;
   int Enemylives = 3;
   float posXEnemy;
   float posYEnemy;
+  float X;
+  float Y;
   float distX;
   float distY;
   final float startSpeedEnemy = 1;
@@ -46,7 +48,6 @@ public class Shooter {
   }
   //tekenen
   void draw() {
-    //ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
     image(texture, posXEnemy, posYEnemy);
     if (kogel != null) {
 
@@ -56,25 +57,28 @@ public class Shooter {
   }
   void spawn() {
     switch(positionSpawn[i]) {
-      case(0):
-      posXEnemy = random(width/2 -35, width/2 + 35)-player.vx;
-      posYEnemy = random(0, 30)-player.vy;
+      case(0): //boven
+      posXEnemy = backGroundLevel.width/2 + X;
+      posYEnemy = backGroundLevel.height-690 + Y;
       break;
-      case(1):
-      posXEnemy = random(width-30, width)-player.vx;
-      posYEnemy = random(height/2-35, height/2+35)-player.vy;
+      case(1): //rechts
+      posXEnemy = backGroundLevel.width-15 + X;
+      posYEnemy = backGroundLevel.height-470 + Y;
       break;
-      case(2):
-      posXEnemy = random(width/2 -35, width/2 + 35)-player.vx;
-      posYEnemy = random(height-30, height)-player.vy;
+      case(2): //onder
+      posXEnemy = backGroundLevel.width/2 + X;
+      posYEnemy = backGroundLevel.height-texture.height + Y;
       break;
-      case(3):
-      posXEnemy = random(0, 30)-player.vx;
-      posYEnemy = random(height/2-35, height/2+35)-player.vy;
+      case(3): //links
+      posXEnemy = backGroundLevel.width-1265 + X;
+      posYEnemy = backGroundLevel.height-470 + Y;
       break;
     }
   }
-
+  void updateSpawn() {
+    X -= player.vx;
+    Y -= player.vy;
+  }
   void reset() {
     spawn();
     moveEnemy = 0;
@@ -83,11 +87,11 @@ public class Shooter {
   //lopen
   void updateX() {
     ellipse(PointWalkX, PointWalkY, 5, 5);
+   
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
 
       posXEnemy = posXEnemy - moveEnemy;
-      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
       image(spritesLeftShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -100,7 +104,6 @@ public class Shooter {
     } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
 
       posXEnemy = posXEnemy + moveEnemy;
-      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
       image(spritesRightShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -120,7 +123,6 @@ public class Shooter {
     if (posYEnemy>PointWalkY && distY > 10) { //walk up
 
       posYEnemy = posYEnemy - moveEnemy;
-      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
       image(spritesUpShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -133,7 +135,7 @@ public class Shooter {
     } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
 
       posYEnemy = posYEnemy + moveEnemy;
-      ellipse(posXEnemy, posYEnemy, sizeEnemy, sizeEnemy);
+
       image(spritesDownShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -148,10 +150,10 @@ public class Shooter {
     }
   }
   void check() {
-    // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
+
     if ( Xtrue == true && Ytrue == true) {
-      PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
-      PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2));
+      PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2) + X);
+      PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2) + Y);
       Xtrue = false;
       Ytrue = false;
     }
@@ -286,7 +288,7 @@ public class Shooter {
         break;
         case (3):
         CurrentNumEnemies += 1 * 1.008;
-        EnemyLives += 2;
+        Enemylives += 2;
         uitgevoerd = true;
         MaxEnemies = false;
 

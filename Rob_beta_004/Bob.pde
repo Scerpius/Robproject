@@ -17,6 +17,10 @@ class Bob {
 
   void code () {
     for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
+      shooters[iEnemy].updateSpawn();
+      walkers[iEnemy].updateSpawn();
+    }
+    for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
       walkers[iEnemy].draw();
       shooters[iEnemy].draw();
       if (MaxEnemies == false) {

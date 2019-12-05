@@ -38,10 +38,7 @@ Object[] objectList = new Object[5];
 
 static final int NumberOfEnemies = 20;
 int state = 2;
-int CurrentNumEnemies = 10 ; //nodig
-int walkCount = 0; //niet gebruikt
-int KillForRoundUp = 0; //niet gebruikt
-int EnemyLives = 10 ; // niet gebruikt, nodig
+int CurrentNumEnemies = 1; //nodig
 int iEnemy;
 static int i;
 int roundCount = 0;

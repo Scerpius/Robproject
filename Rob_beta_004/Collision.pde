@@ -14,6 +14,8 @@ class Collision {
    */
   boolean checkPortal(float x, float y, float w, float h) {
     for (int i = 2; i <= 4; i += 2) {
+       println("PWX" + shooters[1].PointWalkX + "PWY" + shooters[1].PointWalkY);
+    println("Bx"+camera.bx + "BY" + camera.by);
       if (x  < objectList[i].x + objectList[i].w - 10
         && x + w > objectList[i].x + 10
         && y  < objectList[i].y + objectList[i].h - 10

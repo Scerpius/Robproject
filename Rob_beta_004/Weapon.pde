@@ -13,7 +13,7 @@ class Bullet {
 
   void reset() {
     isFired = false; 
-    x = -1000;    
+    x = -100000;    
     vy = 0;
     vx = 0;
   }
