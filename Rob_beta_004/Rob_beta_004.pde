@@ -87,6 +87,10 @@ SoundFile file;
 SoundFile Soundtrack;
 SoundFile laserSound;
 SoundFile Swordhit;
+SoundFile WalkSound;
+SoundFile Explosion;
+SoundFile SwordAttack;
+SoundFile Powerup;
 void setup() {
   // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
@@ -116,6 +120,10 @@ void setup() {
     laserSound = new SoundFile(this, "lasersound.mp3");
     laserSound.amp(0.05);
     Swordhit = new SoundFile(this, "swordhit.mp3");
+    WalkSound = new SoundFile(this, "walkrobot.wav");
+    Explosion = new SoundFile(this, "explosion2.0.wav");
+    SwordAttack = new SoundFile(this, "swordattack.wav");
+    Powerup = new SoundFile(this, "powerup.wav");
     
   }
   for (int i = 0; i <10; i++) {
@@ -219,15 +227,19 @@ void draw() {
 void keyPressed() {
   if (key == 'w' || key == 'W') {
     player.up = true;
+   // WalkSound.play();
   }
   if (key == 's' || key == 'S') {
     player.down = true;
+  //  WalkSound.play();
   }
   if (key == 'a' || key == 'A') {
     player.left = true;
+  //  WalkSound.play();
   }
   if (key == 'd' || key == 'D') {
     player.right = true;
+  //  WalkSound.play();
   }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
@@ -240,21 +252,26 @@ void keyPressed() {
   if (key == 'z') {
     sword.isHit = true;
     sword.show();
-  //  Swordhit.play();
+    SwordAttack.play();
+    //  Swordhit.play();
   }
 }
 void keyReleased() {
   if (key == 'w' || key == 'W') {
     player.up = false;
+  //  WalkSound.stop();
   }
   if (key == 's' || key == 'S') {
     player.down = false;
+   // WalkSound.stop();
   }
   if (key == 'a' || key == 'A') {
     player.left = false;
+   // WalkSound.stop();
   }
   if (key == 'd' || key == 'D') {
     player.right = false;
+   // WalkSound.stop();
   }
   keys[keyCode] = false;
   if (key == 'z') {
