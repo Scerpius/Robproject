@@ -47,10 +47,6 @@ public class Walker {
     texture = loadImage("Walker2.png");
   }
 
-
-
-
-
   //tekenen
   void draw() {
     image(texture, posXEnemy, posYEnemy);
@@ -177,11 +173,35 @@ public class Walker {
     }
   }
   void moveToPlayer() {
-    if (posYEnemy>player.y && posXEnemy > player.x) {
-      posXEnemy = posXEnemy - moveEnemy; 
-      posYEnemy = posYEnemy - moveEnemy;
-
-      image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
+    if (detected) {
+      if (posYEnemy > player.y && posXEnemy > player.x) {
+        posXEnemy = posXEnemy - moveEnemy; 
+        posYEnemy = posYEnemy - moveEnemy;
+      }
+    }
+    if (detected) {
+      if (posYEnemy > player.y && posXEnemy < player.x) {
+        posXEnemy = posXEnemy + moveEnemy; 
+        posYEnemy = posYEnemy - moveEnemy;
+      }
+    }
+    if (detected) {
+      if (posYEnemy < player.y &&   posXEnemy > player.x) {
+        posXEnemy = posXEnemy - moveEnemy; 
+        posYEnemy = posYEnemy + moveEnemy;
+      }
+    }
+    if (detected) {
+      if (posYEnemy < player.y &&  posXEnemy < player.x) {
+        posXEnemy = posXEnemy + moveEnemy; 
+        posYEnemy = posYEnemy + moveEnemy;
+      }
+    }
+    // Move in a straight line down //
+    if (posYEnemy < player.y && posXEnemy == player.x) {
+      posYEnemy ++;
+      
+      image(spritesDownWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -191,10 +211,10 @@ public class Walker {
         cycleDirectionXEnemy1 = 0;
       }
     }
-    if (posYEnemy>player.y && posXEnemy < player.x) {
-      posXEnemy = posXEnemy + moveEnemy; 
-      posYEnemy = posYEnemy - moveEnemy;
-
+    // Move in a straight line up //
+    if (posYEnemy > player.y && posXEnemy == player.x) {
+      posYEnemy --;
+      
       image(spritesUpWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -204,11 +224,11 @@ public class Walker {
       if (cycleDirectionXEnemy1 == 3) {
         cycleDirectionXEnemy1 = 0;
       }
-    } 
-    if (posYEnemy<player.y &&   posXEnemy > player.x) {
-      posXEnemy = posXEnemy - moveEnemy; 
-      posYEnemy = posYEnemy + moveEnemy;
-
+    }
+    // Move in a straight line to the left //
+    if (posYEnemy == player.y && posXEnemy > player.x) {
+      posXEnemy --;
+      
       image(spritesLeftWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -219,10 +239,10 @@ public class Walker {
         cycleDirectionXEnemy1 = 0;
       }
     }
-    if (posYEnemy<player.y &&  posXEnemy < player.x) {
-      posXEnemy = posXEnemy + moveEnemy; 
-      posYEnemy = posYEnemy + moveEnemy;
-
+    // Move in a straight line to the right //
+    if (posYEnemy == player.y && posXEnemy < player.x) {
+      posXEnemy ++;
+      
       image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -232,10 +252,12 @@ public class Walker {
       if (cycleDirectionXEnemy1 == 3) {
         cycleDirectionXEnemy1 = 0;
       }
+      
+      
     }
-    //geleidelijk sterker maken van de vijanden
   }
- void Stronger() {
+
+  void Stronger() {
     println(score + " " + killsForRoundUp + " " + score % killsForRoundUp + roundCount);
     if (score % killsForRoundUp  ==0 && score != 0 && killRound == true) {
 
@@ -250,51 +272,51 @@ public class Walker {
         walkers[iEnemy].moveEnemy = walkers[iEnemy].speedEnemy;
         shooters[iEnemy].moveEnemy = shooters[iEnemy].speedEnemy;
       }
-      
-        switch (roundCount %5) {
-          case (0):
-          if (roundCount != 0) {
+
+      switch (roundCount %5) {
+        case (0):
+        if (roundCount != 0) {
           //spawn meer enemies
           killsForRoundUp += 2;
           CurrentNumEnemies += 1;
           MaxEnemies = false;
           uitgevoerd = true;
-          }
-          break;
-          case (1):
-          //beweeg sneller
-
-          for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-            walkers[iEnemy].speedEnemy *= 1.25;
-            shooters[iEnemy].speedEnemy  *= 1.25;
-          }
-          uitgevoerd = true;
-          MaxEnemies = false;
-
-          break;
-          case (2):
-          CurrentNumEnemies += 1 * 1.008;
-          //spawn delay lager
-          uitgevoerd = true;
-          MaxEnemies = false;
-
-          break;
-          //levens omhoog
-          case (3):
-          CurrentNumEnemies += 1 * 1.008;
-          enemyHealth += 2;
-          uitgevoerd = true;
-          MaxEnemies = false;
-
-          break;
-          case (4):
-          CurrentNumEnemies += 1 * 1.008;
-          //doet meer damage
-          uitgevoerd = true;
-          MaxEnemies = false;
-
-          break;
         }
+        break;
+        case (1):
+        //beweeg sneller
+
+        for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
+          walkers[iEnemy].speedEnemy *= 1.25;
+          shooters[iEnemy].speedEnemy  *= 1.25;
+        }
+        uitgevoerd = true;
+        MaxEnemies = false;
+
+        break;
+        case (2):
+        CurrentNumEnemies += 1 * 1.008;
+        //spawn delay lager
+        uitgevoerd = true;
+        MaxEnemies = false;
+
+        break;
+        //levens omhoog
+        case (3):
+        CurrentNumEnemies += 1 * 1.008;
+        enemyHealth += 2;
+        uitgevoerd = true;
+        MaxEnemies = false;
+
+        break;
+        case (4):
+        CurrentNumEnemies += 1 * 1.008;
+        //doet meer damage
+        uitgevoerd = true;
+        MaxEnemies = false;
+
+        break;
       }
     }
   }
+}
