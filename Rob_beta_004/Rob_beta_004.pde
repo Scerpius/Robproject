@@ -23,6 +23,11 @@ Object object;
 Collision collision;
 Teleporter teleport;
 Start startscreen;
+Timer startTimer;
+
+int ms = 0;
+int s = 0;
+int min = 0;
 
 boolean [] keys = new boolean[1024];
 boolean fired;
@@ -130,6 +135,7 @@ void setup() {
     powerups[i] = new Powerup();
   }
 
+  startTimer = new Timer(0);
   teleport = new Teleporter();
   collision = new Collision();
   camera = new Camera();
@@ -180,6 +186,7 @@ void draw() {
   if (state == 2) {
     camera.updateBackground();
     camera.updateScreen();
+    startTimer.countUp();
     if (keyPressed && key =='b') {
       player.hp = 0;
     }
