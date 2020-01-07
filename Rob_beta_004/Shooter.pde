@@ -31,25 +31,15 @@ public class Shooter {
   float distXp;
   float distYp;
   float detectEnemy = 200;
-  PImage texture;
 
 
   int framecount = 0;
-  String spritesDownEnemy[] = {"Shooter1.png", "Shooter2.png", "Shooter3.png", };
-
-  String spritesLeftEnemy[] ={"Shooter4.png", "Shooter5.png", "Shooter6.png"};
-
-  String spritesRightEnemy[] ={"Shooter7.png", "Shooter8.png", "Shooter9.png"};
-
-  String spritesUpEnemy[] ={"Shooter10.png", "Shooter11.png", "Shooter12.png"};
 
   int cycleDirectionEnemy = 0;
   Shooter() {
-    texture = loadImage("Shooter2.png");
   }
   //tekenen
   void draw() {
-    image(texture, posXEnemy, posYEnemy);
     if (kogel != null) {
 
       kogel.shoot();
@@ -68,7 +58,7 @@ public class Shooter {
       break;
       case(2): //onder
       posXEnemy = backGroundLevel.width/2 + X;
-      posYEnemy = backGroundLevel.height-texture.height + Y;
+      posYEnemy = backGroundLevel.height-spritesDownShooter[1].height + Y;
       break;
       case(3): //links
       posXEnemy = backGroundLevel.width-1265 + X;
@@ -174,6 +164,9 @@ public class Shooter {
         detectedL = true;
       }
     }
+    if(detectedD||detectedR||detectedL||detectedU){
+     image(spritesDownShooter[1],posXEnemy, posYEnemy); 
+    }
   }
   void shoot() {
     if (spawned) {
@@ -245,64 +238,5 @@ public class Shooter {
       spawned = true;
     }
   }
-  //2.45
-  //void Stronger() {
 
-  //  if (score %10 ==0 && score != 0 && killRound == true) {
-
-  //    roundCount ++;
-  //    killRound = false;
-  //    uitgevoerd = false;
-  //  } else if (score %10 ==9) {
-  //    killRound = true;
-  //  }
-  //  if (uitgevoerd == false) {
-  //    for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-  //      walkers[iEnemy].moveEnemy = walkers[iEnemy].speedEnemy;
-  //      shooters[iEnemy].moveEnemy = shooters[iEnemy].speedEnemy;
-  //    }
-  //    switch (roundCount %5) {
-  //      case (0):
-  //      //spawn meer enemies
-
-  //      CurrentNumEnemies *= 1.008;
-  //      MaxEnemies = false;
-  //      uitgevoerd = true;
-
-  //      break;
-  //      case (1):
-  //      //beweeg sneller
-  //      CurrentNumEnemies *= 1.008;
-  //      for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
-  //        walkers[iEnemy].speedEnemy *= 1.25;
-  //        shooters[iEnemy].speedEnemy  *= 1.25;
-  //      }
-  //      uitgevoerd = true;
-  //      MaxEnemies = false;
-
-  //      break;
-  //      case (2):
-  //      CurrentNumEnemies += 1 * 1.008;
-  //      //spawn delay lager
-  //      uitgevoerd = true;
-  //      MaxEnemies = false;
-
-  //      break;
-  //      case (3):
-  //      CurrentNumEnemies += 1 * 1.008;
-  //      Enemylives += 2;
-  //      uitgevoerd = true;
-  //      MaxEnemies = false;
-
-  //      break;
-  //      case (4):
-  //      CurrentNumEnemies += 1 * 1.008;
-  //      //doet meer damage
-  //      uitgevoerd = true;
-  //      MaxEnemies = false;
-
-  //      break;
-  //    }
-  //  }
-  //}
 }
