@@ -42,18 +42,18 @@ void loadAssets() {
     spritesUpShooter[1]=loadImage("Shooter11.png");
     spritesUpShooter[2]=loadImage("Shooter12.png");
 
-    spritesDownWalker[0]=loadImage("Walker1.png");
-    spritesDownWalker[1]=loadImage("Walker2.png");
-    spritesDownWalker[2]=loadImage("Walker3.png");
-    spritesLeftWalker[0]=loadImage("Walker4.png");
-    spritesLeftWalker[1]=loadImage("Walker5.png");
-    spritesLeftWalker[2]=loadImage("Walker6.png");
-    spritesRightWalker[0]=loadImage("Walker7.png");
-    spritesRightWalker[1]=loadImage("Walker8.png");
-    spritesRightWalker[2]=loadImage("Walker9.png");
-    spritesUpWalker[0]=loadImage("Walker10.png");
-    spritesUpWalker[1]=loadImage("Walker11.png");
-    spritesUpWalker[2]=loadImage("Walker12.png");
+    spritesDownWalker[0]=loadImage("Enemy1.png");
+    spritesDownWalker[1]=loadImage("Enemy2.png");
+    spritesDownWalker[2]=loadImage("Enemy3.png");
+    spritesLeftWalker[0]=loadImage("Enemy4.png");
+    spritesLeftWalker[1]=loadImage("Enemy5.png");
+    spritesLeftWalker[2]=loadImage("Enemy6.png");
+    spritesRightWalker[0]=loadImage("Enemy7.png");
+    spritesRightWalker[1]=loadImage("Enemy8.png");
+    spritesRightWalker[2]=loadImage("Enemy9.png");
+    spritesUpWalker[0]=loadImage("Enemy10.png");
+    spritesUpWalker[1]=loadImage("Enemy11.png");
+    spritesUpWalker[2]=loadImage("Enemy12.png");
 
     spritesDown[0] = loadImage("Robotpos1.png");
     spritesDown[1] = loadImage("Robotpos2.png");

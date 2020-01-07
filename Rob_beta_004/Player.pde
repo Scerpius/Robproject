@@ -2,7 +2,7 @@ class Player {
   float x, y; 
   float vx = 3;
   float vy = 3;
-  float ms = 1;
+  float ms = 2;
   PImage playerSprite;
 
   float w;

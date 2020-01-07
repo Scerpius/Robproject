@@ -1,6 +1,7 @@
 class Bob {
   float powerupX;
   float powerupY;
+  float framecount = 0;
 
   boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
     int w0 = texture0.width, 
@@ -16,6 +17,7 @@ class Bob {
   }
 
   void code () {
+      //println(framecount);
     for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
       shooters[iEnemy].updateSpawn();
       walkers[iEnemy].updateSpawn();
@@ -48,7 +50,7 @@ class Bob {
 
 
         walkers[iEnemy].check(); //deze lijn pakt hij niet meer
-        walkers[iEnemy].Stronger();
+        //walkers[iEnemy].Stronger();
       }
 
       shooters[iEnemy].detect();
@@ -109,6 +111,7 @@ class Bob {
           if (anWalker.Enemylives <= 0) {
             anWalker.reset();
             score = score + 1;
+            kills++;
             for (int i = 0; i < powerups.length; i++) {
               if (powerups[i].x == powerups[i].xResetValue) {
                 powerups[i].spawn();
@@ -131,6 +134,7 @@ class Bob {
           if (anShooter.Enemylives <= 0) {
             anShooter.reset();
             score = score + 1;
+            kills++;
 
             for (int i = 0; i < powerups.length; i++) {
               if (powerups[i].x == powerups[i].xResetValue) {
@@ -148,6 +152,7 @@ class Bob {
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anWalker.reset();
+          kills++;
           score = score + 1;
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
@@ -170,6 +175,7 @@ class Bob {
 
           anShooter.reset();
           score = score + 1;
+          kills++;
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
               powerups[i].spawn();
@@ -193,14 +199,19 @@ class Bob {
     for (Walker anWalker : walkers) {
       if (overlaps(player.x, player.y, spritesDown[1], anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
         if (invisibility == false) {
-          player.hp = player.hp - 1;
+          player.hp = player.hp - 0;
         }
         invisibility = true;
-        if (invisibility) {  
-          if (millis() >= time + 1000) {
+
+        if (invisibility) {
+          
+          framecount++;
+        
+          if (framecount > 90) {
+
             invisibility = false;
+            framecount = 0;
           }
-          time = millis();
         }
       }
     }

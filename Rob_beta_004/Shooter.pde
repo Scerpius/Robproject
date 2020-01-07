@@ -16,6 +16,12 @@ public class Shooter {
   float speedEnemy = 0.5;
   float moveEnemy = speedEnemy; //nodig
   float direction;
+  float ySpawn1 = -15 ; // boven
+  float ySpawn2 = 150 ; // midden
+  float ySpawn3 = 720; // onder
+  float xSpawn1 = 0; //links
+  float xSpawn2 = 1280; // rechts
+  float xSpawn3 = 640;  // midden
   boolean Xtrue = false;
   boolean Ytrue = false;
   boolean detectedD = false;
@@ -32,6 +38,7 @@ public class Shooter {
   float distYp;
   float detectEnemy = 200;
   PImage texture;
+  boolean isAlive = true;
 
 
   int framecount = 0;
@@ -56,32 +63,44 @@ public class Shooter {
       kogel.show();
     }
   }
-  void spawn() {
-    switch(positionSpawn[i]) {
-      case(0): //boven
-      posXEnemy = backGroundLevel.width/2 + X;
-      posYEnemy = backGroundLevel.height-690 + Y;
-      break;
-      case(1): //rechts
-      posXEnemy = backGroundLevel.width-15 + X;
-      posYEnemy = backGroundLevel.height-470 + Y;
-      break;
-      case(2): //onder
-      posXEnemy = backGroundLevel.width/2 + X;
-      posYEnemy = backGroundLevel.height-texture.height + Y;
-      break;
-      case(3): //links
-      posXEnemy = backGroundLevel.width-1265 + X;
-      posYEnemy = backGroundLevel.height-470 + Y;
-      break;
-    }
-  }
+
   void updateSpawn() {
     X -= player.vx;
     Y -= player.vy;
+    xSpawn1 -= player.vx;
+    ySpawn1 -= player.vy;
+    xSpawn2 -= player.vx;
+    ySpawn2 -= player.vy;
+    xSpawn3 -= player.vx;
+    ySpawn3 -= player.vy;
   }
+
+  void spawn() {
+    isAlive = true;
+    switch(positionSpawn[i]) {
+      case(0): //boven
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+      case(1): //rechts
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+      case(2): //onder
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+      case(3): //links
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+    }
+  }
+
   void reset() {
-    spawn();
+    //spawn();
+    isAlive = false;
+    posXEnemy = -1000;
     moveEnemy = 0;
     Enemylives = enemyHealth;
   }

@@ -15,6 +15,7 @@ Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
 Stats stats;
+Waves waves;
 
 
 //SpawnPoint newSpawn;
@@ -45,6 +46,8 @@ static int i;
 int roundCount = 0;
 int time = millis();
 int stateTextSize= 60;
+int currentWaves = 1;
+float kills = 0;
 boolean start = false;
 
 boolean invisibility = false;
@@ -54,6 +57,7 @@ boolean killRound = false;
 boolean up = false, down = false, left = false, right = false;
 boolean detect = true;
 boolean MaxEnemies = false;
+boolean newWaves = true;
 int powerupcount = 0;
 
 
@@ -87,10 +91,6 @@ SoundFile file;
 SoundFile Soundtrack;
 SoundFile laserSound;
 SoundFile Swordhit;
-SoundFile WalkSound;
-SoundFile Explosion;
-SoundFile SwordAttack;
-SoundFile Powerup;
 void setup() {
   // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
@@ -115,15 +115,11 @@ void setup() {
     backGroundLevel = loadImage("Backgroundtegels.png");
     StartScreen = loadImage("BackgroundMain.png");
     // StartScreen = loadImage("BackgroundMain.png");
-    // file = new SoundFile(this, "Synthwave.mp3");
-    // file.loop();
+    file = new SoundFile(this, "Synthwave.mp3");
+    file.loop();
     laserSound = new SoundFile(this, "lasersound.mp3");
     laserSound.amp(0.05);
     Swordhit = new SoundFile(this, "swordhit.mp3");
-    WalkSound = new SoundFile(this, "walkrobot.wav");
-    Explosion = new SoundFile(this, "explosion2.0.wav");
-    SwordAttack = new SoundFile(this, "swordattack.wav");
-    Powerup = new SoundFile(this, "powerup.wav");
     
   }
   for (int i = 0; i <10; i++) {
@@ -136,6 +132,7 @@ void setup() {
   sword = new Sword();
   startscreen = new Start();
   stats = new Stats();
+  waves = new Waves();
 
   noStroke();
   player = new Player();
@@ -227,19 +224,15 @@ void draw() {
 void keyPressed() {
   if (key == 'w' || key == 'W') {
     player.up = true;
-   // WalkSound.play();
   }
   if (key == 's' || key == 'S') {
     player.down = true;
-  //  WalkSound.play();
   }
   if (key == 'a' || key == 'A') {
     player.left = true;
-  //  WalkSound.play();
   }
   if (key == 'd' || key == 'D') {
     player.right = true;
-  //  WalkSound.play();
   }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
@@ -252,26 +245,21 @@ void keyPressed() {
   if (key == 'z') {
     sword.isHit = true;
     sword.show();
-    SwordAttack.play();
-    //  Swordhit.play();
+  //  Swordhit.play();
   }
 }
 void keyReleased() {
   if (key == 'w' || key == 'W') {
     player.up = false;
-  //  WalkSound.stop();
   }
   if (key == 's' || key == 'S') {
     player.down = false;
-   // WalkSound.stop();
   }
   if (key == 'a' || key == 'A') {
     player.left = false;
-   // WalkSound.stop();
   }
   if (key == 'd' || key == 'D') {
     player.right = false;
-   // WalkSound.stop();
   }
   keys[keyCode] = false;
   if (key == 'z') {
