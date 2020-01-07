@@ -258,7 +258,7 @@ public class Walker {
   }
 
   void Stronger() {
-    println(score + " " + killsForRoundUp + " " + score % killsForRoundUp + roundCount);
+    //println(score + " " + killsForRoundUp + " " + score % killsForRoundUp + roundCount);
     if (score % killsForRoundUp  ==0 && score != 0 && killRound == true) {
 
       roundCount ++;

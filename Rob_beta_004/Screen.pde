@@ -15,40 +15,40 @@ class Start {
   int ellipseWidth = 50;
   int ellipseX2 = 817;
   int ellipseY2 = 425;
-  
+
   int buttonX = 805;
   int buttonY = 440;
-  
+
   int buttonX2 = 805;
   int buttonY2 = 540;
-  
 
-  
+
+
   int sideHitBox = 705;
   int shooterX = 705;
   int shooterY = 505;
   int walkerX = 705;
   int walkerY = 405;
-  
+
   int shooterBelowHitBox = 440;
   int shooterTopHitBox = 390;
   int walkerBelowHitBox = 540;
   int walkerTopHitBox = 480;
 
   void start() {
-   
+
     fill(255);
     rect(xLeftWall, yTopWall, wallWidth, sizeWall);
-    rect(xLeftWall, yTopWall, sizeWall , wallHeight);
-    rect(xLeftWall,yBottomWall,wallWidth,sizeWall);
-    rect(xRightWall, yTopWall ,sizeWall, wallHeight);
-   
+    rect(xLeftWall, yTopWall, sizeWall, wallHeight);
+    rect(xLeftWall, yBottomWall, wallWidth, sizeWall);
+    rect(xRightWall, yTopWall, sizeWall, wallHeight);
+
 
     fill(255, 0, 0);
     stroke(255, 0, 0);
     ellipse(ellipseX, ellipseY, ellipseWidth, ellipseWidth);
-    fill(0,255,0);
-        stroke(0, 255, 0);
+    fill(0, 255, 0);
+    stroke(0, 255, 0);
     ellipse(ellipseX2, ellipseY2, ellipseWidth, ellipseWidth);
     fill(255);
     text("A", buttonX, buttonY);
@@ -57,7 +57,7 @@ class Start {
 
 
     textSize(40);
-   
+
 
 
     texture = loadImage("Shooter2.png");
@@ -103,8 +103,12 @@ class Stats {
     for (int i = 0; i < player.hp; i++) {
       image(hp, player.x + 215 + (35*i), player.y - 190 );
     }
+    rect(150, 25, 400, 25);
+    for (int i = 0; i < player.fuel; i++) {
+      
 
-
-    
+        fill(255, 0, 0);
+        rect(150, 25, 133 + (133 * i), 25);
+      }
+    }
   }
-}

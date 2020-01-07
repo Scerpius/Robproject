@@ -55,6 +55,8 @@ class Camera {
       text(score, 150, 50);
 
       stats.draw();
+      //
+      //mysql.DatabaseOpdrachtRemco();
 
       if (player.shield) {
         framecount++;
@@ -78,6 +80,8 @@ class Camera {
   void update() {
     float tempVX = player.vx;
     float tempVY = player.vy;
+    mysql.posx += player.vx;
+    mysql.posy += player.vy;
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.x -= player.vx;

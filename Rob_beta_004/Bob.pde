@@ -1,6 +1,7 @@
 class Bob {
   float powerupX;
   float powerupY;
+ 
 
   boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
     int w0 = texture0.width, 
@@ -112,6 +113,7 @@ class Bob {
             for (int i = 0; i < powerups.length; i++) {
               if (powerups[i].x == powerups[i].xResetValue) {
                 powerups[i].spawn();
+               //powerups[i].fuelSpawn();
                 break;
               }
             }
@@ -135,6 +137,7 @@ class Bob {
             for (int i = 0; i < powerups.length; i++) {
               if (powerups[i].x == powerups[i].xResetValue) {
                 powerups[i].spawn();
+                //powerups[i].fuelSpawn();
                 break;
               }
             }
@@ -152,6 +155,7 @@ class Bob {
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
               powerups[i].spawn();
+             //powerups[i].fuelSpawn();
               break;
             }
           }
@@ -173,6 +177,7 @@ class Bob {
           for (int i = 0; i < powerups.length; i++) {
             if (powerups[i].x == powerups[i].xResetValue) {
               powerups[i].spawn();
+              //powerups[i].fuelSpawn();
               break;
             }
           }

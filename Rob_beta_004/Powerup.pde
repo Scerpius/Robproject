@@ -1,4 +1,4 @@
- class Powerup {
+class Powerup {
   float x;
   float xResetValue = -1100;
   float y;
@@ -18,12 +18,15 @@
 
   void spawn() {
 
-    int powerupChance = int(random(4, 5));
-    //println("powerupChance : " + powerupChance);
+    int powerupChance = int(random(0, 6));
+    int fuelChance = int(random(0, 10));
+    println("PowerupChance = " + powerupChance);
+
+
 
     if (powerupChance == 4) {
 
-      whatPowerup = int(random(3, 4));
+      whatPowerup = int(random(0, 6));
       if (whatPowerup == 0) { 
         texture = loadImage("Hp.png");
       }
@@ -37,7 +40,7 @@
         texture = loadImage("Speed.png");
       }
       if (whatPowerup == 4) { 
-       texture = loadImage("dmg.png");
+        texture = loadImage("dmg.png");
       }
       if (whatPowerup == 5) { 
         texture = loadImage("dubbelDamage.png");
@@ -45,20 +48,25 @@
 
 
 
+
+
       x = bob.powerupX; 
       y = bob.powerupY;
-      //println(bob.powerupX);
-      //println(bob.powerupY);
-      powerupcount++;
-
-      if (powerupcount == 9) { 
-        powerupcount = 0;
-      }
+    }
+    if (fuelChance == 4) {
+      texture = loadImage("Fuel.png");
+      println("this shit works");
+      whatPowerup = 6;
+      x = bob.powerupX;
+      y = bob.powerupY;
     }
 
     powerupSpawn = false;
     kill = false;
   }
+
+
+
 
   void onPickup()
   {
@@ -67,23 +75,20 @@
       println(player.hp + " :D" );
     } 
     if (whatPowerup == 1) {
-      player.AS += 1;
+      player.AS -= 1;
       println(player.AS + " :D" );
     } 
     if (whatPowerup == 2) {
       player.shield = true;
       println(player.shield + " :D" );
       if (millis() >= time + 30000) {
-       player.shield = false;
+        player.shield = false;
         time = millis();
       }
-
-
-      
     } 
     if (whatPowerup == 3) {
-     //player.ms += 0.25;
-     println(player.ms + " :D" );
+      //player.ms += 0.25;
+      println(player.ms + " :D" );
     } 
 
     if (whatPowerup == 4) {
@@ -97,7 +102,17 @@
         time = millis();
       }
 
+
+
+
       println(player.dubbelDamage + " :D" );
+    }
+    if (whatPowerup == 6) {
+      if (player.fuel <= 2) {
+        player.fuel++;
+      } else { 
+        player.fuel = 3;
+      }
     }
   }
 

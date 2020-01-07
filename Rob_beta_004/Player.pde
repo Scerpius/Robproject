@@ -7,6 +7,7 @@ class Player {
 
   float w;
   float h;
+  float fuel = 0;
   final float startHp = 3;
   float hp = 3;
   float direction;

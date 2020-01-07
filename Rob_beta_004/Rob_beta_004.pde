@@ -1,12 +1,13 @@
-//import de.bezier.data.sql.*;
-//import de.bezier.data.sql.mapper.*;
+import de.bezier.data.sql.*;
+import de.bezier.data.sql.mapper.*;
 
-//MySQL sql;
+MySQL sql;
+MYSQL mysql;
 
-//String database = "127.0.0.1"; // Database IP, ik gebruik XAMPP voor localhost (zelfde idee als MySQL Server als goed is)
-//String databaseName = "hva"; // Database Name, de naam die ik gebruik voor mijn database
-//String username = "root"; // Gebruikersnaam waarmee je in je database inlogt
-//String password = "Dreef123!"; // Omdat ik localhost gebruik, heb ik geen password
+String database = "oege.ie.hva.nl"; // Database IP, ik gebruik XAMPP voor localhost (zelfde idee als MySQL Server als goed is)
+String databaseName = "zsluiscm"; // Database Name, de naam die ik gebruik voor mijn database
+String username = "sluiscm"; // Gebruikersnaam waarmee je in je database inlogt
+String password = "n9YFaVSpqMeAAB"; // Omdat ik localhost gebruik, heb ik geen password
 
 
 Player player;
@@ -92,7 +93,7 @@ SoundFile Explosion;
 SoundFile SwordAttack;
 SoundFile Powerup;
 void setup() {
-  // sql = new MySQL(this, database, databaseName, username, password);
+  sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
   smooth(4);
@@ -111,21 +112,22 @@ void setup() {
     positionSpawn[iEnemy] = (floor(random(0, 4)));
     walkers[iEnemy] = new Walker();
     shooters[iEnemy] = new Shooter();
-
-    backGroundLevel = loadImage("Backgroundtegels.png");
-    StartScreen = loadImage("BackgroundMain.png");
-    // StartScreen = loadImage("BackgroundMain.png");
-    // file = new SoundFile(this, "Synthwave.mp3");
-    // file.loop();
-    laserSound = new SoundFile(this, "lasersound.mp3");
-    laserSound.amp(0.05);
-    Swordhit = new SoundFile(this, "swordhit.mp3");
-    WalkSound = new SoundFile(this, "walkrobot.wav");
-    Explosion = new SoundFile(this, "explosion2.0.wav");
-    SwordAttack = new SoundFile(this, "swordattack.wav");
-    Powerup = new SoundFile(this, "powerup.wav");
-    
   }
+  
+  backGroundLevel = loadImage("Backgroundtegels.png");
+  StartScreen = loadImage("BackgroundMain.png");
+  // StartScreen = loadImage("BackgroundMain.png");
+  file = new SoundFile(this, "Synthwave.mp3");
+  file.loop();
+  laserSound = new SoundFile(this, "lasersound.mp3");
+  laserSound.amp(0.05);
+  Swordhit = new SoundFile(this, "swordhit.mp3");
+  WalkSound = new SoundFile(this, "walkrobot.wav");
+  Explosion = new SoundFile(this, "explosion2.0.wav");
+  SwordAttack = new SoundFile(this, "swordattack.wav");
+  Powerup = new SoundFile(this, "powerup.wav");
+
+
   for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
   }
@@ -140,6 +142,8 @@ void setup() {
   noStroke();
   player = new Player();
   bob = new Bob();
+  mysql = new MYSQL();
+  
   //if (sql.connect()) {
   //  sql.execute("CREATE TABLE IF NOT EXISTS Game (time float, score float, playerid varchar(150), PRIMARY KEY(playerid));");
   //  sql.execute("CREATE TABLE IF NOT EXISTS Player(hp float, pos float, playerid float, PRIMARY KEY(playerid));");
@@ -219,7 +223,6 @@ void draw() {
       roundCount = 0;
       score = 0;
       state = 2;
-      
     }
   }
 }
@@ -227,19 +230,19 @@ void draw() {
 void keyPressed() {
   if (key == 'w' || key == 'W') {
     player.up = true;
-   // WalkSound.play();
+    // WalkSound.play();
   }
   if (key == 's' || key == 'S') {
     player.down = true;
-  //  WalkSound.play();
+    //  WalkSound.play();
   }
   if (key == 'a' || key == 'A') {
     player.left = true;
-  //  WalkSound.play();
+    //  WalkSound.play();
   }
   if (key == 'd' || key == 'D') {
     player.right = true;
-  //  WalkSound.play();
+    //  WalkSound.play();
   }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
@@ -259,19 +262,19 @@ void keyPressed() {
 void keyReleased() {
   if (key == 'w' || key == 'W') {
     player.up = false;
-  //  WalkSound.stop();
+    //  WalkSound.stop();
   }
   if (key == 's' || key == 'S') {
     player.down = false;
-   // WalkSound.stop();
+    // WalkSound.stop();
   }
   if (key == 'a' || key == 'A') {
     player.left = false;
-   // WalkSound.stop();
+    // WalkSound.stop();
   }
   if (key == 'd' || key == 'D') {
     player.right = false;
-   // WalkSound.stop();
+    // WalkSound.stop();
   }
   keys[keyCode] = false;
   if (key == 'z') {
