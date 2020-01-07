@@ -12,20 +12,6 @@ public class  Kogel {
   boolean fireR = false;
   boolean fireL = false;
   PImage texture;
-  
-      boolean kogelHit(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
-    int w0 = texture0.width, 
-      h0 = texture0.height, 
-      w1 = texture1.width, 
-      h1 = texture1.height;
-
-    if (x0 > x1   + w1 || x0 + w0 < x1 || 
-      y0 > y1 + h1 || y0 + h0 < y1)
-      return false;
-    else
-      return true;
-  }
- 
 
   Kogel(float _x , float _y, float directionX, float directionY) {
     x = _x;
@@ -54,12 +40,6 @@ public class  Kogel {
     
     x += vx - player.vx;
     y += vy - player.vy;
-    
-      if(kogelHit(x,y,texture,player.x,player.y,playerSprite) == true){
-     player.hp -= 1;
-     reset();
-     
-   }
     
     /*
     if (fireD) {

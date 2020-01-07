@@ -72,11 +72,15 @@
     } 
     if (whatPowerup == 2) {
       player.shield = true;
+
+
+
       //println(player.shield + " :D" );
       if (millis() >= time + 30000) {
        player.shield = false;
         time = millis();
       }
+
 
 
       
@@ -92,10 +96,7 @@
     } 
     if (whatPowerup == 5) {
       player.dubbelDamage = true;
-      if (millis() >= time + 30000) {
-        player.dubbelDamage = false;
-        time = millis();
-      }
+
 
       //println(player.dubbelDamage + " :D" );
     }

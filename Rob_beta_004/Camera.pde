@@ -1,7 +1,7 @@
 class Camera {
   //float x, y;
   float bx, by;
-  float zoom = 1.75;
+  float zoom = 1.00;
 
   int framecount = 0;
   int framecountdmg = 0;
@@ -59,6 +59,7 @@ class Camera {
       text(score, 150, 50);
 
       stats.draw();
+      waves.checkWaves();
 
       if (player.shield) {
         framecount++;
@@ -96,7 +97,7 @@ class Camera {
     if (collision.checkPortal(player.x + tempVX, player.y + tempVY, player.w, player.h) == true) {
       bx -= player.vx;
       by -= player.vy;
-      
+
 
       for (int i = 0; i < shooters.length; i++) {
         shooters[i].posXEnemy -= player.vx;
@@ -118,7 +119,6 @@ class Camera {
         objectList[i].x -= player.vx;
         objectList[i].y -= player.vy;
       }
-      
     } else { 
       if (collision.checkCollision(player.x + tempVX, player.y, player.w, player.h) == false) {
         bx -= player.vx;

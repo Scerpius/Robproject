@@ -14,6 +14,8 @@
 //}
 public class Walker {
 
+  boolean isAlive = true;
+
   int cycleDirectionXEnemy1 = 0;
   int cycleDirectionYEnemy1 = 0;
 
@@ -29,9 +31,16 @@ public class Walker {
   float Y;
   float distX;
   float distY;
+  float ySpawn1 = -15 ; // boven
+  float ySpawn2 = 150 ; // midden
+  float ySpawn3 = 720; // onder
+  float xSpawn1 = 0; //links
+  float xSpawn2 = 1280; // rechts
+  float xSpawn3 = 640;  // midden
   final float startSpeedEnemy = 1;
   float speedEnemy = 0.5;
   float moveEnemy = speedEnemy; //nodig
+
   boolean Xtrue = false;
   boolean Ytrue = false;
   boolean detected = false;
@@ -47,37 +56,52 @@ public class Walker {
     texture = loadImage("Walker2.png");
   }
 
+
+
+
+
   //tekenen
   void draw() {
     image(texture, posXEnemy, posYEnemy);
   }
-  void spawn() {
-    switch(positionSpawn[i]) {
-      case(0): //boven
-      posXEnemy = backGroundLevel.width/2 + X;
-      posYEnemy = backGroundLevel.height-690 + Y;
-      break;
-      case(1): //rechts
-      posXEnemy = backGroundLevel.width-15 + X;
-      posYEnemy = backGroundLevel.height-470 + Y;
-      break;
-      case(2): //onder
-      posXEnemy = backGroundLevel.width/2 + X;
-      posYEnemy = backGroundLevel.height-texture.height + Y;
-      break;
-      case(3): //links
-      posXEnemy = backGroundLevel.width-1265 + X;
-      posYEnemy = backGroundLevel.height-470 + Y;
-      break;
-    }
-  }
+
   void updateSpawn() {
     X -= player.vx;
     Y -= player.vy;
+    xSpawn1 -= player.vx;
+    ySpawn1 -= player.vy;
+    xSpawn2 -= player.vx;
+    ySpawn2 -= player.vy;
+    xSpawn3 -= player.vx;
+    ySpawn3 -= player.vy;
   }
 
+  void spawn() {
+    switch(positionSpawn[i]) {
+      case(0): //boven
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+      case(1): //boven
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+      case(2): //onder
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+      case(3): //links
+      posXEnemy = xSpawn3;
+      posYEnemy = ySpawn1;
+      break;
+    }
+  }
+
+
   void reset() {
-    spawn();
+    //spawn();
+    isAlive = false;
+    posXEnemy = -1000;
     moveEnemy = 0;
     Enemylives = enemyHealth;
   }
@@ -173,35 +197,11 @@ public class Walker {
     }
   }
   void moveToPlayer() {
-    if (detected) {
-      if (posYEnemy > player.y && posXEnemy > player.x) {
-        posXEnemy = posXEnemy - moveEnemy; 
-        posYEnemy = posYEnemy - moveEnemy;
-      }
-    }
-    if (detected) {
-      if (posYEnemy > player.y && posXEnemy < player.x) {
-        posXEnemy = posXEnemy + moveEnemy; 
-        posYEnemy = posYEnemy - moveEnemy;
-      }
-    }
-    if (detected) {
-      if (posYEnemy < player.y &&   posXEnemy > player.x) {
-        posXEnemy = posXEnemy - moveEnemy; 
-        posYEnemy = posYEnemy + moveEnemy;
-      }
-    }
-    if (detected) {
-      if (posYEnemy < player.y &&  posXEnemy < player.x) {
-        posXEnemy = posXEnemy + moveEnemy; 
-        posYEnemy = posYEnemy + moveEnemy;
-      }
-    }
-    // Move in a straight line down //
-    if (posYEnemy < player.y && posXEnemy == player.x) {
-      posYEnemy ++;
-      
-      image(spritesDownWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
+    if (posYEnemy>player.y && posXEnemy > player.x) {
+      posXEnemy = posXEnemy - moveEnemy; 
+      posYEnemy = posYEnemy - moveEnemy;
+
+      image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
         cycleDirectionXEnemy1++;
@@ -211,10 +211,10 @@ public class Walker {
         cycleDirectionXEnemy1 = 0;
       }
     }
-    // Move in a straight line up //
-    if (posYEnemy > player.y && posXEnemy == player.x) {
-      posYEnemy --;
-      
+    if (posYEnemy>player.y && posXEnemy < player.x) {
+      posXEnemy = posXEnemy + moveEnemy; 
+      posYEnemy = posYEnemy - moveEnemy;
+
       image(spritesUpWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -224,11 +224,11 @@ public class Walker {
       if (cycleDirectionXEnemy1 == 3) {
         cycleDirectionXEnemy1 = 0;
       }
-    }
-    // Move in a straight line to the left //
-    if (posYEnemy == player.y && posXEnemy > player.x) {
-      posXEnemy --;
-      
+    } 
+    if (posYEnemy<player.y &&   posXEnemy > player.x) {
+      posXEnemy = posXEnemy - moveEnemy; 
+      posYEnemy = posYEnemy + moveEnemy;
+
       image(spritesLeftWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -239,10 +239,10 @@ public class Walker {
         cycleDirectionXEnemy1 = 0;
       }
     }
-    // Move in a straight line to the right //
-    if (posYEnemy == player.y && posXEnemy < player.x) {
-      posXEnemy ++;
-      
+    if (posYEnemy<player.y &&  posXEnemy < player.x) {
+      posXEnemy = posXEnemy + moveEnemy; 
+      posYEnemy = posYEnemy + moveEnemy;
+
       image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
       if (framecount == 9) {
@@ -252,14 +252,18 @@ public class Walker {
       if (cycleDirectionXEnemy1 == 3) {
         cycleDirectionXEnemy1 = 0;
       }
-      
-      
     }
+    //geleidelijk sterker maken van de vijanden
   }
+
 
   void Stronger() {
     //println(score + " " + killsForRoundUp + " " + score % killsForRoundUp + roundCount);
+
+    if (score % killsForRoundUp  == 0 && score != 0 && killRound == true) {
+
     if (score % killsForRoundUp  ==0 && score != 0 && killRound == true) {
+
 
       roundCount ++;
       killRound = false;
