@@ -1,10 +1,11 @@
+//de class waar de kogel wordt aangemaakt
 public class  Kogel {
-  float killMe;
-  float x;
-  float y;
-  float vx = 0;
-  float vy = 0;
-  float dx = -999, dy = -999;
+  
+  float x;// de x waarde van de kogel
+  float y;// de y waarde van de kogel
+  float vx = 0; // de x snelheid van de kogel
+  float vy = 0;// de y snehlheid van de kogel
+  float dx = -999, dy = -999; 
   
   boolean fireD = false;
   boolean fireU = false;

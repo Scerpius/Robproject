@@ -15,23 +15,23 @@ class Bob {
       return true;
   }
 
-  void code () {
-    for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
+  void code () {// hier is een sup "class" gemaakt zodat er maar 1 regel nodig is in de main om dit op te roepen
+    for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {// de loop dit de enemies opnieuw laat spawnen
       shooters[iEnemy].updateSpawn();
       walkers[iEnemy].updateSpawn();
     }
-    for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
+    for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {// de loop die de enemies tekent
       walkers[iEnemy].draw();
       shooters[iEnemy].draw();
       if (MaxEnemies == false) {
-        for (i = 0; i<CurrentNumEnemies; i++) {
+        for (i = 0; i<CurrentNumEnemies; i++) {// de loop die de enemies laat spawnen
           walkers[i].spawn();
           shooters[i].spawn();
         }
       }
       MaxEnemies = true;
 
-      walkers[iEnemy].detect();
+      walkers[iEnemy].detect();// hier wordt de detect opgeroepen zodat de player gaat lopen is het waar
       if (walkers[iEnemy].detected == true) {
 
         walkers[iEnemy].moveToPlayer();
@@ -41,18 +41,26 @@ class Bob {
           walkers[iEnemy].updateX();
         }
 
-        if (!walkers[iEnemy].Ytrue && walkers[iEnemy].Xtrue == true) {
+        if (!walkers[iEnemy].Ytrue && walkers[iEnemy].Xtrue == true) {// is de enemy al op zijn punt dan wordt hier een nieuwe opgeroepen
           walkers[iEnemy].updateX();
         }
         walkers[iEnemy].updateY();
 
 
-        walkers[iEnemy].check(); //deze lijn pakt hij niet meer
+        walkers[iEnemy].check(); 
         walkers[iEnemy].Stronger();
       }
 
-      shooters[iEnemy].detect();
+      shooters[iEnemy].detect();// hier wordt neer gezet wat er geroepen moet worden als hij iets detect voor de aangegeven richting 
       if (shooters[iEnemy].detectedD == true) {
+        for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {// de loop van de kogels
+          //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
+
+          shooters[iEnemy].shoot();
+
+          //Kogel.shoot();
+        }
+      } else if (shooters[iEnemy].detectedU == true) {// hier wordt neer gezet wat er geroepen moet worden als hij iets detect voor de aangegeven richting
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
           //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
@@ -60,7 +68,7 @@ class Bob {
 
           //Kogel.shoot();
         }
-      } else if (shooters[iEnemy].detectedU == true) {
+      } else if (shooters[iEnemy].detectedR == true) {// hier wordt neer gezet wat er geroepen moet worden als hij iets detect voor de aangegeven richting
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
           //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
@@ -68,15 +76,7 @@ class Bob {
 
           //Kogel.shoot();
         }
-      } else if (shooters[iEnemy].detectedR == true) {
-        for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
-          //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
-
-          shooters[iEnemy].shoot();
-
-          //Kogel.shoot();
-        }
-      } else if (shooters[iEnemy].detectedL == true) {
+      } else if (shooters[iEnemy].detectedL == true) {// hier wordt neer gezet wat er geroepen moet worden als hij iets detect voor de aangegeven richting
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
 
 
@@ -102,6 +102,7 @@ class Bob {
     for (Walker anWalker : walkers) {
       for (Bullet anBullet : bullets) {
         if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+          //Explosion.play();
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
@@ -123,6 +124,7 @@ class Bob {
     for (Shooter anShooter : shooters) {
       for (Bullet anBullet : bullets) {
         if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
+          //Explosion.play();
           powerupX = anShooter.posXEnemy;
           powerupY = anShooter.posYEnemy;
 
@@ -184,6 +186,7 @@ class Bob {
 
     for (Powerup anPowerup : powerups) {
       if (overlaps(player.x, player.y, spritesDown[1], anPowerup.x, anPowerup.y, anPowerup.texture)) {
+        //Powerup.play();
         anPowerup.pickUpPowerup = true;
         anPowerup.onPickup();
         anPowerup.reset();

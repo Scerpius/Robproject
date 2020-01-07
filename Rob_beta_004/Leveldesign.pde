@@ -4,6 +4,7 @@ PImage GameOverScreen;
 PImage plank;
 PImage barrel;
 PImage crater;
+
 PImage playerSprite;
 PImage[] spritesDown = new PImage[3];
 PImage[] spritesLeft = new PImage[3];
@@ -22,6 +23,7 @@ PImage[] Teleportalstart = new PImage[3];
 
 void loadAssets() {
   plank = loadImage("Plank.png");
+  
   barrel = loadImage("Barrel.png");
   crater = loadImage("Crater.png");
   playerSprite = loadImage("Player.png");
