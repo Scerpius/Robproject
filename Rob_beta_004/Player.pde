@@ -4,7 +4,7 @@ class Player {
   float vy = 3;
   float ms = 2;
   PImage playerSprite;
-
+  
   float w;
   float h;
   final float startHp = 3;
@@ -171,7 +171,7 @@ class Player {
         }
       }
     }
-
+    
 
 
 

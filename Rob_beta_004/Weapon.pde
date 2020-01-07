@@ -26,16 +26,9 @@ class Bullet {
     }
     y += vy;
     x += vx;
-    if (frameCount %fireRate == 0 && fired == true){
-     fired = false; 
+    if (frameCount %fireRate == 0 && fired == true) {
+      fired = false;
     }
-    /*
-    if (keys[' ']){
-     Bullet b = new Bullet();
-     bullets.add(b);
-     b.fire(player.x, player.y);
-     };
-     */
   }
 
 
@@ -48,14 +41,12 @@ class Bullet {
       isFired = true;
       this.x = x;
       this.y = y;
-      
+
       if (player.direction == 1) vx = -speed; //links
       if (player.direction == 2) vx = speed; // rechts
       if (player.direction == 3) vy = speed; //omlaag
       if (player.direction == 4) vy = -speed; //omhoog
-      
     }
-    
   }
 }
 
@@ -69,24 +60,23 @@ class Sword {
     box = loadImage("box.png");
   }
   void update() {
-    
-    if (player.direction == 1){
+
+    if (player.direction == 1) {
       x = player.x - box.width;
       y = player.y; //links
     }
-    if (player.direction == 2){
+    if (player.direction == 2) {
       x = player.x + box.width;
       y = player.y; // rechts
     }
-    if (player.direction == 3){
+    if (player.direction == 3) {
       x = player.x;
       y = player.y + box.height; //omlaag
     }
-    if (player.direction == 4){
+    if (player.direction == 4) {
       x = player.x; 
       y = player.y -box.height; //omhoog
     }
-    
   }
 
 

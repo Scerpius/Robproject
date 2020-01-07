@@ -10,13 +10,15 @@ class Camera {
   void updateScreen() {
     player.update();
     player.show();
-
+    
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.update();
       b.show();
     }
     sword.update();
+     spaceship.display();
+      spaceship.collision();
   }
   void updateBackground() {
     if (start == false) {
@@ -41,11 +43,13 @@ class Camera {
       }
 
       bob.code();
+      
       update();
       cooldowntimer++;
       cooldowntimer = constrain (cooldowntimer, 0, 300);
       teleport.display();
       teleport.checkBoundaryCollision();
+       
 
       // newSpawn.display();
       for (int i = 0; i < powerups.length; i++) {
@@ -84,7 +88,7 @@ class Camera {
       b.x -= player.vx;
       b.y -= player.vy;
     }
-
+ 
 
     /*
     Checkt of de player collision heeft met een object, als hij dat niet heeft beweegt de camera. Als dat wel het geval is beweegt hij niet.
