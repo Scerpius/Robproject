@@ -101,7 +101,7 @@ class Bob {
 
     for (Walker anWalker : walkers) {
       for (Bullet anBullet : bullets) {
-        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, spritesDownWalker[1])) {
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
@@ -122,7 +122,7 @@ class Bob {
 
     for (Shooter anShooter : shooters) {
       for (Bullet anBullet : bullets) {
-        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
+        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, spritesDownShooter[1])) {
           powerupX = anShooter.posXEnemy;
           powerupY = anShooter.posYEnemy;
 
@@ -143,7 +143,7 @@ class Bob {
       }
     }
     for (Walker anWalker : walkers) {
-      if (overlaps(sword.x, sword.y, sword.box, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+      if (overlaps(sword.x, sword.y, sword.box, anWalker.posXEnemy, anWalker.posYEnemy, spritesDownWalker[1])) {
         if ( sword.isHit == true) {
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
@@ -162,7 +162,7 @@ class Bob {
 
 
     for (Shooter anShooter : shooters) {
-      if (overlaps(sword.x, sword.y, sword.box, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
+      if (overlaps(sword.x, sword.y, sword.box, anShooter.posXEnemy, anShooter.posYEnemy, spritesDownShooter[1])) {
         if ( sword.isHit == true) {
           powerupX = anShooter.posXEnemy;
           powerupY = anShooter.posYEnemy;
@@ -191,7 +191,8 @@ class Bob {
     }
 
     for (Walker anWalker : walkers) {
-      if (overlaps(player.x, player.y, spritesDown[1], anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
+      if (overlaps(player.x, player.y, spritesDown[1], anWalker.posXEnemy, anWalker.posYEnemy, spritesDownWalker[1])) {
+        image(spritesDownWalker[1], anWalker.posXEnemy, anWalker.posYEnemy);
         if (invisibility == false) {
           player.hp = player.hp - 1;
         }
