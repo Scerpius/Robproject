@@ -24,12 +24,7 @@ public class Shooter {
   float xSpawn1 = 0; //links
   float xSpawn2 = 1280; // rechts
   float xSpawn3 = 640;  // midden
-  boolean Xtrue = false;
-  boolean Ytrue = false;
-  boolean detectedD = false;
-  boolean detectedU = false;
-  boolean detectedL = false;
-  boolean detectedR = false;
+
 
   boolean Xtrue = false; //om te kijken of er overlap is met de loop AI en de shooter 
   boolean Ytrue = false; //om te kijken of er overlap is met de loop AI en de shooter 
@@ -44,11 +39,10 @@ public class Shooter {
   boolean spawnedL = false;
 
   boolean spawned = true;
-  color purple = color(177, 5, 178);
+  
   float distXp;
   float distYp;
-  float detectEnemy = 200;
-  PImage texture;
+ 
   boolean isAlive = true;
 
   boolean detected = true;
@@ -93,12 +87,12 @@ public class Shooter {
     ySpawn3 -= player.vy;
   }
 
-  void spawn() {
-    isAlive = true;
-    switch(positionSpawn[i]) {
-      case(0): //boven
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+  //void spawn() {
+  //  isAlive = true;
+  //  switch(positionSpawn[i]) {
+  //    case(0): //boven
+  //    posXEnemy = xSpawn3;
+  //    posYEnemy = ySpawn1;
 
   void spawn() { // de spawn van de shooter wordt hier geregeld
     switch(positionSpawn[i]) { // hiermee wordt ervoor elke shooter opnieuw gekeken naar waar die moet spawnen
@@ -123,15 +117,13 @@ public class Shooter {
   }
 
 
-  void reset() {
-    //spawn();
-    isAlive = false;
-    posXEnemy = -1000;
+  //void reset() {
+  //  //spawn();
+  //  isAlive = false;
+  //  posXEnemy = -1000;
+  //}
 
-  void updateSpawn() {
-    X -= player.vx;
-    Y -= player.vy;
-  }
+
   void reset() { //het resetten van de shooters
     spawn();
 

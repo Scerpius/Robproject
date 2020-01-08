@@ -16,9 +16,7 @@ class Bob {
       return true;
   }
 
-  void code () {
-      //println(framecount);
-    for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {
+
 
   void code () {// hier is een sup "class" gemaakt zodat er maar 1 regel nodig is in de main om dit op te roepen
     for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {// de loop dit de enemies opnieuw laat spawnen

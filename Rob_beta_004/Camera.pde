@@ -1,7 +1,7 @@
 class Camera {
   //float x, y;
   float bx, by;
-  float zoom = 1.00;
+  float zoom = 1.75;
 
   int framecount = 0;
   int framecountdmg = 0;

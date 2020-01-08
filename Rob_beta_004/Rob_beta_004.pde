@@ -64,7 +64,7 @@ boolean detect = true;
 boolean MaxEnemies = false;
 
 boolean newWaves = true;
-int powerupcount = 0;
+
 
 int powerupcount = 1;
 
@@ -90,7 +90,7 @@ static int[] positionSpawn = new int [NumberOfEnemies];
 int[] colour = new int [NumberOfEnemies];
 Shooter [] shooters = new Shooter[NumberOfEnemies];
 Walker[] walkers = new Walker[NumberOfEnemies];
-//Boss[] boss = new Boss[iEnemy];
+Boss[] boss = new Boss[iEnemy];
 
 Powerup[] powerups= new Powerup[10];
 
@@ -219,6 +219,7 @@ void draw() {
         state = 4;
       }
     }
+  }
     if (state == 3) {
 
       fill(175);
@@ -230,47 +231,8 @@ void draw() {
         state = 2;
       }
     }
-
-
-void keyPressed() {
-  if (key == 'w' || key == 'W') {
-    player.up = true;
-  }
-  if (key == 's' || key == 'S') {
-    player.down = true;
-  }
-  if (key == 'a' || key == 'A') {
-    player.left = true;
-  }
-  if (key == 'd' || key == 'D') {
-    player.right = true;
-  }
-  keys[keyCode] = true;
-  if (fired == false && key == ' ') {
-    Bullet b = new Bullet();
-    bullets.add(b);
-    b.fire(player.x, player.y);
-    fired = true;
-    laserSound.play();
-  }
-  if (key == 'z') {
-    sword.isHit = true;
-    sword.show();
-  //  Swordhit.play();
-  }
-}
-void keyReleased() {
-  if (key == 'w' || key == 'W') {
-    player.up = false;
-  }
-  if (key == 's' || key == 'S') {
-    player.down = false;
-  }
-  if (key == 'a' || key == 'A') {
-    player.left = false;
-  }
-  if (key == 'd' || key == 'D') {
-    player.right = false;
+  
+  
 
 if (state == 4) {
       image(GameOverScreen, 0, 0);
@@ -294,7 +256,7 @@ if (state == 4) {
       }
     }
   }
-}
+
   void keyPressed() {
     if (key == 'w' || key == 'W') {
       player.up = true;
