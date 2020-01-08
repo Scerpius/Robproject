@@ -67,7 +67,7 @@ public class Shooter {
   }
   //tekenen van de shooter en de kogel wordt hier ook in aangemaakt
   void draw() {
-    image(texture, posXEnemy, posYEnemy);
+    
     if (kogel != null) {
 
       kogel.shoot();
@@ -207,6 +207,7 @@ public class Shooter {
   }
   void detect() { //hier wordt er gedetecteerd waar de player is ten opzichten van de shooter 
     dist(player.x, player.y, posXEnemy, posYEnemy);
+    image(texture,posXEnemy, posYEnemy);
     if (dist(player.x, player.y, posXEnemy, posYEnemy) < 200) { // is de player in een radius van 200 met de shooter
       if (posYEnemy < player.y ) { // is de player onder de shooter
         detectedD = true;

@@ -103,7 +103,7 @@ SoundFile Soundtrack;
 SoundFile laserSound;
 SoundFile Swordhit;
 void setup() {
-  sql = new MySQL(this, database, databaseName, username, password);
+ // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
   smooth(4);
@@ -167,10 +167,10 @@ void setup() {
   bob = new Bob();
   spaceship = new spaceShip();
   
-  if (sql.connect()) {
-    sql.execute("CREATE TABLE IF NOT EXISTS Game (time int, score int, gameid int, PRIMARY KEY(gameid));");
-    sql.execute("CREATE TABLE IF NOT EXISTS Player(hp int, posx int, posy int, playerid int, PRIMARY KEY(playerid));");
-  }
+  //if (sql.connect()) {
+  //  sql.execute("CREATE TABLE IF NOT EXISTS Game (time int, score int, gameid int, PRIMARY KEY(gameid));");
+  //  sql.execute("CREATE TABLE IF NOT EXISTS Player(hp int, posx int, posy int, playerid int, PRIMARY KEY(playerid));");
+  //}
 }
 
 void draw() {
@@ -196,28 +196,29 @@ void draw() {
       state = 3;
     }
     if (player.hp <=0) {
-      if (sql.connect()) {
-        sql.execute ("INSERT INTO Game (time, score) VALUES (" + time + ", " + score + ")");
-        sql.execute("INSERT INTO Player (hp, posx, posy) VALUES(" + player.hp + ", " + player.x + ", " + player.y + ");");
-        sql.execute("SELECT * FROM Game ORDER BY gameid DESC");
+      state = 4;
+      //if (sql.connect()) {
+      //  sql.execute ("INSERT INTO Game (time, score) VALUES (" + time + ", " + score + ")");
+      //  sql.execute("INSERT INTO Player (hp, posx, posy) VALUES(" + player.hp + ", " + player.x + ", " + player.y + ");");
+      //  sql.execute("SELECT * FROM Game ORDER BY gameid DESC");
 
-        if (sql.next()) {
-          int getTime = sql.getInt("time");
-          int getScore = sql.getInt("score");
-          int getGameid = sql.getInt("gameid");
-          println(getTime, getScore, getGameid);
-        }
-        sql.execute("SELECT * FROM Player ORDER BY playerid DESC");
+      //  if (sql.next()) {
+      //    int getTime = sql.getInt("time");
+      //    int getScore = sql.getInt("score");
+      //    int getGameid = sql.getInt("gameid");
+      //    println(getTime, getScore, getGameid);
+      //  }
+      //  sql.execute("SELECT * FROM Player ORDER BY playerid DESC");
 
-        if (sql.next()) {
-          int getHp = sql.getInt("hp");
-          int getPosx = sql.getInt("posx");
-          int getPosy = sql.getInt("posy");
-          println(getHp, getPosx, getPosy);
-        }
-        sql.close();
-        state = 4;
-      }
+      //  if (sql.next()) {
+      //    int getHp = sql.getInt("hp");
+      //    int getPosx = sql.getInt("posx");
+      //    int getPosy = sql.getInt("posy");
+      //    println(getHp, getPosx, getPosy);
+      //  }
+      //  sql.close();
+      //  state = 4;
+      //}
     }
   }
     if (state == 3) {

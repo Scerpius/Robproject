@@ -23,7 +23,7 @@ public class spaceShip {
     spaceShip = loadImage("BookShelf.png");
   }
   void display() {
-    image(spaceShip, spaceShipX, spaceShipY);
+  //  image(spaceShip, spaceShipX, spaceShipY);
   }
 
   void collision() {

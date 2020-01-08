@@ -208,7 +208,7 @@ class Bob {
     for (Walker anWalker : walkers) {
       if (overlaps(player.x, player.y, spritesDown[1], anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
         if (invisibility == false) {
-          player.hp = player.hp - 0;
+          player.hp = player.hp - 1;
         }
         invisibility = true;
 
