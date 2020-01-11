@@ -16,67 +16,67 @@ class Lol{
   }
 
   void code () {
-    boss[iEnemy].detect();
-    if (boss[iEnemy].detectedD == true) {
-      for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
-        //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
+    //boss[iEnemy].detect();
+    //if (boss[iEnemy].detectedD == true) {
+    //  for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
+    //    //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
-        boss[iEnemy].shoot();
+    //    boss[iEnemy].shoot();
 
-        //Kogel.shoot();
-      }
-    } else if (boss[iEnemy].detectedU == true) {
-      for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
-        //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
+    //    //Kogel.shoot();
+    //  }
+    //} else if (boss[iEnemy].detectedU == true) {
+    //  for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
+    //    //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
-        boss[iEnemy].shoot();
+    //    boss[iEnemy].shoot();
 
-        //Kogel.shoot();
-      }
-    } else if (boss[iEnemy].detectedR == true) {
-      for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
-        //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
+    //    //Kogel.shoot();
+    //  }
+    //} else if (boss[iEnemy].detectedR == true) {
+    //  for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
+    //    //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
-        boss[iEnemy].shoot();
+    //    boss[iEnemy].shoot();
 
-        //Kogel.shoot();
-      }
-    } else if (boss[iEnemy].detectedL == true) {
-      for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
-
-
-        boss[iEnemy].shoot();
-      }
-    } else {
-
-      if (!boss[iEnemy].Xtrue) {
-        boss[iEnemy].updateX();
-      }
-
-      if (!boss[iEnemy].Ytrue && boss[iEnemy].Xtrue == true) {
-        boss[iEnemy].updateX();
-      }
-      boss[iEnemy].updateY();
+    //    //Kogel.shoot();
+    //  }
+    //} else if (boss[iEnemy].detectedL == true) {
+    //  for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {
 
 
-      boss[iEnemy].check();
+    //    boss[iEnemy].shoot();
+    //  }
+    //} else {
+
+    //  if (!boss[iEnemy].Xtrue) {
+    //    boss[iEnemy].updateX();
+    //  }
+
+    //  if (!boss[iEnemy].Ytrue && boss[iEnemy].Xtrue == true) {
+    //    boss[iEnemy].updateX();
+    //  }
+    //  boss[iEnemy].updateY();
+
+
+    //  boss[iEnemy].check();
       
-    }
+    //}
 
-    for (Boss anBoss : boss) {
-      for (Bullet anBullet : bullets) {
-        if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anBoss.posXEnemy, anBoss.posYEnemy, anBoss.texture)) {
-          powerupX = anBoss.posXEnemy;
-          powerupY = anBoss.posYEnemy;
+    //for (Boss anBoss : boss) {
+    //  for (Bullet anBullet : bullets) {
+    //    if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anBoss.posXEnemy, anBoss.posYEnemy, anBoss.texture)) {
+    //      powerupX = anBoss.posXEnemy;
+    //      powerupY = anBoss.posYEnemy;
 
-          anBullet.reset();
-          anBoss.Enemylives =  anBoss.Enemylives -1;
-          if (anBoss.Enemylives == 0) {
-            anBoss.reset();
-            score = score + 10;
-          }
-        }
-      }
-    }
+    //      anBullet.reset();
+    //      anBoss.Enemylives =  anBoss.Enemylives -1;
+    //      if (anBoss.Enemylives == 0) {
+    //        anBoss.reset();
+    //        score = score + 10;
+    //      }
+    //    }
+    //  }
+    //}
   }
 }

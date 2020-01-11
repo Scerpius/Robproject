@@ -10,15 +10,13 @@ class Camera {
   void updateScreen() {
     player.update();
     player.show();
-    
+
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.update();
       b.show();
     }
     sword.update();
-     spaceship.display();
-      spaceship.collision();
   }
   void updateBackground() {
     if (start == false) {
@@ -43,13 +41,11 @@ class Camera {
       }
 
       bob.code();
-      
       update();
       cooldowntimer++;
       cooldowntimer = constrain (cooldowntimer, 0, 300);
       teleport.display();
       teleport.checkBoundaryCollision();
-       
 
       // newSpawn.display();
       for (int i = 0; i < powerups.length; i++) {
@@ -59,7 +55,6 @@ class Camera {
       text(score, 150, 50);
 
       stats.draw();
-      waves.checkWaves();
 
       if (player.shield) {
         framecount++;
@@ -88,7 +83,7 @@ class Camera {
       b.x -= player.vx;
       b.y -= player.vy;
     }
- 
+
 
     /*
     Checkt of de player collision heeft met een object, als hij dat niet heeft beweegt de camera. Als dat wel het geval is beweegt hij niet.
@@ -97,7 +92,7 @@ class Camera {
     if (collision.checkPortal(player.x + tempVX, player.y + tempVY, player.w, player.h) == true) {
       bx -= player.vx;
       by -= player.vy;
-
+      
 
       for (int i = 0; i < shooters.length; i++) {
         shooters[i].posXEnemy -= player.vx;
@@ -119,44 +114,44 @@ class Camera {
         objectList[i].x -= player.vx;
         objectList[i].y -= player.vy;
       }
-    } else { 
-      if (collision.checkCollision(player.x + tempVX, player.y, player.w, player.h) == false) {
-        bx -= player.vx;
+    } else{
+    if (collision.checkCollision(player.x + tempVX, player.y, player.w, player.h) == false) {
+      bx -= player.vx;
 
-        for (int i = 0; i < shooters.length; i++) {
-          shooters[i].posXEnemy -= player.vx;
-          shooters[i].PointWalkX -= player.vx;
-        }
-        for (int i = 0; i < walkers.length; i++) {
-          walkers[i].posXEnemy -= player.vx;
-          walkers[i].PointWalkX -= player.vx;
-        }
-        for (int i = 0; i < powerups.length; i++) {
-          powerups[i].x -= player.vx;
-          powerups[i].xResetValue -= player.vx;
-        }
-        for (int i = 0; i < objectList.length; i++) {
-          objectList[i].x -= player.vx;
-        }
+      for (int i = 0; i < shooters.length; i++) {
+        shooters[i].posXEnemy -= player.vx;
+        shooters[i].PointWalkX -= player.vx;
       }
-      if (collision.checkCollision(player.x, player.y + tempVY, player.w, player.h) == false) {
-        by -= player.vy;
+      for (int i = 0; i < walkers.length; i++) {
+        walkers[i].posXEnemy -= player.vx;
+        walkers[i].PointWalkX -= player.vx;
+      }
+      for (int i = 0; i < powerups.length; i++) {
+        powerups[i].x -= player.vx;
+        powerups[i].xResetValue -= player.vx;
+      }
+      for (int i = 0; i < objectList.length; i++) {
+        objectList[i].x -= player.vx;
+      }
+    }
+    if (collision.checkCollision(player.x, player.y + tempVY, player.w, player.h) == false) {
+      by -= player.vy;
 
-        for (int i = 0; i < shooters.length; i++) {
-          shooters[i].posYEnemy -= player.vy;
-          shooters[i].PointWalkY -= player.vy;
-        }
-        for (int i = 0; i < walkers.length; i++) {
-          walkers[i].posYEnemy -= player.vy;
-          walkers[i].PointWalkY -= player.vy;
-        }
-        for (int i = 0; i < powerups.length; i++) {
-          powerups[i].y -= player.vy;
-        }
-        for (int i = 0; i < objectList.length; i++) {
-          objectList[i].y -= player.vy;
-        }
+      for (int i = 0; i < shooters.length; i++) {
+        shooters[i].posYEnemy -= player.vy;
+        shooters[i].PointWalkY -= player.vy;
+      }
+      for (int i = 0; i < walkers.length; i++) {
+        walkers[i].posYEnemy -= player.vy;
+        walkers[i].PointWalkY -= player.vy;
+      }
+      for (int i = 0; i < powerups.length; i++) {
+        powerups[i].y -= player.vy;
+      }
+      for (int i = 0; i < objectList.length; i++) {
+        objectList[i].y -= player.vy;
       }
     }
   }
+}
 }
