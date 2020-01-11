@@ -18,12 +18,12 @@
 
   void spawn() {
 
-    int powerupChance = int(random(0, 6));
+    int powerupChance = int(random(4, 5));
     //println("powerupChance : " + powerupChance);
 
     if (powerupChance == 4) {
 
-      whatPowerup = int(random(0, 6));
+      whatPowerup = int(random(3, 4));
       if (whatPowerup == 0) { 
         texture = loadImage("Hp.png");
       }
@@ -50,7 +50,7 @@
       //println(bob.powerupX);
       //println(bob.powerupY);
       powerupcount++;
-     
+
       if (powerupcount == 9) { 
         powerupcount = 0;
       }
@@ -72,15 +72,11 @@
     } 
     if (whatPowerup == 2) {
       player.shield = true;
-
-
-
       //println(player.shield + " :D" );
       if (millis() >= time + 30000) {
        player.shield = false;
         time = millis();
       }
-
 
 
       
@@ -92,11 +88,14 @@
 
     if (whatPowerup == 4) {
       player.dmg += 1;
-     // println(player.dmg + " :D" );
+      //println(player.dmg + " :D" );
     } 
     if (whatPowerup == 5) {
       player.dubbelDamage = true;
-
+      if (millis() >= time + 30000) {
+        player.dubbelDamage = false;
+        time = millis();
+      }
 
       //println(player.dubbelDamage + " :D" );
     }

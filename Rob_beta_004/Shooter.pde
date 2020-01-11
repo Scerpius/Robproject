@@ -1,55 +1,37 @@
-// class waar de shooter enemy wordt aangemaakt
 public class Shooter {
   Kogel kogel;
-  float sizeEnemy = 40; // groote
-  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2)); // de AI begin om te lopen x-direction
-  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2)); // de AI begin om te lopen y-direction
-  final int startEnemylives = 3; //aantal levens is final zodat dit gereset kan worden
-  int enemyHealth = 3; //aantal levens waarmee de shooter begint
-  int Enemylives = enemyHealth; 
+  float sizeEnemy = 40;
+  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
+  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
+  final int startEnemylives = 3;
+  int enemyHealth = 3;
+  int Enemylives = enemyHealth;
   float posXEnemy;
   float posYEnemy;
   float X;
   float Y;
   float distX;
   float distY;
-  final float startSpeedEnemy = 1; //begin snelheid
-  float speedEnemy = 0.5; //snelheids variable zodat het verhoogd kan worden wordt alleen niet meer gebruikt
-  float moveEnemy = speedEnemy; //zodat zijn beweging gelijk is aan zijn snelheid
+  final float startSpeedEnemy = 1;
+  float speedEnemy = 0.5;
+  float moveEnemy = speedEnemy; //nodig
   float direction;
-
-  float ySpawn1 = -15 ; // boven
-  float ySpawn2 = 150 ; // midden
-  float ySpawn3 = 720; // onder
-  float xSpawn1 = 0; //links
-  float xSpawn2 = 1280; // rechts
-  float xSpawn3 = 640;  // midden
-
-
-  boolean Xtrue = false; //om te kijken of er overlap is met de loop AI en de shooter 
-  boolean Ytrue = false; //om te kijken of er overlap is met de loop AI en de shooter 
-  boolean detectedD = false; // richting waar de naar schiet als die daar detectie heeft
-  boolean detectedU = false; // richting waar de naar schiet als die daar detectie heeft
-  boolean detectedL = false; // richting waar de naar schiet als die daar detectie heeft
-  boolean detectedR = false; // richting waar de naar schiet als die daar detectie heeft
-
+  boolean Xtrue = false;
+  boolean Ytrue = false;
+  boolean detectedD = false;
+  boolean detectedU = false;
+  boolean detectedL = false;
+  boolean detectedR = false;
   boolean spawnedD = false;
   boolean spawnedU = false;
   boolean spawnedR = false;
   boolean spawnedL = false;
-
   boolean spawned = true;
-  
+  color purple = color(177, 5, 178);
   float distXp;
   float distYp;
- 
-  boolean isAlive = true;
-
-  boolean detected = true;
-  color purple = color(177, 5, 178); //kleur die gebruikt wordt
-  float detectEnemy = 200; // detectie radius
-  PImage texture; // zodat er een plaatje gebruikt kan worden
-
+  float detectEnemy = 200;
+  PImage texture;
 
 
   int framecount = 0;
@@ -65,78 +47,51 @@ public class Shooter {
   Shooter() {
     texture = loadImage("Shooter2.png");
   }
-  //tekenen van de shooter en de kogel wordt hier ook in aangemaakt
+  //tekenen
   void draw() {
-    
+    image(texture, posXEnemy, posYEnemy);
     if (kogel != null) {
 
       kogel.shoot();
       kogel.show();
     }
   }
-
-
-  void updateSpawn() {
-    X -= player.vx;
-    Y -= player.vy;
-    xSpawn1 -= player.vx;
-    ySpawn1 -= player.vy;
-    xSpawn2 -= player.vx;
-    ySpawn2 -= player.vy;
-    xSpawn3 -= player.vx;
-    ySpawn3 -= player.vy;
-  }
-
-  //void spawn() {
-  //  isAlive = true;
-  //  switch(positionSpawn[i]) {
-  //    case(0): //boven
-  //    posXEnemy = xSpawn3;
-  //    posYEnemy = ySpawn1;
-
-  void spawn() { // de spawn van de shooter wordt hier geregeld
-    switch(positionSpawn[i]) { // hiermee wordt ervoor elke shooter opnieuw gekeken naar waar die moet spawnen
-      case(0): //boven
-      posXEnemy = backGroundLevel.width/2 + X; // 
-      posYEnemy = backGroundLevel.height-690 + Y;
-
+  void spawn() {
+    switch(positionSpawn[i]) {
+ case(0): //boven
+      posXEnemy = camera.bx+600;
+      posYEnemy = camera.by;
       break;
       case(1): //rechts
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = camera.bx+1280;
+      posYEnemy = camera.by+350;
       break;
       case(2): //onder
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = camera.bx+600;
+      posYEnemy = camera.by+700;
       break;
       case(3): //links
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = camera.bx;
+      posYEnemy = camera.by+350;
       break;
     }
   }
-
-
-  //void reset() {
-  //  //spawn();
-  //  isAlive = false;
-  //  posXEnemy = -1000;
-  //}
-
-
-  void reset() { //het resetten van de shooters
+  void updateSpawn() {
+    X -= player.vx;
+    Y -= player.vy;
+  }
+  void reset() {
     spawn();
-
     moveEnemy = 0;
     Enemylives = enemyHealth;
   }
 
   //lopen
   void updateX() {
-    ellipse(PointWalkX, PointWalkY, 5, 5); // tekenen van de AI
+    ellipse(PointWalkX, PointWalkY, 5, 5);
 
-    distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy); // de afstand van het looppunt en de shooter wordt berekent
-    if (posXEnemy > PointWalkX && distX > 10) { //walk to left, als de positie van de shooter meer rechts is dan het looppunt dan loopt hij naar links en hij is in een radius van 10
+    distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
+    if (posXEnemy > PointWalkX && distX > 10) { //walk to left
 
       posXEnemy = posXEnemy - moveEnemy;
       image(spritesLeftShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
@@ -148,7 +103,7 @@ public class Shooter {
       if (cycleDirectionEnemy == 3) {
         cycleDirectionEnemy = 0;
       }
-    } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right, als de positie van de shooter meer links is dan het looppunt dan loopt hij naar rechts en hij is in een radius van 10
+    } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
 
       posXEnemy = posXEnemy + moveEnemy;
       image(spritesRightShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
@@ -165,9 +120,9 @@ public class Shooter {
       Xtrue = true;
     }
   }
-  void updateY() { //
+  void updateY() { //pakt hij niet?
     distY = max(PointWalkY, posYEnemy) - min(PointWalkY, posYEnemy);
-    if (posYEnemy>PointWalkY && distY > 10) { //walk up, als de positie van de shooter meer onder is dan het looppunt dan loopt hij naar boven en hij is in een radius van 10
+    if (posYEnemy>PointWalkY && distY > 10) { //walk up
 
       posYEnemy = posYEnemy - moveEnemy;
       image(spritesUpShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
@@ -179,7 +134,7 @@ public class Shooter {
       if (cycleDirectionEnemy == 3) {
         cycleDirectionEnemy = 0;
       }
-    } else if (posYEnemy < PointWalkY && distY > 10) { //walk down, als de positie van de shooter meer boven is dan het looppunt dan loopt hij naar onder en hij is in een radius van 10
+    } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
 
       posYEnemy = posYEnemy + moveEnemy;
 
@@ -196,7 +151,7 @@ public class Shooter {
       Ytrue = true; //done
     }
   }
-  void check() { //hier wordt bepaald over de shooter op het looppunt staat is dit zo dan komt er een nieuw punt 
+  void check() {
 
     if ( Xtrue == true && Ytrue == true) {
       PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2) + X);
@@ -205,26 +160,25 @@ public class Shooter {
       Ytrue = false;
     }
   }
-  void detect() { //hier wordt er gedetecteerd waar de player is ten opzichten van de shooter 
+  void detect() {
     dist(player.x, player.y, posXEnemy, posYEnemy);
-    image(texture,posXEnemy, posYEnemy);
-    if (dist(player.x, player.y, posXEnemy, posYEnemy) < 200) { // is de player in een radius van 200 met de shooter
-      if (posYEnemy < player.y ) { // is de player onder de shooter
+    if (dist(player.x, player.y, posXEnemy, posYEnemy) < 200) {
+      if (posYEnemy < player.y ) {
         detectedD = true;
-      } else if (posYEnemy > player.y) { // is de player boven de shooter
+      } else if (posYEnemy > player.y) {
         detectedU = true;
       } 
-      if (posXEnemy < player.x) { // is de player rechts van de shooter
+      if (posXEnemy < player.x) {
         detectedR = true;
-      } else if (posXEnemy > player.x) {// is de player links van de shooter
+      } else if (posXEnemy > player.x) {
         detectedL = true;
       }
     }
   }
-  void shoot() { // het schieten van de shooter wordt hier aan gemaakt met behulp van de kogel class
-    if (detected) {
-      float dX = 0, dY = 0; // deze waardes gaan over de kogel van de shooter waar die moet staan
-      detected = false;
+  void shoot() {
+    if (spawned) {
+      float dX = 0, dY = 0;
+      spawned = false;
       detect();
       if (detectedD)      
         dY = 3;
@@ -239,56 +193,56 @@ public class Shooter {
       kogel = new Kogel(posXEnemy, posYEnemy, dX, dY);
     }
 
-    if (detectedD) { // als de player onder de shooter is moet het volgende gebeuren
-      kogel.fireD = true; // het naar beneden gaan van de kogel wordt waar
-      detectedU = false; // je kan niet meer boven de shooter gedetecteerd worden
-      kogel.fireU = false; // de kogel naar boven wordt dan ook uitgezet
+    if (detectedD) {
+      kogel.fireD = true;
+      detectedU = false;
+      kogel.fireU = false;
 
-      detectedD = false; // het detecteren van de speler stopt zodat hij niet blijft schieten
+      detectedD = false;
       if (!spawnedD) {     
 
         spawnedD = true;
       }
     }
 
-    if (detectedU) {// als de player boven van de shooter is moet het volgende gebeuren
+    if (detectedU) {
 
-      kogel.fireU = true;// het naar boven gaan van de kogel wordt waar
-      detectedD = false;// je kan niet meer beneden de shooter gedetecteerd worden
-      kogel.fireD = false; // de kogel naar beneden wordt dan ook uitgezet
+      kogel.fireU = true;
+      detectedD = false;
+      kogel.fireD = false;
 
-      detectedU = false;// het detecteren van de speler stopt zodat hij niet blijft schieten
+      detectedU = false;
       if (!spawnedU) {     
 
         spawnedU = true;
       }
     }
 
-    if (detectedR) {//als de player rechts van de shooter is moet het volgende gebeuren
+    if (detectedR) {
 
-      kogel.fireR = true;// het naar rechts gaan van de kogel wordt waar
-      detectedR = false;// het detecteren van de speler stopt zodat hij niet blijft schieten
+      kogel.fireR = true;
+      detectedR = false;
       if (!spawnedR) {     
 
         spawnedR = true;
       }
     }
 
-    if (detectedL) {//als de player links van de shooter is moet het volgende gebeuren
+    if (detectedL) {
 
-      kogel.fireL = true;// het naar links gaan van de kogel wordt waar
-      detectedL = false;// het detecteren van de speler stopt zodat hij niet blijft schieten
+      kogel.fireL = true;
+      detectedL = false;
       if (!spawnedL) {     
 
         spawnedL = true;
       }
     }
-    if (kogel.y > height ||kogel.y < 0 || kogel.x > width || kogel.x < 0 && millis() >= time + 1000) {// is de kogel buiten het scherm wordt alles op false gezet zodat het "gereset" wordt
+    if (kogel.y > height ||kogel.y < 0 || kogel.x > width || kogel.x < 0 && millis() >= time + 1000) {
       spawnedD = false; 
       spawnedU = false; 
       spawnedR = false; 
       spawnedL = false;
-      detected = true;
+      spawned = true;
     }
   }
   //2.45

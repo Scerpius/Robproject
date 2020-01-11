@@ -4,7 +4,6 @@ PImage GameOverScreen;
 PImage plank;
 PImage barrel;
 PImage crater;
-
 PImage playerSprite;
 PImage[] spritesDown = new PImage[3];
 PImage[] spritesLeft = new PImage[3];
@@ -23,7 +22,6 @@ PImage[] Teleportalstart = new PImage[3];
 
 void loadAssets() {
   plank = loadImage("Plank.png");
-  
   barrel = loadImage("Barrel.png");
   crater = loadImage("Crater.png");
   playerSprite = loadImage("Player.png");
@@ -157,6 +155,8 @@ class Teleporter {
     }
 
     if (start) {
+      startTimer.countUp();
+      textSize(stateTextSize);
       image(Teleportal[cycleDirection], camera.bx+70, camera.by+150);
       framecount ++;
       if (framecount == 90) {
@@ -211,9 +211,6 @@ class Teleporter {
         player.x = detectionX4 + 100; 
         player.y = detectionY4 - 10;
       }
-
-
-
 
       float xdistance4 = detectionX4 - player.x - spritesDown[i].width /2 ;
       float ydistance4 = detectionY4 - player.y - spritesDown[i].height /2;

@@ -1,11 +1,10 @@
-//de class waar de kogel wordt aangemaakt
 public class  Kogel {
-  
-  float x;// de x waarde van de kogel
-  float y;// de y waarde van de kogel
-  float vx = 0; // de x snelheid van de kogel
-  float vy = 0;// de y snehlheid van de kogel
-  float dx = -999, dy = -999; 
+  float killMe;
+  float x;
+  float y;
+  float vx = 0;
+  float vy = 0;
+  float dx = -999, dy = -999;
   
   boolean fireD = false;
   boolean fireU = false;
@@ -13,7 +12,7 @@ public class  Kogel {
   boolean fireL = false;
   PImage texture;
   
-   boolean kogelHit(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
+      boolean kogelHit(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
     int w0 = texture0.width, 
       h0 = texture0.height, 
       w1 = texture1.width, 
@@ -25,6 +24,7 @@ public class  Kogel {
     else
       return true;
   }
+ 
 
   Kogel(float _x , float _y, float directionX, float directionY) {
     x = _x;
@@ -54,7 +54,7 @@ public class  Kogel {
     x += vx - player.vx;
     y += vy - player.vy;
     
-    if(kogelHit(x,y,texture,player.x,player.y,playerSprite) == true){
+      if(kogelHit(x,y,texture,player.x,player.y,playerSprite) == true){
      player.hp -= 1;
      reset();
      
