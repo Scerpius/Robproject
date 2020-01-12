@@ -55,7 +55,7 @@ int enemiesLeft = CurrentNumEnemies *2;
 int currentWaves = 1;
 float kills = 0;
 boolean start = false;
-
+boolean startmap2 = false;
 boolean invisibility = false;
 boolean bulletInvisibility = false;
 boolean kill = false;
@@ -129,18 +129,10 @@ void setup() {
     walkers[iEnemy] = new Walker();
     shooters[iEnemy] = new Shooter();
   }
-  backGroundLevel = loadImage("Backgroundtegels.png");
-  StartScreen = loadImage("BackgroundMain.png");
   // StartScreen = loadImage("BackgroundMain.png");
   // file = new SoundFile(this, "Synthwave.mp3");
   //file.loop();
-  laserSound = new SoundFile(this, "lasersound.mp3");
-  laserSound.amp(0.05);
-  Swordhit = new SoundFile(this, "swordhit.mp3");
-
-  backGroundLevel = loadImage("Backgroundtegels.png");
-  StartScreen = loadImage("BackgroundMain.png");
-  StartScreen = loadImage("BackgroundMain.png");
+  StartScreen = loadImage("Titlescreen.png");
   file = new SoundFile(this, "backgroundmusic2.0.wav");
   file.play();
   laserSound = new SoundFile(this, "lasersound.mp3");

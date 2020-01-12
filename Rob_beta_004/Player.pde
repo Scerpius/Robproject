@@ -27,8 +27,8 @@ class Player {
 
   Player() {
     reset();
-    x = 425;
-    y = 375;
+    x = width/2-50;
+    y = height/2-50;
     w = spritesDown[1].width;
     h = spritesDown[i].height;
   }

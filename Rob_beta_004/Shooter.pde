@@ -87,11 +87,11 @@ public class Shooter {
     switch(positionSpawn[i]) {
       case(0): //boven
       posXEnemy = camera.bx+600;
-      posYEnemy = camera.by;
+      posYEnemy = camera.by+30;
       break;
       case(1): //rechts
-      posXEnemy = camera.bx+1280;
-      posYEnemy = camera.by+350;
+      posXEnemy = camera.bx+1250;
+      posYEnemy = camera.by+300;
       break;
       case(2): //onder
       posXEnemy = camera.bx+600;

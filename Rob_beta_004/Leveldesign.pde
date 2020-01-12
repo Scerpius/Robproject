@@ -93,19 +93,19 @@ class Teleporter {
   // Portal coords //
 
   //portal startscherm????
-  int portalX3 = 1200;
-  int portalY3 = 1200;
-  int portalX4 = 405;
-  int portalY4 = 550;
+  int portalX3 = 730;
+  int portalY3 = 410;
+  int portalX4 = 430;
+  int portalY4 = 410;
 
 
   // Detection Boxes //
 
   //Detection startscherm????????
-  int detectionX3 = 902;
-  int detectionY3 = 425;
-  int detectionX4 = 457;
-  int detectionY4 = 600;
+  int detectionX3 = 782;
+  int detectionY3 = 460;
+  int detectionX4 = 482;
+  int detectionY4 = 460;
 
 
   // Hitbox Size //
@@ -147,6 +147,15 @@ class Teleporter {
     //}
     if (start == false) {
       image(Teleportalstart[cycleDirectionstart], portalX4, portalY4);
+      framecount ++;
+      if (framecount == 90) {
+        cycleDirectionstart++;
+        framecount = 0;
+        if (cycleDirectionstart == 3) {
+          cycleDirectionstart = 0;
+        }
+      }
+      image(Teleportalstart[cycleDirectionstart], portalX3, portalY3);
       framecount ++;
       if (framecount == 90) {
         cycleDirectionstart++;
@@ -211,6 +220,8 @@ class Teleporter {
       if (distancetocenter3 - boxSize /2 <= 0) {
         player.x = detectionX4 + 100; 
         player.y = detectionY4 - 10;
+        backGroundLevel = loadImage("MapDesert.png");
+        start = true;
       }
 
 
@@ -224,6 +235,7 @@ class Teleporter {
         player.x = detectionX3 + 100; 
         player.y = detectionY3 - 10;
         start = true;
+        backGroundLevel = loadImage("Backgroundtegels.png");
       }
     }
   }

@@ -37,34 +37,34 @@ class Start {
 
   void start() {
 
-    fill(255);
-    rect(xLeftWall, yTopWall, wallWidth, sizeWall);
-    rect(xLeftWall, yTopWall, sizeWall, wallHeight);
-    rect(xLeftWall, yBottomWall, wallWidth, sizeWall);
-    rect(xRightWall, yTopWall, sizeWall, wallHeight);
+    //fill(255);
+    //rect(xLeftWall, yTopWall, wallWidth, sizeWall);
+    //rect(xLeftWall, yTopWall, sizeWall, wallHeight);
+    //rect(xLeftWall, yBottomWall, wallWidth, sizeWall);
+    //rect(xRightWall, yTopWall, sizeWall, wallHeight);
 
 
-    fill(255, 0, 0);
-    stroke(255, 0, 0);
-    ellipse(shooterX, shooterY + 50, ellipseWidth, ellipseWidth);
-    fill(255);
-    text("A", shooterX - 5 , shooterY + 55);
-    texture = loadImage("bullet.png");
-    image(texture , buttonX2 + 15, buttonY2);
-
-
-
-    textSize(40);
+    //fill(255, 0, 0);
+    //stroke(255, 0, 0);
+    //ellipse(shooterX, shooterY + 50, ellipseWidth, ellipseWidth);
+    //fill(255);
+    //text("A", shooterX - 5 , shooterY + 55);
+    //texture = loadImage("bullet.png");
+    //image(texture , buttonX2 + 15, buttonY2);
 
 
 
-    texture = loadImage("Shooter2.png");
-    image(texture, buttonX, buttonY - 35);
+    //textSize(40);
 
 
 
-    texture = loadImage("Walker2.png");
-    image(texture, walkerX - 30, walkerY);
+    //texture = loadImage("Shooter2.png");
+    //image(texture, buttonX, buttonY - 35);
+
+
+
+    //texture = loadImage("Walker2.png");
+    //image(texture, walkerX - 30, walkerY);
 
 
 
