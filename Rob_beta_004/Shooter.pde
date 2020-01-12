@@ -25,6 +25,7 @@ public class Shooter {
   boolean detectedU = false;
   boolean detectedL = false;
   boolean detectedR = false;
+  boolean display = false;
   //boolean spawnedD = false;
   //boolean spawnedU = false;
   //boolean spawnedR = false;
@@ -66,6 +67,19 @@ public class Shooter {
     }
   }
 
+  void DisplayDamageTaken() {
+    for ( int i = 0; i < bullets.size(); i++) {
+      Bullet b = bullets.get(i);
+      if (b.x + 27 >= posXEnemy && b.x < posXEnemy + 57 && b.y + 27 > posYEnemy && b.y < posYEnemy + 60) {
+        display = true;
+      }
+    }
+    if (display) {
+      textSize(32);
+      text(player.dmg, posXEnemy, posYEnemy );
+    }
+  }
+
 
 
 
@@ -74,7 +88,7 @@ public class Shooter {
 
   void spawn() {
     switch(positionSpawn[i]) {
-       case(0): //boven
+      case(0): //boven
       posXEnemy = camera.bx+600;
       posYEnemy = camera.by;
       break;
@@ -123,7 +137,7 @@ public class Shooter {
 
 
   void updateX() {
-ellipse(PointWalkX, PointWalkY, 5, 5);
+
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
 

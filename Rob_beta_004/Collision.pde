@@ -54,6 +54,16 @@ class Collision {
           && y + h > objectList[i].y + 40 ) {
           hasCollision = true;
         }
+      } else if ( objectList[i].picture == Ship) {
+        if (x  < objectList[i].x + objectList[i].w
+          && x + w > objectList[i].x
+          && y  < objectList[i].y + objectList[i].h - 40
+          && y + h > objectList[i].y + 20 ) {
+          if (player.fuel == player.maxFuel && key == 'c' || key == 'C') {
+            state = 4;
+            println("OK BOOMER");
+          }
+        }
       } else {
         if (x  < objectList[i].x + objectList[i].w - 10
           && x + w > objectList[i].x + 10

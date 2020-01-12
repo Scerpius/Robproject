@@ -11,12 +11,12 @@ String password = "n9YFaVSpqMeAAB";
 
 Player player;
 Bob bob;
-Achievement achievement;
 Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
 Stats stats;
-Waves waves;
+Timer timer;
+
 spaceShip spaceship;
 ScoreList highscores = new ScoreList();
 Score hiScore;
@@ -39,7 +39,7 @@ String text;
 PImage backGroundLevel;
 PImage StartScreen;
 
-Object[] objectList = new Object[5];
+Object[] objectList = new Object[6];
 
 static final int NumberOfEnemies = 20;
 int state = 2;
@@ -54,8 +54,8 @@ int enemiesLeft = CurrentNumEnemies *2;
 int currentWaves = 1;
 float kills = 0;
 boolean start = false;
-
 boolean invisibility = false;
+boolean bulletInvisibility = false;
 boolean kill = false;
 boolean uitgevoerd = false;
 boolean killRound = false;
@@ -74,6 +74,8 @@ final int CRATER_X = 540;
 final int CRATER_Y = 170;
 final int BARREL_X = 900;
 final int BARREL_Y = 235;
+int spaceShipX = 550;
+int spaceShipY = 235;
 int PLANK_X;
 int PLANK_Y;
 int portalX1 = 70;
@@ -102,10 +104,6 @@ SoundFile file;
 SoundFile Soundtrack;
 SoundFile laserSound;
 SoundFile Swordhit;
-SoundFile WalkSound;
-SoundFile Explosion;
-SoundFile SwordAttack;
-SoundFile Powerup;
 void setup() {
   // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
@@ -118,6 +116,7 @@ void setup() {
   objectList[2] = new Object(portalX1, portalY1, Teleportal[2]);
   objectList[3] = new Object(PLANK_X, PLANK_Y, plank);
   objectList[4] = new Object(portalX2, portalY2, Teleportal[2]);
+  objectList[5] = new Object(spaceShipX, spaceShipY, Ship);
 
 
   for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
@@ -125,27 +124,28 @@ void setup() {
     walkers[iEnemy] = new Walker();
     shooters[iEnemy] = new Shooter();
   }
+
+    backGroundLevel = loadImage("Backgroundtegels.png");
+    StartScreen = loadImage("BackgroundMain.png");
+    // StartScreen = loadImage("BackgroundMain.png");
+    file = new SoundFile(this, "Synthwave.mp3");
+    file.loop();
+    laserSound = new SoundFile(this, "lasersound.mp3");
+    laserSound.amp(0.05);
+    Swordhit = new SoundFile(this, "swordhit.mp3");
+  
   backGroundLevel = loadImage("Backgroundtegels.png");
   StartScreen = loadImage("BackgroundMain.png");
   // StartScreen = loadImage("BackgroundMain.png");
-  // file = new SoundFile(this, "Synthwave.mp3");
-  //file.loop();
-  laserSound = new SoundFile(this, "lasersound.mp3");
-  laserSound.amp(0.05);
-  Swordhit = new SoundFile(this, "swordhit.mp3");
-
-  backGroundLevel = loadImage("Backgroundtegels.png");
-  StartScreen = loadImage("BackgroundMain.png");
-  StartScreen = loadImage("BackgroundMain.png");
-  file = new SoundFile(this, "backgroundmusic2.0.wav");
-  file.play();
-  laserSound = new SoundFile(this, "lasersound.mp3");
-  laserSound.amp(0.05);
-  Swordhit = new SoundFile(this, "swordhit.mp3");
-  WalkSound = new SoundFile(this, "walkrobot.wav");
-  Explosion = new SoundFile(this, "explosion2.0.wav");
-  SwordAttack = new SoundFile(this, "swordattack.wav");
-  Powerup = new SoundFile(this, "powerup.wav");
+  //file = new SoundFile(this, "backgroundmusic2.0.wav");
+  //file.play();
+  //laserSound = new SoundFile(this, "lasersound.mp3");
+  //laserSound.amp(0.05);
+  //Swordhit = new SoundFile(this, "swordhit.mp3");
+  //WalkSound = new SoundFile(this, "walkrobot.wav");
+  //Explosion = new SoundFile(this, "explosion2.0.wav");
+  //SwordAttack = new SoundFile(this, "swordattack.wav");
+  //Powerup = new SoundFile(this, "powerup.wav");
 
 
   for (int i = 0; i <10; i++) {
@@ -158,8 +158,8 @@ void setup() {
   sword = new Sword();
   startscreen = new Start();
   stats = new Stats();
-  achievement = new Achievement();
-  waves = new Waves();
+  timer = new Timer();
+
 
 
   noStroke();
@@ -240,25 +240,6 @@ void draw() {
     image(GameOverScreen, 0, 0);
     textAlign(CENTER);
     text(score, width/2, height/2+50);
-    // display header row
-  textSize(20);
-  text("Place        Name        Score", 100, 70);
-
-  textSize(16);
-  // for each score in list
-  for (int iScore=0; iScore<highscores.getScoreCount(); iScore++) {
-
-    // only show the top 10 scores
-    if (iScore>=9) break;
-    
-    // fetch a score from the list
-    Score score = highscores.getScore(iScore);
-
-    // display score in window
-    text((iScore+1) + "            " + score.name + "        " + score.score, 100, 100 + iScore*20);
-
-    
-  }
     if (keyPressed && key == 'r' || keyPressed && key == 'R') {
       //reset alles 
       for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
@@ -297,38 +278,33 @@ void keyTyped() {
 void keyPressed() {
   if (key == 'w' || key == 'W') {
     player.up = true;
-     if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }
+    //WalkSound.play();
   }
   if (key == 's' || key == 'S') {
     player.down = true;
- if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }  }
+    //WalkSound.play();
+  }
   if (key == 'a' || key == 'A') {
     player.left = true;
- if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }  }
+    //WalkSound.play();
+  }
   if (key == 'd' || key == 'D') {
     player.right = true;
- if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }  }
+    //WalkSound.play();
+  }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
     fired = true;
-    laserSound.play();
+    //laserSound.play();
   }
   if (key == 'z') {
     sword.isHit = true;
     sword.show();
-    SwordAttack.play();
-    Swordhit.play();
+    //SwordAttack.play();
+    //Swordhit.play();
   }
 }
 void keyReleased() {

@@ -1,7 +1,7 @@
 class Bob {
   float powerupX;
   float powerupY;
-//  float framecount = 0;
+  //  float framecount = 0;
 
   boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
     int w0 = texture0.width, 
@@ -23,6 +23,8 @@ class Bob {
 
       shooters[iEnemy].updateSpawn();
       walkers[iEnemy].updateSpawn();
+      shooters[iEnemy]. DisplayDamageTaken();
+      walkers[iEnemy]. DisplayDamageTaken();
     }
     for (int iEnemy = 0; iEnemy< CurrentNumEnemies; iEnemy++) {// de loop die de enemies tekent
       walkers[iEnemy].draw();
@@ -206,25 +208,14 @@ class Bob {
 
     for (Walker anWalker : walkers) {
       if (overlaps(player.x, player.y, spritesDown[1], anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
-        if (invisibility == false) {
-          player.hp = player.hp - 1;
-        }
-        invisibility = true;
-
-        if (invisibility) {
-          if (invisibility) {  
-            if (millis() >= time + 1000) {
-              invisibility = false;
-            }
-            time = millis();
-          //  framecount++;
-
-          //  if (framecount > 90) {
-
-              //invisibility = false;
-            //  framecount = 0;
-           // }
+        if (player.shield) { //if player has a shield and has not been hit half a second ago the shield will go away
+          if (invisibility == false) {
+            player.shield = false;
+          } else {
           }
+        } else { 
+          player.hp--; 
+          invisibility = true;
         }
       }
     }

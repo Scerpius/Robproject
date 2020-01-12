@@ -4,6 +4,7 @@ PImage GameOverScreen;
 PImage plank;
 PImage barrel;
 PImage crater;
+PImage Ship;
 
 PImage playerSprite;
 PImage[] spritesDown = new PImage[3];
@@ -23,13 +24,14 @@ PImage[] Teleportalstart = new PImage[3];
 
 void loadAssets() {
   plank = loadImage("Plank.png");
-  
+
   barrel = loadImage("Barrel.png");
   crater = loadImage("Crater.png");
   playerSprite = loadImage("Player.png");
   GameOverScreen = loadImage("GameOverScreen.png");
   PLANK_X = (width-plank.width)/2;
   PLANK_Y = (height-plank.height)/2;
+  Ship = loadImage("SpaceShip.png");
   for (int i = 0; i<3; i++) {
     spritesDownShooter[0]=loadImage("Shooter1.png");
     spritesDownShooter[1]=loadImage("Shooter2.png");
