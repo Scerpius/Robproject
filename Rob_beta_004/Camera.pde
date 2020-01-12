@@ -17,6 +17,8 @@ class Camera {
       b.show();
     }
     sword.update();
+    spaceship.display();
+    spaceship.collision();
   }
   void updateBackground() {
     if (start == false) {
@@ -47,17 +49,14 @@ class Camera {
       cooldowntimer = constrain (cooldowntimer, 0, 300);
       teleport.display();
       teleport.checkBoundaryCollision();
-      spaceship.display();
-      spaceship.collision();
-      achievement.display();
-      achievement.update();
+
 
       // newSpawn.display();
       for (int i = 0; i < powerups.length; i++) {
         powerups[i].Display_Powerup();
       }
       text = "score :";
-      text(score, 50, 50);
+      text(score, 150, 50);
 
       stats.draw();
       waves.checkWaves();
@@ -82,10 +81,9 @@ class Camera {
 
 
   void update() {
-    float tempVX = player.vx;
-    float tempVY = player.vy;
-    spaceship.spaceShipX -= player.vx;
-    spaceship.spaceShipY -= player.vy;
+  float tempVX = player.vx;
+  float tempVY = player.vy;
+
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.x -= player.vx;
@@ -115,8 +113,8 @@ class Camera {
         walkers[i].posYEnemy -= player.vy;
         walkers[i].PointWalkX -= player.vx;
         walkers[i].PointWalkY -= player.vy;
-        walkers[i].X -= player.vx;
-        walkers[i].Y -= player.vy;
+        shooters[i].X -= player.vx;
+        shooters[i].Y -= player.vy;
       }
       for (int i = 0; i < powerups.length; i++) {
         powerups[i].x -= player.vx;

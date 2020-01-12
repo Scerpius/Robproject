@@ -1,4 +1,4 @@
-class Powerup {
+ class Powerup {
   float x;
   float xResetValue = -1100;
   float y;
@@ -20,11 +20,10 @@ class Powerup {
 
     int powerupChance = int(random(0, 6));
     //println("powerupChance : " + powerupChance);
-    int fuelChance = int(random(0, 10));
 
     if (powerupChance == 4) {
 
-      whatPowerup = int(random(0, 5));
+      whatPowerup = int(random(0, 6));
       if (whatPowerup == 0) { 
         texture = loadImage("Hp.png");
       }
@@ -35,16 +34,14 @@ class Powerup {
         texture = loadImage("shield.png");
       }
       if (whatPowerup == 3) { 
-        texture = loadImage("dmg.png");
+        texture = loadImage("Speed.png");
       }
       if (whatPowerup == 4) { 
+       texture = loadImage("dmg.png");
+      }
+      if (whatPowerup == 5) { 
         texture = loadImage("dubbelDamage.png");
       }
-
-
-
-
-
 
 
 
@@ -52,13 +49,11 @@ class Powerup {
       y = bob.powerupY;
       //println(bob.powerupX);
       //println(bob.powerupY);
-    }
-    if (fuelChance == 4) {
-      texture = loadImage("Fuel.png");
-      whatPowerup = 5;
-
-      x = bob.powerupX; 
-      y = bob.powerupY;
+      powerupcount++;
+     
+      if (powerupcount == 9) { 
+        powerupcount = 0;
+      }
     }
 
     powerupSpawn = false;
@@ -69,26 +64,41 @@ class Powerup {
   {
     if (whatPowerup == 0) {
       player.hp += 1;
+      //println(player.hp + " :D" );
     } 
     if (whatPowerup == 1) {
       player.AS += 1;
+      //println(player.AS + " :D" );
     } 
     if (whatPowerup == 2) {
       player.shield = true;
-    }
+
+
+
+      //println(player.shield + " :D" );
+      if (millis() >= time + 30000) {
+       player.shield = false;
+        time = millis();
+      }
+
+
+
+      
+    } 
     if (whatPowerup == 3) {
-      player.dmg += 1;
+     //player.ms += 0.25;
+     //println(player.ms + " :D" );
     } 
 
     if (whatPowerup == 4) {
-      player.dubbelDamage = true;
+      player.dmg += 1;
+     // println(player.dmg + " :D" );
     } 
     if (whatPowerup == 5) {
-      if (player.fuel < player.MaxFuel) { //checks if the player doesnt have the max fuel amount 
-        player.fuel++;
-      } else { 
-        player.fuel = player.MaxFuel; // if the player does the number will not go up
-      }
+      player.dubbelDamage = true;
+
+
+      //println(player.dubbelDamage + " :D" );
     }
   }
 
