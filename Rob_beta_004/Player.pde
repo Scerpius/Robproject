@@ -34,8 +34,8 @@ class Player {
   }
 
   void reset() {
-    // x = width/2; 
-    // y = height-texture.height;
+     x = 425;
+    y = 375;
   }
   void show() {
     if (!down && !up && !left && !right) {

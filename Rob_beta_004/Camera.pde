@@ -107,12 +107,16 @@ class Camera {
         shooters[i].posYEnemy -= player.vy;
         shooters[i].PointWalkX -= player.vx;
         shooters[i].PointWalkY -= player.vy;
+        shooters[i].X -= player.vx;
+        shooters[i].Y -= player.vy;
       }
       for (int i = 0; i < walkers.length; i++) {
         walkers[i].posXEnemy -= player.vx;
         walkers[i].posYEnemy -= player.vy;
         walkers[i].PointWalkX -= player.vx;
         walkers[i].PointWalkY -= player.vy;
+        walkers[i].X -= player.vx;
+        walkers[i].Y -= player.vy;
       }
       for (int i = 0; i < powerups.length; i++) {
         powerups[i].x -= player.vx;

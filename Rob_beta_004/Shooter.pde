@@ -1,10 +1,10 @@
 public class Shooter {
   Kogel kogel;
   float sizeEnemy = 40;
-  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));
-  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2));
-  final int startEnemylives = 3;
-  int enemyHealth = 3;
+  int PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2));// de AI begin om te lopen x-direction
+  int PointWalkY = int(random(sizeEnemy/2+100, (height-100) - sizeEnemy/2)); // de AI begin om te lopen y-direction
+  final int startEnemylives = 3; //aantal levens is final zodat dit gereset kan worden
+  int enemyHealth = 3; //aantal levens waarmee de shooter begint
   int Enemylives = enemyHealth;
   int dirXBullet = 0;
   int dirYBullet = 0;
@@ -14,21 +14,21 @@ public class Shooter {
   float Y;
   float distX;
   float distY;
-  final float startSpeedEnemy = 1;
-  float speedEnemy = 0.5;
-  float moveEnemy = speedEnemy; //nodig
+  final float startSpeedEnemy = 1; //begin snelheid
+  float speedEnemy = 0.5; //snelheids variable zodat het verhoogd kan worden wordt alleen niet meer gebruikt
+  float moveEnemy = speedEnemy; //zodat zijn beweging gelijk is aan zijn snelheid
   float direction;
   boolean Xtrue = false;
   boolean Ytrue = false;
   boolean detected = false;
-  //boolean detectedD = false;
+  boolean detectedD = false;
   boolean detectedU = false;
   boolean detectedL = false;
   boolean detectedR = false;
-  //boolean spawnedD = false;
-  //boolean spawnedU = false;
-  //boolean spawnedR = false;
-  //boolean spawnedL = false;
+  boolean spawnedD = false;
+  boolean spawnedU = false;
+  boolean spawnedR = false;
+  boolean spawnedL = false;
   boolean spawned = false;
   color purple = color(177, 5, 178);
   float distXp;

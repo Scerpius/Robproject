@@ -281,6 +281,7 @@ void draw() {
       roundCount = 0;
       score = 0;
       state = 2;
+     
     }
   }
 }
