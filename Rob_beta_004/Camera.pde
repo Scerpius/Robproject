@@ -17,8 +17,7 @@ class Camera {
       b.show();
     }
     sword.update();
-     spaceship.display();
-      spaceship.collision();
+
   }
   void updateBackground() {
     if (start == false) {
@@ -49,17 +48,18 @@ class Camera {
       cooldowntimer = constrain (cooldowntimer, 0, 300);
       teleport.display();
       teleport.checkBoundaryCollision();
+         spaceship.display();
+      spaceship.collision();
        
 
       // newSpawn.display();
       for (int i = 0; i < powerups.length; i++) {
         powerups[i].Display_Powerup();
       }
-      text = "score :";
-      text(score, 150, 50);
+      //text = "score :";
+      if(state == 4) text("Score:", score, 150, 50);
 
       stats.draw();
-      waves.checkWaves();
 
       if (player.shield) {
         framecount++;
@@ -83,6 +83,8 @@ class Camera {
   void update() {
     float tempVX = player.vx;
     float tempVY = player.vy;
+    spaceship.spaceShipX -= player.vx;
+    spaceship.spaceShipY -= player.vy;
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.x -= player.vx;
@@ -97,7 +99,7 @@ class Camera {
     if (collision.checkPortal(player.x + tempVX, player.y + tempVY, player.w, player.h) == true) {
       bx -= player.vx;
       by -= player.vy;
-
+      
 
       for (int i = 0; i < shooters.length; i++) {
         shooters[i].posXEnemy -= player.vx;
@@ -119,6 +121,7 @@ class Camera {
         objectList[i].x -= player.vx;
         objectList[i].y -= player.vy;
       }
+      
     } else { 
       if (collision.checkCollision(player.x + tempVX, player.y, player.w, player.h) == false) {
         bx -= player.vx;

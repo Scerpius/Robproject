@@ -90,7 +90,7 @@ static int[] positionSpawn = new int [NumberOfEnemies];
 int[] colour = new int [NumberOfEnemies];
 Shooter [] shooters = new Shooter[NumberOfEnemies];
 Walker[] walkers = new Walker[NumberOfEnemies];
-Boss[] boss = new Boss[iEnemy];
+//Boss[] boss = new Boss[iEnemy];
 
 Powerup[] powerups= new Powerup[10];
 

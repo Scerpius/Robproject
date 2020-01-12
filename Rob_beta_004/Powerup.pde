@@ -20,6 +20,7 @@
 
     int powerupChance = int(random(0, 6));
     //println("powerupChance : " + powerupChance);
+    int fuelChance = int(random(0,10));
 
     if (powerupChance == 4) {
 
@@ -42,18 +43,24 @@
       if (whatPowerup == 5) { 
         texture = loadImage("dubbelDamage.png");
       }
-
+      
+    
+    
+       
+    
 
 
       x = bob.powerupX; 
       y = bob.powerupY;
       //println(bob.powerupX);
       //println(bob.powerupY);
-      powerupcount++;
-     
-      if (powerupcount == 9) { 
-        powerupcount = 0;
-      }
+    }
+    if (fuelChance == 4) {
+      texture = loadImage("Fuel.png");
+      whatPowerup = 6;
+
+      x = bob.powerupX; 
+      y = bob.powerupY;
     }
 
     powerupSpawn = false;
@@ -72,15 +79,11 @@
     } 
     if (whatPowerup == 2) {
       player.shield = true;
-
-
-
       //println(player.shield + " :D" );
       if (millis() >= time + 30000) {
        player.shield = false;
         time = millis();
       }
-
 
 
       
@@ -96,9 +99,19 @@
     } 
     if (whatPowerup == 5) {
       player.dubbelDamage = true;
-
+      if (millis() >= time + 30000) {
+        player.dubbelDamage = false;
+        time = millis();
+      }
 
       //println(player.dubbelDamage + " :D" );
+    }
+      if (whatPowerup == 6) {
+      if (player.MaxFuel <= 2) {
+        player.fuel++;
+      } else { 
+        player.fuel = 3;
+      }
     }
   }
 

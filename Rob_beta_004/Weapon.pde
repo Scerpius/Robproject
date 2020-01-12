@@ -1,10 +1,10 @@
 class Bullet {
   float x, y;
   float vx, vy;
-  float speed = 10;
+  float speed = 6;
   PImage texture;
   boolean isFired;
-  float fireRate= 40;
+  float fireRate= 10;
 
   Bullet() {
     texture = loadImage("bullet.png");

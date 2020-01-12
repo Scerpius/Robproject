@@ -17,39 +17,20 @@ public class Shooter {
   float speedEnemy = 0.5; //snelheids variable zodat het verhoogd kan worden wordt alleen niet meer gebruikt
   float moveEnemy = speedEnemy; //zodat zijn beweging gelijk is aan zijn snelheid
   float direction;
-
-  float ySpawn1 = -15 ; // boven
-  float ySpawn2 = 150 ; // midden
-  float ySpawn3 = 720; // onder
-  float xSpawn1 = 0; //links
-  float xSpawn2 = 1280; // rechts
-  float xSpawn3 = 640;  // midden
-
-
   boolean Xtrue = false; //om te kijken of er overlap is met de loop AI en de shooter 
   boolean Ytrue = false; //om te kijken of er overlap is met de loop AI en de shooter 
   boolean detectedD = false; // richting waar de naar schiet als die daar detectie heeft
   boolean detectedU = false; // richting waar de naar schiet als die daar detectie heeft
   boolean detectedL = false; // richting waar de naar schiet als die daar detectie heeft
   boolean detectedR = false; // richting waar de naar schiet als die daar detectie heeft
-
   boolean spawnedD = false;
   boolean spawnedU = false;
   boolean spawnedR = false;
   boolean spawnedL = false;
-
-  boolean spawned = true;
-  
-  float distXp;
-  float distYp;
- 
-  boolean isAlive = true;
-
   boolean detected = true;
   color purple = color(177, 5, 178); //kleur die gebruikt wordt
   float detectEnemy = 200; // detectie radius
   PImage texture; // zodat er een plaatje gebruikt kan worden
-
 
 
   int framecount = 0;
@@ -67,66 +48,39 @@ public class Shooter {
   }
   //tekenen van de shooter en de kogel wordt hier ook in aangemaakt
   void draw() {
-    
+    image(texture, posXEnemy, posYEnemy);
     if (kogel != null) {
 
       kogel.shoot();
       kogel.show();
     }
   }
-
-
-  void updateSpawn() {
-    X -= player.vx;
-    Y -= player.vy;
-    xSpawn1 -= player.vx;
-    ySpawn1 -= player.vy;
-    xSpawn2 -= player.vx;
-    ySpawn2 -= player.vy;
-    xSpawn3 -= player.vx;
-    ySpawn3 -= player.vy;
-  }
-
-  //void spawn() {
-  //  isAlive = true;
-  //  switch(positionSpawn[i]) {
-  //    case(0): //boven
-  //    posXEnemy = xSpawn3;
-  //    posYEnemy = ySpawn1;
-
   void spawn() { // de spawn van de shooter wordt hier geregeld
     switch(positionSpawn[i]) { // hiermee wordt ervoor elke shooter opnieuw gekeken naar waar die moet spawnen
       case(0): //boven
       posXEnemy = backGroundLevel.width/2 + X; // 
       posYEnemy = backGroundLevel.height-690 + Y;
-
       break;
       case(1): //rechts
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = backGroundLevel.width-15 + X;
+      posYEnemy = backGroundLevel.height-470 + Y;
       break;
       case(2): //onder
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = backGroundLevel.width/2 + X;
+      posYEnemy = backGroundLevel.height-texture.height + Y;
       break;
       case(3): //links
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = backGroundLevel.width-1265 + X;
+      posYEnemy = backGroundLevel.height-470 + Y;
       break;
     }
   }
-
-
-  //void reset() {
-  //  //spawn();
-  //  isAlive = false;
-  //  posXEnemy = -1000;
-  //}
-
-
+  void updateSpawn() {
+    X -= player.vx;
+    Y -= player.vy;
+  }
   void reset() { //het resetten van de shooters
     spawn();
-
     moveEnemy = 0;
     Enemylives = enemyHealth;
   }
@@ -207,7 +161,6 @@ public class Shooter {
   }
   void detect() { //hier wordt er gedetecteerd waar de player is ten opzichten van de shooter 
     dist(player.x, player.y, posXEnemy, posYEnemy);
-    image(texture,posXEnemy, posYEnemy);
     if (dist(player.x, player.y, posXEnemy, posYEnemy) < 200) { // is de player in een radius van 200 met de shooter
       if (posYEnemy < player.y ) { // is de player onder de shooter
         detectedD = true;

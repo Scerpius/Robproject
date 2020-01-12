@@ -1,15 +1,16 @@
 class Player {
   float x, y; 
-  float vx = 1;
-  float vy = 1;
-  float ms = 2;
+  float vx = 3;
+  float vy = 3;
+  float ms = 1;
   PImage playerSprite;
-
+  float fuel;
+  final float MaxFuel = 2;
   float w;
   float h;
   final float startHp = 3;
   float hp = 3;
-  float direction = 4;
+  float direction;
   boolean left, right, up, down = false;
   boolean damageGiven = false;
   boolean shield = false;
@@ -22,7 +23,6 @@ class Player {
   int cycleDirectiony;
   int cycleDirectionx;
   int framecount; 
-  int oppacity;
 
   Player() {
     reset();
@@ -47,8 +47,7 @@ class Player {
     vy = 0;
     if (start == false) {
       if ((keys[LEFT])||(keys['A'])) {
-        left = true;
-        vx = -1 * ms;
+        vx = -3 * ms;
         direction = 1;
         image(spritesLeft[cycleDirectionx], x, y);
         framecount++;
@@ -61,8 +60,7 @@ class Player {
         }
       }
       if ((keys[RIGHT])||(keys['D'])) {
-        right = true;
-        vx = 1 * ms;
+        vx = 3 * ms;
         direction = 2;
         image(spritesRight[cycleDirectionx], x, y);
         framecount++;
@@ -76,13 +74,10 @@ class Player {
         }
       }
       if ((keys[UP])||(keys['W'])) {
-        up = true;
-        vy = -1 * ms;
-
+        vy = -3 * ms;
+       
         direction = 4;
-        tint(255, oppacity);
         image(spritesUp[cycleDirectiony], x, y);
-        noTint();
         framecount++;
         if (framecount == 9) {
           cycleDirectiony++;
@@ -93,12 +88,9 @@ class Player {
         }
       }
       if ((keys[DOWN])||(keys['S'])) {
-        down = true;
-        vy = 1  * ms;
+        vy = 3 * ms ;
         direction = 3;
-        tint(255, oppacity);
         image(spritesDown[cycleDirectiony], x, y);
-        noTint();
         framecount++;
         if (framecount == 9) {
           cycleDirectiony++;
@@ -110,15 +102,11 @@ class Player {
       }
       x = x + vx;
       y = y + vy;
-      if ((up||down)&&(left||right)) {
-        oppacity = 0;
-      } else oppacity = 255;
     }
 
 
 
-
-     if (start == true) {
+    if (start == true) {
       if (shield) {
         ellipse(x + (w/2), y + (h / 2), w + 30, h + 20);
       }
@@ -131,8 +119,7 @@ class Player {
         damageGiven = false;
       }
       if ((keys[LEFT])||(keys['A'])) {
-        left = true;
-        vx = -2 * ms ;
+        vx = -3 * ms ;
         direction = 1;
         image(spritesLeft[cycleDirectionx], x, y);
         framecount++;
@@ -145,8 +132,7 @@ class Player {
         }
       }
       if ((keys[RIGHT])||(keys['D'])) {
-        right = true;
-        vx = 2 * ms;
+        vx = 3 * ms;
         direction = 2;
         image(spritesRight[cycleDirectionx], x, y);
         framecount++;
@@ -160,12 +146,9 @@ class Player {
         }
       }
       if ((keys[UP])||(keys['W'])) {
-        up = true;
-        vy = -2 * ms;
+        vy = -3 * ms;
         direction = 4;
-        tint(255,oppacity);
         image(spritesUp[cycleDirectiony], x, y);
-        noTint();
         framecount++;
         if (framecount == 9) {
           cycleDirectiony++;
@@ -176,12 +159,9 @@ class Player {
         }
       }
       if ((keys[DOWN])||(keys['S'])) {
-        down = true;
-        vy = 2 * ms;
+        vy = 3 * ms;
         direction = 3;
-        tint(255,oppacity);
         image(spritesDown[cycleDirectiony], x, y);
-        noTint();
         framecount++;
         if (framecount == 9) {
           cycleDirectiony++;
@@ -191,11 +171,8 @@ class Player {
           cycleDirectiony = 0;
         }
       }
-      if((up||down)&&(left||right)){
-       oppacity = 0; 
-      } else oppacity = 255;
     }
-
+    
 
 
 
