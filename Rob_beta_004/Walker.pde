@@ -14,8 +14,6 @@
 //}
 public class Walker {
 
-  boolean isAlive = true;
-
   int cycleDirectionXEnemy1 = 0;
   int cycleDirectionYEnemy1 = 0;
 
@@ -31,16 +29,9 @@ public class Walker {
   float Y;
   float distX;
   float distY;
-  float ySpawn1 = -15 ; // boven
-  float ySpawn2 = 150 ; // midden
-  float ySpawn3 = 720; // onder
-  float xSpawn1 = 0; //links
-  float xSpawn2 = 1280; // rechts
-  float xSpawn3 = 640;  // midden
   final float startSpeedEnemy = 1;
   float speedEnemy = 0.5;
   float moveEnemy = speedEnemy; //nodig
-
   boolean Xtrue = false;
   boolean Ytrue = false;
   boolean detected = false;
@@ -64,44 +55,50 @@ public class Walker {
   void draw() {
     image(texture, posXEnemy, posYEnemy);
   }
-
-  void updateSpawn() {
-    X -= player.vx;
-    Y -= player.vy;
-    xSpawn1 -= player.vx;
-    ySpawn1 -= player.vy;
-    xSpawn2 -= player.vx;
-    ySpawn2 -= player.vy;
-    xSpawn3 -= player.vx;
-    ySpawn3 -= player.vy;
-  }
-
   void spawn() {
     switch(positionSpawn[i]) {
-      case(0): //boven
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      //case(0): //boven
+      //posXEnemy = backGroundLevel.width/2 + X;
+      //posYEnemy = backGroundLevel.height-690 + Y;
+      //break;
+      //case(1): //rechts
+      //posXEnemy = backGroundLevel.width-15 + X;
+      //posYEnemy = backGroundLevel.height-470 + Y;
+      //break;
+      //case(2): //onder
+      //posXEnemy = backGroundLevel.width/2 + X;
+      //posYEnemy = backGroundLevel.height-texture.height + Y;
+      //break;
+      //case(3): //links
+      //posXEnemy = backGroundLevel.width-1265 + X;
+      //posYEnemy = backGroundLevel.height-470 + Y;
+      //break;
+       case(0): //boven
+      posXEnemy = camera.bx+600;
+      posYEnemy = camera.by;
       break;
-      case(1): //boven
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      case(1): //rechts
+      posXEnemy = camera.bx+1280;
+      posYEnemy = camera.by+350;
       break;
       case(2): //onder
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = camera.bx+600;
+      posYEnemy = camera.by+700;
       break;
       case(3): //links
-      posXEnemy = xSpawn3;
-      posYEnemy = ySpawn1;
+      posXEnemy = camera.bx;
+      posYEnemy = camera.by+350;
       break;
     }
   }
-
+  void updateSpawn() {
+    X -= player.vx;
+    Y -= player.vy;
+  }
 
   void reset() {
-    //spawn();
-    isAlive = false;
-    posXEnemy = -1000;
+    spawn();
+    //posXEnemy = -100000;
     moveEnemy = 0;
     Enemylives = enemyHealth;
   }
@@ -112,8 +109,7 @@ public class Walker {
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
 
-      posXEnemy = posXEnemy - moveEnemy;
-
+posXEnemy = posXEnemy - moveEnemy;
 
       image(spritesLeftWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);      
       framecount++;
@@ -126,8 +122,7 @@ public class Walker {
       }
     } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
 
-      posXEnemy = posXEnemy + moveEnemy;
-
+posXEnemy = posXEnemy + moveEnemy;
 
       image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
@@ -160,7 +155,7 @@ public class Walker {
       }
     } else if (posYEnemy < PointWalkY && distY > 10) { //walk down
 
-      posYEnemy = posYEnemy + moveEnemy;
+      posYEnemy = posYEnemy + moveEnemy; 
 
       image(spritesDownWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
@@ -176,7 +171,6 @@ public class Walker {
     }
   }
   void check() {
-    // println("Xtrue: "+Xtrue + " Ytrue: "+Ytrue); //there you mean?
     if ( Xtrue == true && Ytrue == true) {
       PointWalkX = int(random(sizeEnemy/2+100, (width-100) - sizeEnemy/2) + X);
       PointWalkY = int(random(sizeEnemy/2+100, (height-181) - sizeEnemy/2) + Y);
@@ -255,20 +249,16 @@ public class Walker {
     }
     //geleidelijk sterker maken van de vijanden
   }
-
-
   void Stronger() {
-    //println(score + " " + killsForRoundUp + " " + score % killsForRoundUp + roundCount);
 
-    if (score % killsForRoundUp  == 0 && score != 0 && killRound == true) {
-
-    if (score % killsForRoundUp  ==0 && score != 0 && killRound == true) {
-
-
+    if (enemiesLeft == 0 && killRound == true) {
+     
+      enemiesLeft = CurrentNumEnemies*2;
       roundCount ++;
       killRound = false;
       uitgevoerd = false;
-    } else if (score % killsForRoundUp == killsForRoundUp - 1) {
+    }
+    if (enemiesLeft != 0) {
       killRound = true;
     }
     if (uitgevoerd == false) {
@@ -283,6 +273,7 @@ public class Walker {
           //spawn meer enemies
           killsForRoundUp += 2;
           CurrentNumEnemies += 1;
+      enemiesLeft = CurrentNumEnemies*2;
           MaxEnemies = false;
           uitgevoerd = true;
         }
@@ -294,6 +285,7 @@ public class Walker {
           walkers[iEnemy].speedEnemy *= 1.25;
           shooters[iEnemy].speedEnemy  *= 1.25;
         }
+      enemiesLeft = CurrentNumEnemies*2;
         uitgevoerd = true;
         MaxEnemies = false;
 
@@ -303,11 +295,13 @@ public class Walker {
         //spawn delay lager
         uitgevoerd = true;
         MaxEnemies = false;
+      enemiesLeft = CurrentNumEnemies*2;
 
         break;
         //levens omhoog
         case (3):
         CurrentNumEnemies += 1 * 1.008;
+      enemiesLeft = CurrentNumEnemies*2;
         enemyHealth += 2;
         uitgevoerd = true;
         MaxEnemies = false;
@@ -315,6 +309,7 @@ public class Walker {
         break;
         case (4):
         CurrentNumEnemies += 1 * 1.008;
+      enemiesLeft = CurrentNumEnemies*2;
         //doet meer damage
         uitgevoerd = true;
         MaxEnemies = false;
@@ -322,6 +317,5 @@ public class Walker {
         break;
       }
     }
-  }
   }
 }

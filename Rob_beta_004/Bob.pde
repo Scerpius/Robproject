@@ -1,7 +1,7 @@
 class Bob {
   float powerupX;
   float powerupY;
-  float framecount = 0;
+//  float framecount = 0;
 
   boolean overlaps(float x0, float y0, PImage texture0, float x1, float y1, PImage texture1) {  
     int w0 = texture0.width, 
@@ -56,11 +56,10 @@ class Bob {
 
         walkers[iEnemy].check(); 
         walkers[iEnemy].Stronger();
-
       }
 
       shooters[iEnemy].detect();// hier wordt neer gezet wat er geroepen moet worden als hij iets detect voor de aangegeven richting 
-      if (shooters[iEnemy].detectedD == true) {
+      if (shooters[iEnemy].detected == true) {
         for (int iBullet = 0; iBullet<CurrentNumEnemies; iBullet++) {// de loop van de kogels
           //image(Kogel.texture, shooters[iEnemy].posXEnemy, shooters[iEnemy].posYEnemy) ;
 
@@ -213,13 +212,18 @@ class Bob {
         invisibility = true;
 
         if (invisibility) {
-          
-          framecount++;
-        
-          if (framecount > 90) {
+          if (invisibility) {  
+            if (millis() >= time + 1000) {
+              invisibility = false;
+            }
+            time = millis();
+          //  framecount++;
 
-            invisibility = false;
-            framecount = 0;
+          //  if (framecount > 90) {
+
+              //invisibility = false;
+            //  framecount = 0;
+           // }
           }
         }
       }

@@ -15,12 +15,10 @@ Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
 Stats stats;
-
 Waves waves;
-
-
 spaceShip spaceship;
-
+ScoreList highscores = new ScoreList();
+Score hiScore;
 
 //SpawnPoint newSpawn;
 Walker walker;
@@ -32,7 +30,7 @@ Start startscreen;
 
 boolean [] keys = new boolean[1024];
 boolean fired;
-
+int playerIndex = 0;
 int score;
 int cooldowntimer = 300;
 String text;
@@ -51,6 +49,7 @@ static int i;
 int roundCount = 0;
 int time = millis();
 int stateTextSize= 60;
+int enemiesLeft = CurrentNumEnemies *2;
 int currentWaves = 1;
 float kills = 0;
 boolean start = false;
@@ -103,7 +102,7 @@ SoundFile Soundtrack;
 SoundFile laserSound;
 SoundFile Swordhit;
 void setup() {
- // sql = new MySQL(this, database, databaseName, username, password);
+  // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
   noStroke();
   smooth(4);
@@ -114,7 +113,7 @@ void setup() {
   objectList[2] = new Object(portalX1, portalY1, Teleportal[2]);
   objectList[3] = new Object(PLANK_X, PLANK_Y, plank);
   objectList[4] = new Object(portalX2, portalY2, Teleportal[2]);
-  
+
 
   for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
     positionSpawn[iEnemy] = (floor(random(0, 4)));
@@ -130,8 +129,6 @@ void setup() {
     laserSound = new SoundFile(this, "lasersound.mp3");
     laserSound.amp(0.05);
     Swordhit = new SoundFile(this, "swordhit.mp3");
-    
-
   }
   backGroundLevel = loadImage("Backgroundtegels.png");
   StartScreen = loadImage("BackgroundMain.png");
@@ -149,9 +146,8 @@ void setup() {
 
   for (int i = 0; i <10; i++) {
     powerups[i] = new Powerup();
-    
   }
-    
+
   teleport = new Teleporter();
   collision = new Collision();
   camera = new Camera();
@@ -166,7 +162,7 @@ void setup() {
   player = new Player();
   bob = new Bob();
   spaceship = new spaceShip();
-  
+
   //if (sql.connect()) {
   //  sql.execute("CREATE TABLE IF NOT EXISTS Game (time int, score int, gameid int, PRIMARY KEY(gameid));");
   //  sql.execute("CREATE TABLE IF NOT EXISTS Player(hp int, posx int, posy int, playerid int, PRIMARY KEY(playerid));");
@@ -188,7 +184,7 @@ void draw() {
   if (state == 2) {
     camera.updateBackground();
     camera.updateScreen();
-  
+
     if (keyPressed && key =='b') {
       player.hp = 0;
     }
@@ -196,6 +192,7 @@ void draw() {
       state = 3;
     }
     if (player.hp <=0) {
+      highscores.addScore("Player_"+playerIndex++, (int)score);
       state = 4;
       //if (sql.connect()) {
       //  sql.execute ("INSERT INTO Game (time, score) VALUES (" + time + ", " + score + ")");
@@ -221,96 +218,121 @@ void draw() {
       //}
     }
   }
-    if (state == 3) {
+  if (state == 3) {
 
-      fill(175);
-      textAlign(CENTER);
-      textSize(stateTextSize);
-      text("Paused", width/2, height/2);
-      text("press 'O' to continue", width/2, height/2 + stateTextSize);
-      if (keyPressed && key == 'o') {
-        state = 2;
-      }
-    }
-  
-  
-
-if (state == 4) {
-      image(GameOverScreen, 0, 0);
-      textAlign(CENTER);
-      text(score, width/2, height/2+50);
-      if (keyPressed && key == 'r') {
-        //reset alles 
-        shooters[i].Enemylives = shooters[i].startEnemylives;
-        shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
-        walkers[i].enemyHealth = walkers[i].startEnemylives;
-        walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
-        shooters[i].spawn();
-        walkers[i].spawn();
-        // player.movementSpeed = player.startMovementSpeed;
-        killsForRoundUp = 6;
-        CurrentNumEnemies = 1;
-        player.hp = player.startHp; 
-        roundCount = 0;
-        score = 0;
-        state = 2;
-      }
+    fill(175);
+    textAlign(CENTER);
+    textSize(stateTextSize);
+    text("Paused", width/2, height/2);
+    text("press 'O' to continue", width/2, height/2 + stateTextSize);
+    if (keyPressed && key == 'o') {
+      state = 2;
     }
   }
 
-  void keyPressed() {
-    if (key == 'w' || key == 'W') {
-      player.up = true;
-      //WalkSound.play();
-    }
-    if (key == 's' || key == 'S') {
-      player.down = true;
-      //WalkSound.play();
-    }
-    if (key == 'a' || key == 'A') {
-      player.left = true;
-      //WalkSound.play();
-    }
-    if (key == 'd' || key == 'D') {
-      player.right = true;
-      //WalkSound.play();
-    }
-    keys[keyCode] = true;
-    if (fired == false && key == ' ') {
-      Bullet b = new Bullet();
-      bullets.add(b);
-      b.fire(player.x, player.y);
-      fired = true;
-      //laserSound.play();
-    }
-    if (key == 'z') {
-      sword.isHit = true;
-      sword.show();
-      //SwordAttack.play();
-      //Swordhit.play();
-    }
 
+
+  if (state == 4) {
+    image(GameOverScreen, 0, 0);
+    textAlign(CENTER);
+    text(score, width/2, height/2+50);
+    // display header row
+    textSize(20);
+    text("Place        Name        Score", 100, 70);
+
+    textSize(16);
+    // for each score in list
+    for (int iScore=0; iScore<highscores.getScoreCount(); iScore++) {
+
+      // only show the top 10 scores
+      if (iScore>=9) break;
+
+      // fetch a score from the list
+      Score score = highscores.getScore(iScore);
+
+      // display score in window
+      text((iScore+1) + "            " + score.name + "        " + score.score, 100, 100 + iScore*20);
+    }
+    if (keyPressed && key == 'r') {
+      //reset alles 
+      shooters[i].Enemylives = shooters[i].startEnemylives;
+      shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
+      walkers[i].enemyHealth = walkers[i].startEnemylives;
+      walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
+      shooters[i].spawn();
+      walkers[i].spawn();
+      // player.movementSpeed = player.startMovementSpeed;
+      killsForRoundUp = 6;
+      CurrentNumEnemies = 1;
+      enemiesLeft = CurrentNumEnemies *2;
+      player.hp = player.startHp; 
+      roundCount = 0;
+      score = 0;
+      state = 2;
+    }
   }
-  void keyReleased() {
-    if (key == 'w' || key == 'W') {
-      player.up = false;
-      //WalkSound.stop();
-    }
-    if (key == 's' || key == 'S') {
-      player.down = false;
-      //WalkSound.stop();
-    }
-    if (key == 'a' || key == 'A') {
-      player.left = false;
-      //WalkSound.stop();
-    }
-    if (key == 'd' || key == 'D') {
-      player.right = false;
-      //WalkSound.stop();
-    }
-    keys[keyCode] = false;
-    if (key == 'z') {
-      sword.isHit = false;
-    }
+}
+void keyTyped() {
+  //if (key == ' ') {
+  //  highscores.addScore("Player_"+playerIndex++, (int)score);
+
+  //}
+
+  if (key == 'k') highscores.save("highscore.csv");
+  if (key == 'l') highscores.load("highscore.csv");
+}
+
+void keyPressed() {
+  if (key == 'w' || key == 'W') {
+    player.up = true;
+    //WalkSound.play();
   }
-  
+  if (key == 's' || key == 'S') {
+    player.down = true;
+    //WalkSound.play();
+  }
+  if (key == 'a' || key == 'A') {
+    player.left = true;
+    //WalkSound.play();
+  }
+  if (key == 'd' || key == 'D') {
+    player.right = true;
+    //WalkSound.play();
+  }
+  keys[keyCode] = true;
+  if (fired == false && key == ' ') {
+    Bullet b = new Bullet();
+    bullets.add(b);
+    b.fire(player.x, player.y);
+    fired = true;
+    //laserSound.play();
+  }
+  if (key == 'z') {
+    sword.isHit = true;
+    sword.show();
+    //SwordAttack.play();
+    //Swordhit.play();
+  }
+}
+void keyReleased() {
+  if (key == 'w' || key == 'W') {
+    player.up = false;
+    //WalkSound.stop();
+  }
+  if (key == 's' || key == 'S') {
+    player.down = false;
+    //WalkSound.stop();
+  }
+  if (key == 'a' || key == 'A') {
+    player.left = false;
+    //WalkSound.stop();
+  }
+  if (key == 'd' || key == 'D') {
+    player.right = false;
+    //WalkSound.stop();
+  }
+  keys[keyCode] = false;
+  if (key == 'z') {
+    sword.isHit = false;
+  }
+}
