@@ -16,6 +16,7 @@ Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
 Stats stats;
+Timer timer;
 Waves waves;
 spaceShip spaceship;
 ScoreList highscores = new ScoreList();
@@ -39,11 +40,11 @@ String text;
 PImage backGroundLevel;
 PImage StartScreen;
 
-Object[] objectList = new Object[5];
+Object[] objectList = new Object[6];
 
 static final int NumberOfEnemies = 20;
 int state = 2;
-int CurrentNumEnemies =  1; //nodig
+int CurrentNumEnemies =  3; //nodig
 int killsForRoundUp = 6;
 int iEnemy;
 static int i;
@@ -56,6 +57,7 @@ float kills = 0;
 boolean start = false;
 
 boolean invisibility = false;
+boolean bulletInvisibility = false;
 boolean kill = false;
 boolean uitgevoerd = false;
 boolean killRound = false;
@@ -76,6 +78,8 @@ final int BARREL_X = 900;
 final int BARREL_Y = 235;
 int PLANK_X;
 int PLANK_Y;
+int spaceShipX = 550;
+int spaceShipY = 235;
 int portalX1 = 70;
 int portalY1 = 150;
 int portalX2 = 1100;
@@ -118,7 +122,7 @@ void setup() {
   objectList[2] = new Object(portalX1, portalY1, Teleportal[2]);
   objectList[3] = new Object(PLANK_X, PLANK_Y, plank);
   objectList[4] = new Object(portalX2, portalY2, Teleportal[2]);
-
+  objectList[5] = new Object(spaceShipX, spaceShipY, Ship);
 
   for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
     positionSpawn[iEnemy] = (floor(random(0, 4)));
@@ -160,7 +164,7 @@ void setup() {
   stats = new Stats();
   achievement = new Achievement();
   waves = new Waves();
-
+  timer = new Timer();
 
   noStroke();
   player = new Player();
@@ -241,24 +245,22 @@ void draw() {
     textAlign(CENTER);
     text(score, width/2, height/2+50);
     // display header row
-  textSize(20);
-  text("Place        Name        Score", 100, 70);
+    textSize(20);
+    text("Place        Name        Score", 100, 70);
 
-  textSize(16);
-  // for each score in list
-  for (int iScore=0; iScore<highscores.getScoreCount(); iScore++) {
+    textSize(16);
+    // for each score in list
+    for (int iScore=0; iScore<highscores.getScoreCount(); iScore++) {
 
-    // only show the top 10 scores
-    if (iScore>=9) break;
-    
-    // fetch a score from the list
-    Score score = highscores.getScore(iScore);
+      // only show the top 10 scores
+      if (iScore>=9) break;
 
-    // display score in window
-    text((iScore+1) + "            " + score.name + "        " + score.score, 100, 100 + iScore*20);
+      // fetch a score from the list
+      Score score = highscores.getScore(iScore);
 
-    
-  }
+      // display score in window
+      text((iScore+1) + "            " + score.name + "        " + score.score, 100, 100 + iScore*20);
+    }
     if (keyPressed && key == 'r' || keyPressed && key == 'R') {
       //reset alles 
       for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
@@ -281,7 +283,6 @@ void draw() {
       roundCount = 0;
       score = 0;
       state = 2;
-     
     }
   }
 }
@@ -298,25 +299,28 @@ void keyTyped() {
 void keyPressed() {
   if (key == 'w' || key == 'W') {
     player.up = true;
-     if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }
+    if (!WalkSound.isPlaying()) {
+      WalkSound.play();
+    }
   }
   if (key == 's' || key == 'S') {
     player.down = true;
- if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }  }
+    if (!WalkSound.isPlaying()) {
+      WalkSound.play();
+    }
+  }
   if (key == 'a' || key == 'A') {
     player.left = true;
- if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }  }
+    if (!WalkSound.isPlaying()) {
+      WalkSound.play();
+    }
+  }
   if (key == 'd' || key == 'D') {
     player.right = true;
- if(!WalkSound.isPlaying()){
-    WalkSound.play();
-  }  }
+    if (!WalkSound.isPlaying()) {
+      WalkSound.play();
+    }
+  }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
     Bullet b = new Bullet();

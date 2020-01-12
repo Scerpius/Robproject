@@ -41,7 +41,7 @@ public class Walker {
   float detectEnemy = 200;
   PImage texture;
   int framecount = 0;
-
+  boolean display = false;
 
   Walker() {
     texture = loadImage("Walker2.png");
@@ -55,9 +55,23 @@ public class Walker {
   void draw() {
     image(texture, posXEnemy, posYEnemy);
   }
+  
+    void DisplayDamageTaken() {
+    for ( int i = 0; i < bullets.size(); i++) {
+      Bullet b = bullets.get(i);
+      if (b.x + 27 >= posXEnemy && b.x < posXEnemy + 57 && b.y + 27 > posYEnemy && b.y < posYEnemy + 60) {
+        display = true;
+      }
+    }
+    if (display) {
+      textSize(32);
+      text(player.dmg, posXEnemy, posYEnemy );
+    }
+  }
+  
   void spawn() {
     switch(positionSpawn[i]) {
-       case(0): //boven
+      case(0): //boven
       posXEnemy = camera.bx+600;
       posYEnemy = camera.by;
       break;
@@ -93,7 +107,7 @@ public class Walker {
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
 
-posXEnemy = posXEnemy - moveEnemy;
+      posXEnemy = posXEnemy - moveEnemy;
 
       image(spritesLeftWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);      
       framecount++;
@@ -106,7 +120,7 @@ posXEnemy = posXEnemy - moveEnemy;
       }
     } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
 
-posXEnemy = posXEnemy + moveEnemy;
+      posXEnemy = posXEnemy + moveEnemy;
 
       image(spritesRightWalker[cycleDirectionXEnemy1], posXEnemy, posYEnemy);
       framecount++;
@@ -236,7 +250,7 @@ posXEnemy = posXEnemy + moveEnemy;
   void Stronger() {
 
     if (enemiesLeft == 0 && killRound == true) {
-     
+
       enemiesLeft = CurrentNumEnemies*2;
       roundCount ++;
       killRound = false;
@@ -257,7 +271,7 @@ posXEnemy = posXEnemy + moveEnemy;
           //spawn meer enemies
           killsForRoundUp += 2;
           CurrentNumEnemies += 1;
-      enemiesLeft = CurrentNumEnemies*2;
+          enemiesLeft = CurrentNumEnemies*2;
           MaxEnemies = false;
           uitgevoerd = true;
         }
@@ -269,7 +283,7 @@ posXEnemy = posXEnemy + moveEnemy;
           walkers[iEnemy].speedEnemy *= 1.25;
           shooters[iEnemy].speedEnemy  *= 1.25;
         }
-      enemiesLeft = CurrentNumEnemies*2;
+        enemiesLeft = CurrentNumEnemies*2;
         uitgevoerd = true;
         MaxEnemies = false;
 
@@ -279,13 +293,13 @@ posXEnemy = posXEnemy + moveEnemy;
         //spawn delay lager
         uitgevoerd = true;
         MaxEnemies = false;
-      enemiesLeft = CurrentNumEnemies*2;
+        enemiesLeft = CurrentNumEnemies*2;
 
         break;
         //levens omhoog
         case (3):
         CurrentNumEnemies += 1 * 1.008;
-      enemiesLeft = CurrentNumEnemies*2;
+        enemiesLeft = CurrentNumEnemies*2;
         enemyHealth += 2;
         uitgevoerd = true;
         MaxEnemies = false;
@@ -293,7 +307,7 @@ posXEnemy = posXEnemy + moveEnemy;
         break;
         case (4):
         CurrentNumEnemies += 1 * 1.008;
-      enemiesLeft = CurrentNumEnemies*2;
+        enemiesLeft = CurrentNumEnemies*2;
         //doet meer damage
         uitgevoerd = true;
         MaxEnemies = false;

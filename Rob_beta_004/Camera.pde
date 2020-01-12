@@ -57,7 +57,7 @@ class Camera {
         powerups[i].Display_Powerup();
       }
       text = "score :";
-      text(score, 150, 50);
+      text(score, 50, 50);
 
       stats.draw();
       waves.checkWaves();

@@ -102,14 +102,14 @@ class Stats {
       image(hp, player.x + 215 + (35*i), player.y - 190 );
     }
 
-    rect(150, 100, 400, 25);
+    rect(125, 25, 400, 25);
     for (int i = 0; i < player.fuel; i++) {
 
 
       float howMuchTooFill = 400 /  player.MaxFuel;
 
       fill(255, 0, 0);
-      rect(150, 100, howMuchTooFill + (howMuchTooFill * i), 25);
+      rect(125, 25, howMuchTooFill + (howMuchTooFill * i), 25);
     }
   }
 }
