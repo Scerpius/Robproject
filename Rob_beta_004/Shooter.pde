@@ -123,7 +123,7 @@ public class Shooter {
 
 
   void updateX() {
-
+ellipse(PointWalkX, PointWalkY, 5, 5);
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
 

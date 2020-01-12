@@ -11,6 +11,7 @@ String password = "n9YFaVSpqMeAAB";
 
 Player player;
 Bob bob;
+Achievement achievement;
 Camera camera;
 ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 Sword sword;
@@ -101,6 +102,10 @@ SoundFile file;
 SoundFile Soundtrack;
 SoundFile laserSound;
 SoundFile Swordhit;
+SoundFile WalkSound;
+SoundFile Explosion;
+SoundFile SwordAttack;
+SoundFile Powerup;
 void setup() {
   // sql = new MySQL(this, database, databaseName, username, password);
   size(1280, 720);
@@ -119,29 +124,28 @@ void setup() {
     positionSpawn[iEnemy] = (floor(random(0, 4)));
     walkers[iEnemy] = new Walker();
     shooters[iEnemy] = new Shooter();
-
-
-    backGroundLevel = loadImage("Backgroundtegels.png");
-    StartScreen = loadImage("BackgroundMain.png");
-    // StartScreen = loadImage("BackgroundMain.png");
-    file = new SoundFile(this, "Synthwave.mp3");
-    file.loop();
-    laserSound = new SoundFile(this, "lasersound.mp3");
-    laserSound.amp(0.05);
-    Swordhit = new SoundFile(this, "swordhit.mp3");
   }
   backGroundLevel = loadImage("Backgroundtegels.png");
   StartScreen = loadImage("BackgroundMain.png");
   // StartScreen = loadImage("BackgroundMain.png");
-  //file = new SoundFile(this, "backgroundmusic2.0.wav");
-  //file.play();
-  //laserSound = new SoundFile(this, "lasersound.mp3");
-  //laserSound.amp(0.05);
-  //Swordhit = new SoundFile(this, "swordhit.mp3");
-  //WalkSound = new SoundFile(this, "walkrobot.wav");
-  //Explosion = new SoundFile(this, "explosion2.0.wav");
-  //SwordAttack = new SoundFile(this, "swordattack.wav");
-  //Powerup = new SoundFile(this, "powerup.wav");
+  // file = new SoundFile(this, "Synthwave.mp3");
+  //file.loop();
+  laserSound = new SoundFile(this, "lasersound.mp3");
+  laserSound.amp(0.05);
+  Swordhit = new SoundFile(this, "swordhit.mp3");
+
+  backGroundLevel = loadImage("Backgroundtegels.png");
+  StartScreen = loadImage("BackgroundMain.png");
+  StartScreen = loadImage("BackgroundMain.png");
+  file = new SoundFile(this, "backgroundmusic2.0.wav");
+  file.play();
+  laserSound = new SoundFile(this, "lasersound.mp3");
+  laserSound.amp(0.05);
+  Swordhit = new SoundFile(this, "swordhit.mp3");
+  WalkSound = new SoundFile(this, "walkrobot.wav");
+  Explosion = new SoundFile(this, "explosion2.0.wav");
+  SwordAttack = new SoundFile(this, "swordattack.wav");
+  Powerup = new SoundFile(this, "powerup.wav");
 
 
   for (int i = 0; i <10; i++) {
@@ -154,7 +158,7 @@ void setup() {
   sword = new Sword();
   startscreen = new Start();
   stats = new Stats();
-
+  achievement = new Achievement();
   waves = new Waves();
 
 
@@ -236,6 +240,25 @@ void draw() {
     image(GameOverScreen, 0, 0);
     textAlign(CENTER);
     text(score, width/2, height/2+50);
+    // display header row
+  textSize(20);
+  text("Place        Name        Score", 100, 70);
+
+  textSize(16);
+  // for each score in list
+  for (int iScore=0; iScore<highscores.getScoreCount(); iScore++) {
+
+    // only show the top 10 scores
+    if (iScore>=9) break;
+    
+    // fetch a score from the list
+    Score score = highscores.getScore(iScore);
+
+    // display score in window
+    text((iScore+1) + "            " + score.name + "        " + score.score, 100, 100 + iScore*20);
+
+    
+  }
     if (keyPressed && key == 'r' || keyPressed && key == 'R') {
       //reset alles 
       for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
@@ -274,33 +297,38 @@ void keyTyped() {
 void keyPressed() {
   if (key == 'w' || key == 'W') {
     player.up = true;
-    //WalkSound.play();
+     if(!WalkSound.isPlaying()){
+    WalkSound.play();
+  }
   }
   if (key == 's' || key == 'S') {
     player.down = true;
-    //WalkSound.play();
-  }
+ if(!WalkSound.isPlaying()){
+    WalkSound.play();
+  }  }
   if (key == 'a' || key == 'A') {
     player.left = true;
-    //WalkSound.play();
-  }
+ if(!WalkSound.isPlaying()){
+    WalkSound.play();
+  }  }
   if (key == 'd' || key == 'D') {
     player.right = true;
-    //WalkSound.play();
-  }
+ if(!WalkSound.isPlaying()){
+    WalkSound.play();
+  }  }
   keys[keyCode] = true;
   if (fired == false && key == ' ') {
     Bullet b = new Bullet();
     bullets.add(b);
     b.fire(player.x, player.y);
     fired = true;
-    //laserSound.play();
+    laserSound.play();
   }
   if (key == 'z') {
     sword.isHit = true;
     sword.show();
-    //SwordAttack.play();
-    //Swordhit.play();
+    SwordAttack.play();
+    Swordhit.play();
   }
 }
 void keyReleased() {
