@@ -23,14 +23,11 @@ public class spaceShip {
     spaceShip = loadImage("BookShelf.png");
   }
   void display() {
-    image(spaceShip, spaceShipX, spaceShipY);
+  //  image(spaceShip, spaceShipX, spaceShipY);
   }
 
   void collision() {
     if (spaceshipHit(spaceShipX, spaceShipY, spaceShip, player.x, player.y, playerSprite) == true) {
-      if(player.fuel == player.MaxFuel && key == 'c' || key == 'C'){
-        state = 4;
-      }
       println("het werkt");
     }
   }
