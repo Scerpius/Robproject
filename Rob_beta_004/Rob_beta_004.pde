@@ -42,7 +42,7 @@ Object[] objectList = new Object[5];
 
 static final int NumberOfEnemies = 20;
 int state = 2;
-int CurrentNumEnemies = 3; //nodig
+int CurrentNumEnemies =  1; //nodig
 int killsForRoundUp = 6;
 int iEnemy;
 static int i;
@@ -236,31 +236,20 @@ void draw() {
     image(GameOverScreen, 0, 0);
     textAlign(CENTER);
     text(score, width/2, height/2+50);
-    // display header row
-    textSize(20);
-    text("Place        Name        Score", 100, 70);
-
-    textSize(16);
-    // for each score in list
-    for (int iScore=0; iScore<highscores.getScoreCount(); iScore++) {
-
-      // only show the top 10 scores
-      if (iScore>=9) break;
-
-      // fetch a score from the list
-      Score score = highscores.getScore(iScore);
-
-      // display score in window
-      text((iScore+1) + "            " + score.name + "        " + score.score, 100, 100 + iScore*20);
-    }
-    if (keyPressed && key == 'r') {
+    if (keyPressed && key == 'r' || keyPressed && key == 'R') {
       //reset alles 
-      shooters[i].Enemylives = shooters[i].startEnemylives;
-      shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
-      walkers[i].enemyHealth = walkers[i].startEnemylives;
-      walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
-      shooters[i].spawn();
-      walkers[i].spawn();
+      for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {   
+        shooters[i].Enemylives = shooters[i].startEnemylives;
+        shooters[i].speedEnemy = shooters[i].startSpeedEnemy;
+        walkers[i].enemyHealth = walkers[i].startEnemylives;
+        walkers[i].speedEnemy = walkers[i].startSpeedEnemy;
+
+        positionSpawn[iEnemy] = (floor(random(0, 4)));
+        walkers[iEnemy] = new Walker();
+        shooters[iEnemy] = new Shooter();
+        shooters[i].spawn();
+        walkers[i].spawn();
+      }
       // player.movementSpeed = player.startMovementSpeed;
       killsForRoundUp = 6;
       CurrentNumEnemies = 1;
