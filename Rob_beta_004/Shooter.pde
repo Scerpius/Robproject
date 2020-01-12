@@ -123,9 +123,8 @@ public class Shooter {
 
 
   void updateX() {
-ellipse(PointWalkX, PointWalkY, 5, 5);
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
-    if (posXEnemy > PointWalkX && distX > 10) { //walk to left
+    if (posXEnemy > PointWalkX && distX > 25) { //walk to left
 
       posXEnemy = posXEnemy - moveEnemy;
       image(spritesLeftShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);
@@ -137,7 +136,7 @@ ellipse(PointWalkX, PointWalkY, 5, 5);
       if (cycleDirectionEnemy == 3) {
         cycleDirectionEnemy = 0;
       }
-    } else if (posXEnemy < PointWalkX && distX > 10) { //walk to right
+    } else if (posXEnemy < PointWalkX && distX > 25) { //walk to right
 
       posXEnemy = posXEnemy + moveEnemy;
       image(spritesRightShooter[cycleDirectionEnemy], posXEnemy, posYEnemy);

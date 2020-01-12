@@ -84,8 +84,6 @@ class Camera {
   void update() {
     float tempVX = player.vx;
     float tempVY = player.vy;
-    spaceship.spaceShipX -= player.vx;
-    spaceship.spaceShipY -= player.vy;
     for ( int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
       b.x -= player.vx;
@@ -125,6 +123,7 @@ class Camera {
     } else { 
       if (collision.checkCollision(player.x + tempVX, player.y, player.w, player.h) == false) {
         bx -= player.vx;
+        spaceship.spaceShipX -= player.vx;
 
         for (int i = 0; i < shooters.length; i++) {
           shooters[i].posXEnemy -= player.vx;
@@ -144,6 +143,7 @@ class Camera {
       }
       if (collision.checkCollision(player.x, player.y + tempVY, player.w, player.h) == false) {
         by -= player.vy;
+        spaceship.spaceShipY -= player.vy;
 
         for (int i = 0; i < shooters.length; i++) {
           shooters[i].posYEnemy -= player.vy;
