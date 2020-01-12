@@ -49,6 +49,8 @@ class Camera {
       teleport.checkBoundaryCollision();
       spaceship.display();
       spaceship.collision();
+      achievement.display();
+      achievement.update();
 
       // newSpawn.display();
       for (int i = 0; i < powerups.length; i++) {
@@ -58,7 +60,7 @@ class Camera {
       text(score, 150, 50);
 
       stats.draw();
-      waves.checkWaves();
+      
 
       if (player.shield) {
         framecount++;

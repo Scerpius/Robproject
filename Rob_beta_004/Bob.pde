@@ -109,7 +109,7 @@ class Bob {
     for (Walker anWalker : walkers) {
       for (Bullet anBullet : bullets) {
         if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anWalker.posXEnemy, anWalker.posYEnemy, anWalker.texture)) {
-          //Explosion.play();
+          Explosion.play();
           powerupX = anWalker.posXEnemy;
           powerupY = anWalker.posYEnemy;
           anBullet.reset();
@@ -132,7 +132,7 @@ class Bob {
     for (Shooter anShooter : shooters) {
       for (Bullet anBullet : bullets) {
         if (overlaps(anBullet.x, anBullet.y, anBullet.texture, anShooter.posXEnemy, anShooter.posYEnemy, anShooter.texture)) {
-          //Explosion.play();
+          Explosion.play();
           powerupX = anShooter.posXEnemy;
           powerupY = anShooter.posYEnemy;
 
@@ -197,7 +197,7 @@ class Bob {
 
     for (Powerup anPowerup : powerups) {
       if (overlaps(player.x, player.y, spritesDown[1], anPowerup.x, anPowerup.y, anPowerup.texture)) {
-        //Powerup.play();
+       Powerup.play();
         anPowerup.pickUpPowerup = true;
         anPowerup.onPickup();
         anPowerup.reset();

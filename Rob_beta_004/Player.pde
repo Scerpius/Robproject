@@ -5,7 +5,7 @@ class Player {
   float ms = 2;
   PImage playerSprite;
   float fuel;
-  final float MaxFuel = 5;
+  final float MaxFuel = 2;
   float w;
   float h;
   final float startHp = 3;

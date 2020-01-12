@@ -57,6 +57,22 @@ public class Walker {
   }
   void spawn() {
     switch(positionSpawn[i]) {
+      //case(0): //boven
+      //posXEnemy = backGroundLevel.width/2 + X;
+      //posYEnemy = backGroundLevel.height-690 + Y;
+      //break;
+      //case(1): //rechts
+      //posXEnemy = backGroundLevel.width-15 + X;
+      //posYEnemy = backGroundLevel.height-470 + Y;
+      //break;
+      //case(2): //onder
+      //posXEnemy = backGroundLevel.width/2 + X;
+      //posYEnemy = backGroundLevel.height-texture.height + Y;
+      //break;
+      //case(3): //links
+      //posXEnemy = backGroundLevel.width-1265 + X;
+      //posYEnemy = backGroundLevel.height-470 + Y;
+      //break;
        case(0): //boven
       posXEnemy = camera.bx+600;
       posYEnemy = camera.by;

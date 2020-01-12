@@ -74,6 +74,22 @@ public class Shooter {
 
   void spawn() {
     switch(positionSpawn[i]) {
+      //case(0): //boven
+      //posXEnemy = backGroundLevel.width/2 + X;
+      //posYEnemy = backGroundLevel.height-690 + Y;
+      //break;
+      //case(1): //rechts
+      //posXEnemy = backGroundLevel.width-15 + X;
+      //posYEnemy = backGroundLevel.height-470 + Y;
+      //break;
+      //case(2): //onder
+      //posXEnemy = backGroundLevel.width/2 + X;
+      //posYEnemy = backGroundLevel.height-texture.height + Y;
+      //break;
+      //case(3): //links
+      //posXEnemy = backGroundLevel.width-1265 + X;
+      //posYEnemy = backGroundLevel.height-470 + Y;
+      //break;
        case(0): //boven
       posXEnemy = camera.bx+600;
       posYEnemy = camera.by;
@@ -123,6 +139,7 @@ public class Shooter {
 
 
   void updateX() {
+    ellipse(PointWalkX, PointWalkY, 5, 5);
 
     distX = max(PointWalkX, posXEnemy) - min(PointWalkX, posXEnemy);
     if (posXEnemy > PointWalkX && distX > 10) { //walk to left
@@ -274,9 +291,65 @@ public class Shooter {
       }
       spawned = true;
     }
-    //float tempVX = player.vx;
-    //float tempVY = player.vy;
-    //if (Collision.checkPortal(player.x + tempVX, player.y + tempVY, player.w, player.h) ) {
-    //}
   }
+  //2.45
+  //void Stronger() {
+
+  //  if (score %10 ==0 && score != 0 && killRound == true) {
+
+  //    roundCount ++;
+  //    killRound = false;
+  //    uitgevoerd = false;
+  //  } else if (score %10 ==9) {
+  //    killRound = true;
+  //  }
+  //  if (uitgevoerd == false) {
+  //    for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
+  //      walkers[iEnemy].moveEnemy = walkers[iEnemy].speedEnemy;
+  //      shooters[iEnemy].moveEnemy = shooters[iEnemy].speedEnemy;
+  //    }
+  //    switch (roundCount %5) {
+  //      case (0):
+  //      //spawn meer enemies
+
+  //      CurrentNumEnemies *= 1.008;
+  //      MaxEnemies = false;
+  //      uitgevoerd = true;
+
+  //      break;
+  //      case (1):
+  //      //beweeg sneller
+  //      CurrentNumEnemies *= 1.008;
+  //      for (iEnemy = 0; iEnemy<NumberOfEnemies; iEnemy++) {
+  //        walkers[iEnemy].speedEnemy *= 1.25;
+  //        shooters[iEnemy].speedEnemy  *= 1.25;
+  //      }
+  //      uitgevoerd = true;
+  //      MaxEnemies = false;
+
+  //      break;
+  //      case (2):
+  //      CurrentNumEnemies += 1 * 1.008;
+  //      //spawn delay lager
+  //      uitgevoerd = true;
+  //      MaxEnemies = false;
+
+  //      break;
+  //      case (3):
+  //      CurrentNumEnemies += 1 * 1.008;
+  //      Enemylives += 2;
+  //      uitgevoerd = true;
+  //      MaxEnemies = false;
+
+  //      break;
+  //      case (4):
+  //      CurrentNumEnemies += 1 * 1.008;
+  //      //doet meer damage
+  //      uitgevoerd = true;
+  //      MaxEnemies = false;
+
+  //      break;
+  //    }
+  //  }
+  //}
 }
